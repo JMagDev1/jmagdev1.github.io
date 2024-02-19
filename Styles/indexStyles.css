@@ -1,0 +1,463 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 40px;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* SCROLL BAR*/
+/* Target the scrollbar */
+::-webkit-scrollbar {
+  width: 0.5vw; /* Width of the scrollbar */
+  background-color: rgba(79, 79, 79, 0.70);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: rgb(34, 34, 34); /* Color of the handle */
+  border-radius: 6px; /* Rounded corners of the handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(60, 60, 60); /* Color of the handle on hover */
+}
+
+
+/* Landing PAGE */
+.landing-portion {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to top, #bcbcbc 0%, #4a4a4a 100%);
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  transition: ease-in;
+}
+
+.landing-portion-text {
+  color: whitesmoke;
+  word-wrap: break-word;
+  margin-left: 5rem;
+  margin-bottom: 5vh;
+  width: 80vw;
+  text-align: center;
+  line-height: 200%;
+  animation: drop 1s ease-in;
+  font-family: 'Bricolage Grotesque', sans-serif, monospace;
+  font-family: 'Poppins', sans-serif, monospace;
+  font-size: 3rem;
+}
+
+.landingPageAbout{
+  width: 40vw;
+  text-align: center;
+  animation: drop 1s ease-in;
+  font-size: 1.25rem;
+  color: whitesmoke;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+.GoToAboutMeLink{
+  text-align: center;
+  animation: drop 1s ease-in;
+  font-size: 1.75rem;
+  color: whitesmoke;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+@keyframes drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+/* ABOUT SECTION */
+
+#About{
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #bcbcbc 0%, #696969 100%);
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  transition:  ease-in;
+}
+
+.Navigation{
+  width: 30vw;
+  height: 90vh;
+  position: absolute;
+  border: solid;
+  border-color: whitesmoke;
+  border-radius: 2.5rem;
+  left: 10vw;
+  text-align: center;
+}
+
+.NameInAboutNav{
+  font-size: 2.5rem;
+  color: whitesmoke;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+.nav-list{
+  font-size: 1.75rem;
+  color: whitesmoke;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  line-height: 400%;
+}
+
+.nav-link{
+  color: whitesmoke;
+}
+
+.nav-link:visited {
+  color: whitesmoke;
+}
+
+.AboutMeInfoSection{
+  width: 40vw;
+  height: 90vh;
+  position: absolute;
+  border: solid;
+  border-color: whitesmoke;
+  border-radius: 2.5rem;
+  left: 50vw;
+  text-align: center;
+}
+
+.abt-me {
+  font-size: 1.25rem;
+  color: whitesmoke;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  width: 35vw;
+  padding-left: 2.5vw;
+}
+
+.Link{
+  color: whitesmoke;
+}
+
+.Link:visited{
+  color:whitesmoke;
+}
+
+
+
+/* PROJECTS SECTION */
+
+#Projects{
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to top, #bcbcbc 0%, #696969 100%);
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  transition:  ease-in;
+}
+
+.Navigation{
+  width: 30vw;
+  height: 90vh;
+  position: absolute;
+  border: solid;
+  border-color: whitesmoke;
+  border-radius: 2.5rem;
+  left: 10vw;
+  text-align: center;
+}
+
+.ProjectsTitle{
+  font-size: 2rem;
+  color: whitesmoke;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 2vh;
+  margin-bottom: 1vh;
+}
+
+.nav-list{
+  font-size: 1.75rem;
+  color: whitesmoke;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  line-height: 400%;
+}
+
+.nav-link{
+  color: whitesmoke;
+}
+
+.nav-link:visited {
+  color: whitesmoke;
+}
+
+.ProjectsSection{
+  width: 40vw;
+  height: 90vh;
+  position: absolute;
+  border: solid;
+  border-color: whitesmoke;
+  border-radius: 2.5rem;
+  left: 50vw;
+  text-align: center;
+}
+
+.ProjectsInfo {
+  font-size: 1rem;
+  color: whitesmoke;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  width: 38vw;
+  padding-left: 0.9vw;
+}
+
+.LinkViewProjects{
+  position: absolute;
+  z-index: 1; /*Brings to front*/
+  top: 82vh;
+  left: 17vw;
+}
+
+/* PROJECTS */
+.ProjectsContainer{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 48vh;
+  margin-top: 2vh;
+  padding-top: 1vh;
+  padding-left: 1vw;
+}
+
+.ProjectLink:visited{
+  color: whitesmoke;
+}
+
+.ProjectOneLink{
+  text-decoration: none;
+  margin-top: 0.5vh;
+  font-size: 0.85rem;
+  padding-right: 1vw;
+  word-wrap: break-word;
+}
+
+.ProjectTwoLink{
+  text-decoration: none;
+  margin-top: 1.5vh;
+  font-size: 0.85rem;
+  padding-right: 1vw;
+  word-wrap: break-word;
+}
+
+.ProjectThreeLink{
+  text-decoration: none;
+  margin-top: 1.5vh;
+  font-size: 0.85rem;
+  padding-right: 1vw;
+  word-wrap: break-word;
+}
+
+
+/* CONTACT FORM */
+#Contact{
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #bcbcbc 0%, #696969 100%);
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  transition:  ease-in;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+.Form{
+  position: absolute;
+  left: 10vw;
+  top: 10vh;
+}
+
+.field {
+  margin-bottom: 10px;
+  width: 20vw;
+}
+
+.field label {
+  display: block;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.field input {
+  display: block;
+  width: 25vw;
+  line-height: 1.5;
+  font-size: 1rem;
+  background-color: transparent;
+  border: solid;
+  border-color: whitesmoke;
+  border-radius: 1vw;
+}
+
+input[type="submit"] {
+  display: block;
+  padding: 6px 30px;
+  font-size: 1rem;
+  background-color: transparent;
+  color: white;
+  border: solid;
+  border-color: white;
+  border-radius: 1vw;
+}
+
+#from_name{
+  color: whitesmoke;
+  width: 20vw;
+}
+
+#from_name:hover,
+#from_Email:hover,
+#from_ReEmail:hover,
+#message:hover{
+  transform: scale(105%);
+  cursor:text;
+}
+
+#from_Email{
+  color: whitesmoke;
+  width: 20vw;
+}
+
+#from_ReEmail{
+  color: whitesmoke;
+  width: 20vw;
+}
+
+#message{
+  color: whitesmoke;
+  width: 20vw;
+  height: 20vh;
+  font-size: 1rem;
+}
+
+#button:hover{
+  cursor: pointer;
+  transform: scale(105%);
+}
+
+.ProjectLink:hover{
+  border: solid;
+  border-color: whitesmoke;
+  border-radius: 0.5vh;
+}
+
+.ContactSide{
+  width: 40vw;
+  height: 90vh;
+  position: absolute;
+  border: solid;
+  border-color: whitesmoke;
+  border-radius: 2.5rem;
+  left: 50vw;
+  text-align: center;
+}
+
+.ContactTitle{
+  font-size: 2rem;
+  color: whitesmoke;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 2vh;
+  margin-bottom: 1vh;
+}
+
+::placeholder{
+  color: whitesmoke;
+  opacity: 75% ;
+}
+
+.TitleDialogue {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  opacity: 0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
+  color: whitesmoke;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1vh;
+}
+.TitleDialogue:target {
+  opacity: 1;
+  pointer-events: auto;
+}
+.TitleDialogue > div {
+  width: 40vw;
+  height: 40vh;
+  position: relative;
+  margin: 10% auto;
+  padding: 5px 20px 13px 20px;
+  border-radius: 10px;
+  border: solid;
+  border-color: whitesmoke;
+  background: #fff;
+  background: #636363;
+  font-size: 50px;
+  text-align: center;
+  padding-top: 10vh;
+}
+
+.close {
+  background: #606061;
+  color: #FFFFFF;
+  line-height: 53px;
+  position: absolute;
+  right: -12px;
+  text-align: center;
+  top: -25px;
+  width: 50px;
+  height: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  -moz-box-shadow: 1px 1px 3px #000;
+  -webkit-box-shadow: 1px 1px 3px #000;
+  box-shadow: 1px 1px 3px #000;
+
+}
+.close:hover {
+  background: #7c7c7c;
+}

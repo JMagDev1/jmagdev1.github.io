@@ -1,0 +1,92 @@
+html{
+    /* Change your font family */
+    color: whitesmoke;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    background: rgb(110, 110, 110);
+}
+
+/* SCROLL BAR*/
+/* Target the scrollbar */
+::-webkit-scrollbar {
+    width: 0.5vw; /* Width of the scrollbar */
+    background-color: rgba(79, 79, 79, 0.70);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(34, 34, 34); /* Color of the handle */
+    border-radius: 6px; /* Rounded corners of the handle */
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(60, 60, 60); /* Color of the handle on hover */
+  }
+  
+.container {
+    display: flex;
+    justify-content: center;
+}
+  
+.content-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    width: 75vw;
+    min-width: 85vw;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+  
+.content-table thead tr {
+    background-color: transparent;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+  
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+}
+  
+.content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+  
+.content-table tbody tr:nth-of-type(even) {
+    background-color: transparent;
+}
+  
+.content-table tbody tr:last-of-type {
+    background-color: transparent;
+}
+  
+.content-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+  
+.learn-more-pic{
+    width: 20px;
+    height: 20px;
+}
+
+.learn-more-text{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.learn-more-text:active{
+    color: whitesmoke;
+}
+
+.learn-more-tag .learn-more-text:hover{
+    text-decoration: underline;
+}
+
+.tbody-head{
+    text-align: left;
+}
