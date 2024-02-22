@@ -77,7 +77,7 @@ form.addEventListener('submit', (e) => {
       }
       
 
-      // If emails match, proceed with sending the email
+      // If emails match, send email
       btn.value = 'Sending...';
 
       const serviceID = 'default_service';
