@@ -178,17 +178,6 @@ body {
   transition:  ease-in;
 }
 
-.Navigation{
-  width: 30vw;
-  height: 90vh;
-  position: absolute;
-  border: solid;
-  border-color: whitesmoke;
-  border-radius: 2.5rem;
-  left: 10vw;
-  text-align: center;
-}
-
 .ProjectsTitle{
   font-size: 2rem;
   color: whitesmoke;
@@ -225,7 +214,7 @@ body {
   text-align: center;
 }
 
-.ProjectsInfo {
+.ProjectsInfo{
   font-size: 1rem;
   color: whitesmoke;
   font-family: 'Bricolage Grotesque', sans-serif;
@@ -464,3 +453,140 @@ input[type="submit"] {
 
 
 
+@media only screen and (max-width: 1200px){
+  .landing-portion-text{
+    font-size: 1.5rem;
+    word-wrap: break-word;
+    margin-left: 2vw;
+  }
+
+  .landingPageAbout,
+  .GoToAboutMeLink,
+  .NameInAboutNav,
+  .nav-list,
+  .ProjectsTitle{
+    font-size: 1rem;
+  }
+
+  .abt-me{
+    font-size: 0.6rem;
+  }
+
+  .ProjectsInfo{
+    font-size: 0.5rem;
+  }
+
+  .ProjectOneLink,
+  .ProjectThreeLink{
+    font-size: 0.45rem;
+  }
+
+  .ProjectTwoLink{
+    font-size: 0.4rem;
+  }
+}
+
+@media only screen and (max-width: 600px){
+  .landing-portion-text{
+    font-size: 1.25rem;
+    word-wrap: break-word;
+    margin-left: 2vw;
+  }
+
+  .landingPageAbout,
+  .GoToAboutMeLink,
+  .NameInAboutNav,
+  .nav-list,
+  .ProjectsTitle{
+    font-size: 0.7rem;
+  }
+
+  #Nav1,
+  #Nav2{
+    display: none;
+  }
+
+  .AboutMeInfoSection,
+  .ProjectsSection{
+    width: 95vw;
+    height: fit-content + 1vh;
+    left: 2vw;
+  }
+
+  .abt-me{
+    font-size: 0.75rem;
+    width: 85vw;
+
+  }
+
+  .ProjectsInfo{
+    width: 85vw;
+    font-size: 0.5rem;
+  }    
+  
+  .LinkViewProjects{
+    left: 42vw;
+  }
+
+  .ProjectOneLink,
+  .ProjectThreeLink{
+    font-size: 0.6rem;
+  }
+
+  .ProjectTwoLink{
+    font-size: 0.5rem;
+  }
+}
+
+
+@media only screen and (max-width: 425px){
+  .landing-portion-text{
+    font-size: 1.25rem;
+    word-wrap: break-word;
+    margin-left: 2vw;
+  }
+
+  .landingPageAbout,
+  .GoToAboutMeLink,
+  .NameInAboutNav,
+  .nav-list,
+  .ProjectsTitle{
+    font-size: 1rem;
+  }
+
+  #Nav1,
+  #Nav2{
+    display: none;
+  }
+
+  .AboutMeInfoSection,
+  .ProjectsSection{
+    width: 95vw;
+    height: fit-content;
+    padding: 1vw;
+    left: 2vw;
+  }
+
+  .abt-me{
+    font-size: 0.9rem;
+    width: 85vw;
+  }
+
+  .ProjectsInfo{
+    width: 85vw;
+    font-size: 0.6rem;
+  }    
+  
+  .LinkViewProjects{
+    left: 42vw;
+  }
+
+  .ProjectOneLink,
+  .ProjectThreeLink{
+    font-size: 0.6rem;
+  }
+
+  .ProjectTwoLink{
+    font-size: 0.6rem;
+  }
+}
