@@ -455,7 +455,7 @@ input[type="submit"] {
 
 @media only screen and (max-width: 1200px){
   .landing-portion-text{
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     word-wrap: break-word;
     margin-left: 2vw;
   }
@@ -465,24 +465,43 @@ input[type="submit"] {
   .NameInAboutNav,
   .nav-list,
   .ProjectsTitle{
-    font-size: 1rem;
+    font-size: 0.9rem;
+  }
+
+  #Nav1,
+  #Nav2{
+    display: none;
+  }
+
+  .AboutMeInfoSection,
+  .ProjectsSection{
+    width: 95vw;
+    height: fit-content + 1vh;
+    left: 2vw;
   }
 
   .abt-me{
-    font-size: 0.6rem;
+    font-size: 1rem;
+    width: 85vw;
+
   }
 
   .ProjectsInfo{
-    font-size: 0.5rem;
+    width: 85vw;
+    font-size: 1rem;
+  }    
+  
+  .LinkViewProjects{
+    left: 42vw;
   }
 
   .ProjectOneLink,
   .ProjectThreeLink{
-    font-size: 0.45rem;
+    font-size: 1rem;
   }
 
   .ProjectTwoLink{
-    font-size: 0.4rem;
+    font-size: 1rem;
   }
 }
 
