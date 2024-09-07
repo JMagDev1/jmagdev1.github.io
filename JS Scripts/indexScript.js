@@ -44,7 +44,7 @@ const form = document.querySelector('form');
 const Email = document.getElementById('from_Email');
 const ReEmail = document.getElementById('from_ReEmail');
 
-
+//Removed HTML Code - Below code runs CAPTCHA, however no web server to run on..
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
