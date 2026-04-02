@@ -372,8 +372,17 @@
 
     <script src="projects-data.js"></script>
     <script>
-        // Admin password (change this to something secure)
-        const ADMIN_PASSWORD = 'jackadmin123';
+        // Admin password stored in localStorage for security
+        // On first access, user will be prompted to set their own password
+        const getAdminPassword = () => {
+            return localStorage.getItem('adminPassword') || null;
+        };
+
+        const setAdminPassword = (password) => {
+            localStorage.setItem('adminPassword', password);
+        };
+
+        let ADMIN_PASSWORD = getAdminPassword();
 
         const loginForm = document.getElementById('loginForm');
         const passwordInput = document.getElementById('password');
@@ -388,7 +397,21 @@
         const storageUsedEl = document.getElementById('storageUsed');
         const clearAllBtn = document.getElementById('clearAllBtn');
 
-        // Load admin session from localStorage
+        // Initialize: prompt for password setup if not set
+        if (!ADMIN_PASSWORD) {
+            const setupPassword = prompt('🔐 First time setup: Please set your admin password (you will only be asked once):');
+            if (setupPassword && setupPassword.trim().length > 0) {
+                ADMIN_PASSWORD = setupPassword.trim();
+                setAdminPassword(ADMIN_PASSWORD);
+            } else {
+                errorMessage.textContent = '❌ Password setup is required to access the admin panel.';
+                errorMessage.classList.add('show');
+                passwordInput.disabled = true;
+                loginForm.querySelector('button[type="submit"]').disabled = true;
+            }
+        }
+
+        // Load admin session from sessionStorage
         function checkAdminSession() {
             const isLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
             if (isLoggedIn) {
