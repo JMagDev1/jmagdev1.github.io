@@ -111,17 +111,24 @@ class ProjectEditor {
     }
 
     init() {
+        const isAdmin = sessionStorage.getItem('adminLoggedIn') === 'true';
         const editBtn = document.querySelector('.btn-edit');
         const deleteBtn = document.querySelector('.btn-delete');
 
-        if (editBtn) editBtn.addEventListener('click', () => this.openEditModal());
+        if (editBtn) {
+            if (isAdmin) {
+                editBtn.addEventListener('click', () => this.openEditModal());
+            } else {
+                // Hide edit button when not logged in as admin
+                editBtn.style.display = 'none';
+            }
+        }
+
         if (deleteBtn) {
-            // Check if user is admin
-            const isAdmin = sessionStorage.getItem('adminLoggedIn') === 'true';
             if (isAdmin) {
                 deleteBtn.addEventListener('click', () => this.openDeleteConfirm());
             } else {
-                // Hide delete button and add login prompt on click
+                // Hide delete button when not logged in as admin
                 deleteBtn.style.display = 'none';
             }
         }
