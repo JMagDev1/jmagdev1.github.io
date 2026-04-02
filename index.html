@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/PicForBar.png">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -333,6 +335,12 @@
                     </div>
                     <div class="form-group">
                         <textarea placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <!-- Human Verification -->
+                    <div class="form-group captcha-group">
+                        <label for="captcha">Human Verification: <span id="captchaQuestion"></span></label>
+                        <input type="number" id="captchaAnswer" placeholder="Your answer" required>
+                        <small class="captcha-hint">Please solve this simple math problem to prove you're human</small>
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>

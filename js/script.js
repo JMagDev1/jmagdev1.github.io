@@ -60,36 +60,110 @@ elementsToAnimate.forEach(el => {
     observer.observe(el);
 });
 
-// Contact Form Handler
+// Contact Form Handler with EmailJS and CAPTCHA
 const contactForm = document.getElementById('contactForm');
 const contactSuccess = document.getElementById('contactSuccess');
+const captchaQuestion = document.getElementById('captchaQuestion');
+const captchaAnswer = document.getElementById('captchaAnswer');
+
+// CAPTCHA variables
+let correctCaptchaAnswer = 0;
+
+// Generate random math problem
+function generateCaptcha() {
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    const operations = ['+', '-', '*'];
+    const operation = operations[Math.floor(Math.random() * operations.length)];
+
+    let question, answer;
+    switch(operation) {
+        case '+':
+            question = `${num1} + ${num2}`;
+            answer = num1 + num2;
+            break;
+        case '-':
+            question = `${num1 + num2} - ${num1}`;
+            answer = num2;
+            break;
+        case '*':
+            question = `${num1} × ${num2}`;
+            answer = num1 * num2;
+            break;
+    }
+
+    captchaQuestion.textContent = `What is ${question}?`;
+    correctCaptchaAnswer = answer;
+}
+
+// Initialize EmailJS and CAPTCHA
+(function() {
+    // Initialize EmailJS with your public key
+    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual EmailJS public key
+
+    // Generate initial CAPTCHA
+    generateCaptcha();
+})();
 
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
+        // Validate CAPTCHA
+        const userAnswer = parseInt(captchaAnswer.value);
+        if (userAnswer !== correctCaptchaAnswer) {
+            alert('Please solve the math problem correctly to prove you\'re human.');
+            generateCaptcha(); // Generate new problem
+            captchaAnswer.value = '';
+            return;
+        }
+
         // Get form data
-        const formData = new FormData(this);
         const data = {
-            name: this.querySelector('input[type="text"]').value,
-            email: this.querySelector('input[type="email"]').value,
-            subject: this.querySelector('input[type="text"]:last-of-type').value || 'Contact Form Submission',
-            message: this.querySelector('textarea').value
+            from_name: this.querySelector('input[type="text"]').value,
+            from_email: this.querySelector('input[type="email"]').value,
+            subject: this.querySelector('input[type="text"]:nth-of-type(3)').value || 'Contact Form Submission',
+            message: this.querySelector('textarea').value,
+            to_name: 'Jack Maguire'
         };
-        
-        // Show success message
-        contactSuccess.style.display = 'block';
-        
-        // Reset form
-        this.reset();
-        
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-            contactSuccess.style.display = 'none';
-        }, 5000);
-        
-        // Log the submission (in production, this would be sent to a server)
-        console.log('Contact Form Submitted:', data);
+
+        // Show loading state
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        // Send email using EmailJS
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', data)
+            .then(function(response) {
+                console.log('Email sent successfully:', response);
+
+                // Show success message
+                contactSuccess.style.display = 'block';
+
+                // Reset form
+                contactForm.reset();
+
+                // Generate new CAPTCHA
+                generateCaptcha();
+
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    contactSuccess.style.display = 'none';
+                }, 5000);
+
+            }, function(error) {
+                console.error('Email sending failed:', error);
+                alert('Sorry, there was an error sending your message. Please try again later or contact me directly at jack@example.com');
+
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
     });
 }
 

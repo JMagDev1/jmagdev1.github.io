@@ -642,6 +642,33 @@ section {
     animation: slideInUp 0.6s ease-out;
 }
 
+/* CAPTCHA Styling */
+.captcha-group {
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.captcha-group label {
+    color: var(--light-text);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.captcha-group #captchaQuestion {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.captcha-group input {
+    margin-top: 0.5rem;
+}
+
+.captcha-hint {
+    color: var(--muted-text);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+
 /* === FOOTER === */
 .footer {
     background: var(--darker-bg);
