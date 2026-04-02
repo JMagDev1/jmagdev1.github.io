@@ -288,7 +288,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2.5rem;
+    padding: 3rem;
     backdrop-filter: blur(10px);
 }
 
@@ -296,7 +296,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0.75rem 0;
+    margin: 0.5rem 0;
     transition: var(--transition);
 }
 
@@ -793,7 +793,7 @@ section {
     }
 
     .tech-stack {
-        padding: 2rem;
+        padding: 2.5rem;
     }
 
     .tech-icon {
