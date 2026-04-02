@@ -1,0 +1,30 @@
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Node modules (if we add any npm dependencies in the future)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build artifacts
+dist/
+build/
+*.min.css
+*.min.js
+
+# OS files
+Thumbs.db
+.directory
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+*.bak
