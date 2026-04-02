@@ -62,6 +62,7 @@ A password-protected admin interface for managing custom projects:
 - **Security**: Basic password protection (change default password!)
 
 Default admin password: `jackadmin123` (change this immediately!)
+
 - **Google Fonts** - Poppins font family
 
 ## 📱 Responsive Breakpoints
