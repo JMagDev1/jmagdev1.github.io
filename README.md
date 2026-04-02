@@ -59,6 +59,7 @@ jack-maguire-portfolio/
 ## 🚢 Deployment
 
 This website can be deployed to:
+
 - GitHub Pages
 - Netlify
 - Vercel
