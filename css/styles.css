@@ -247,7 +247,7 @@ body {
 .floating-card {
     position: relative;
     width: 300px;
-    height: 400px;
+    height: 300px;
     border-radius: 1rem;
     overflow: hidden;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -276,20 +276,42 @@ body {
     z-index: 2;
 }
 
-/* Tech Stack Styling */
-.tech-stack {
+/* Tech Carousel Styling */
+.tech-carousel {
     position: relative;
     width: 100%;
     height: 100%;
     background: rgba(15, 23, 42, 0.95);
     border-radius: 0.75rem;
     z-index: 2;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.tech-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
-    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.6s ease-in-out;
+}
+
+.tech-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.tech-slide.leaving {
+    opacity: 0;
+    transform: translateX(-100%);
 }
 
 .tech-item {
@@ -789,11 +811,11 @@ section {
 
     .floating-card {
         width: 250px;
-        height: 350px;
+        height: 250px;
     }
 
-    .tech-stack {
-        padding: 1.5rem;
+    .tech-slide {
+        padding: 1rem;
     }
 
     .tech-icon {

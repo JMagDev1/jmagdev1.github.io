@@ -129,5 +129,65 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Tech Carousel Functionality
+class TechCarousel {
+    constructor() {
+        this.slides = document.querySelectorAll('.tech-slide');
+        this.currentSlide = 0;
+        this.interval = null;
+        this.init();
+    }
+
+    init() {
+        if (this.slides.length === 0) return;
+
+        // Show first slide
+        this.slides[0].classList.add('active');
+
+        // Start automatic cycling
+        this.startCarousel();
+
+        // Pause on hover
+        const carousel = document.querySelector('.tech-carousel');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', () => this.stopCarousel());
+            carousel.addEventListener('mouseleave', () => this.startCarousel());
+        }
+    }
+
+    startCarousel() {
+        this.interval = setInterval(() => {
+            this.nextSlide();
+        }, 3000); // Change slide every 3 seconds
+    }
+
+    stopCarousel() {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.interval = null;
+        }
+    }
+
+    nextSlide() {
+        // Remove active class from current slide
+        this.slides[this.currentSlide].classList.remove('active');
+        this.slides[this.currentSlide].classList.add('leaving');
+
+        // Move to next slide
+        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+
+        // Show next slide
+        setTimeout(() => {
+            this.slides.forEach(slide => slide.classList.remove('leaving'));
+            this.slides[this.currentSlide].classList.add('active');
+        }, 300);
+    }
+}
+
+// Initialize carousel when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new TechCarousel();
+});
+
 // Initialize
 console.log('Portfolio website loaded successfully!');
