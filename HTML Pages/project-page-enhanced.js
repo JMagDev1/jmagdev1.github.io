@@ -5,14 +5,24 @@
 
 // Carousel Management
 class ProjectCarousel {
-    constructor() {
+    constructor(carouselElement = null) {
+        this.carousel = carouselElement || document.querySelector('.image-carousel');
         this.currentSlide = 0;
         this.slides = [];
+        this.dots = [];
+        this.prevBtn = null;
+        this.nextBtn = null;
         this.init();
     }
 
     init() {
-        this.slides = document.querySelectorAll('.carousel-slide');
+        if (!this.carousel) return;
+
+        this.slides = this.carousel.querySelectorAll('.carousel-slide');
+        this.dots = this.carousel.querySelectorAll('.carousel-dot');
+        this.prevBtn = this.carousel.querySelector('.carousel-button.prev');
+        this.nextBtn = this.carousel.querySelector('.carousel-button.next');
+
         this.setupControls();
         if (this.slides.length > 0) {
             this.showSlide(0);
@@ -20,36 +30,58 @@ class ProjectCarousel {
     }
 
     setupControls() {
-        const prevBtn = document.querySelector('.carousel-button.prev');
-        const nextBtn = document.querySelector('.carousel-button.next');
-        const dots = document.querySelectorAll('.carousel-dot');
+        // Set up button event listeners
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.previousSlide();
+            });
+        }
 
-        if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); this.previousSlide(); });
-        if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); this.nextSlide(); });
-        
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', (e) => { e.preventDefault(); this.showSlide(index); });
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.nextSlide();
+            });
+        }
+
+        // Set up dot event listeners
+        this.dots.forEach((dot, index) => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.showSlide(index);
+            });
         });
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (document.querySelector('.modal.active')) return; // Don't navigate if modal is open
-            if (e.key === 'ArrowLeft') this.previousSlide();
-            if (e.key === 'ArrowRight') this.nextSlide();
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                this.previousSlide();
+            }
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                this.nextSlide();
+            }
         });
     }
 
     showSlide(n) {
         if (this.slides.length === 0) return;
-        
+
         this.currentSlide = (n + this.slides.length) % this.slides.length;
-        
+
         this.slides.forEach(slide => slide.classList.remove('active'));
         this.slides[this.currentSlide].classList.add('active');
-        
-        const dots = document.querySelectorAll('.carousel-dot');
-        dots.forEach(dot => dot.classList.remove('active'));
-        dots[this.currentSlide]?.classList.add('active');
+
+        // Update dots within this carousel
+        this.dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === this.currentSlide);
+        });
 
         this.updateCarouselInfo();
     }
@@ -63,7 +95,7 @@ class ProjectCarousel {
     }
 
     updateCarouselInfo() {
-        const info = document.querySelector('.carousel-info');
+        const info = this.carousel.querySelector('.carousel-info');
         if (info) {
             info.textContent = `Image ${this.currentSlide + 1} of ${this.slides.length}`;
         }
@@ -344,6 +376,15 @@ function populateCarousel() {
 
         // Add carousel controls
         addCarouselControls(container, controlsContainer);
+
+        // Initialize carousel after controls are added
+        setTimeout(() => {
+            if (window.carousel) {
+                window.carousel.init();
+            } else {
+                window.carousel = new ProjectCarousel(carousel);
+            }
+        }, 100);
     }).catch((error) => {
         console.error('Error loading carousel images:', error);
         // Show placeholder on error
@@ -357,23 +398,28 @@ function populateCarousel() {
 
 function addCarouselControls(container, controlsContainer) {
     // Add prev/next buttons if they don't exist
-    if (!container.parentElement.querySelector('.carousel-button.prev')) {
+    const carousel = container.parentElement; // .image-carousel
+
+    if (!carousel.querySelector('.carousel-button.prev')) {
         const prevBtn = document.createElement('button');
         prevBtn.className = 'carousel-button prev';
         prevBtn.innerHTML = '❮';
-        container.parentElement.appendChild(prevBtn);
+        prevBtn.title = 'Previous image';
+        carousel.appendChild(prevBtn);
 
         const nextBtn = document.createElement('button');
         nextBtn.className = 'carousel-button next';
         nextBtn.innerHTML = '❯';
-        container.parentElement.appendChild(nextBtn);
+        nextBtn.title = 'Next image';
+        carousel.appendChild(nextBtn);
     }
 }
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     populateCarousel();
-    window.carousel = new ProjectCarousel();
+    // Don't initialize carousel here - it will be initialized after images load
+    // window.carousel = new ProjectCarousel();
     window.editor = new ProjectEditor();
 
     // Handle edit form submission
