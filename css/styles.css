@@ -805,18 +805,24 @@ section {
         display: flex;
     }
 
+    .nav-menu {
+        display: none;
+        position: static;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        background: rgba(15, 23, 42, 0.95);
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
     .nav-menu.active {
         display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 80px;
-        left: 0;
-        right: 0;
-        background: var(--bg-color);
-        padding: 1rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 0 0 8px 8px;
-        z-index: 1000;
+    }
+
+    .nav-menu.active .nav-link {
+        padding: 0.9rem 1rem;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.2);
     }
 
     .hamburger.active span:nth-child(1) {
@@ -902,6 +908,18 @@ section {
 }
 
 @media (max-width: 480px) {
+    .hero, .about, .projects, .education {
+        margin-top: 0;
+    }
+
+    body.nav-open .hero,
+    body.nav-open .about,
+    body.nav-open .projects,
+    body.nav-open .education {
+        transform: translateY(220px);
+        transition: transform 0.3s ease;
+    }
+
     .hero-title {
         font-size: 1.8rem;
     }

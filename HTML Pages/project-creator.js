@@ -114,12 +114,26 @@ function handleFormSubmit(e) {
     // Save project to localStorage
     saveProjectToLocalStorage(formData);
 
+    // Optionally push to GitHub to make project live for all visitors
+    const tokenField = document.getElementById('githubToken');
+    const githubToken = tokenField ? tokenField.value.trim() : '';
+    if (githubToken) {
+        pushProjectToGitHub(formData, githubToken).then(result => {
+            if (result.success) {
+                updateDownloadSectionUI(formData, 'Successfully committed to GitHub!');
+            } else {
+                updateDownloadSectionUI(formData, `Created locally. GitHub push failed: ${result.message}`);
+            }
+        }).catch(err => {
+            updateDownloadSectionUI(formData, `Created locally. GitHub push error: ${err.message}`);
+        });
+    } else {
+        updateDownloadSectionUI(formData);
+    }
+
     // Show download section
     downloadSection.style.display = 'block';
     downloadSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    // Create success message with link to projects table
-    updateDownloadSectionUI(formData);
 
     // Setup event listeners for download buttons
     downloadBtn.onclick = () => downloadFile(formData.projectName, formData.projectFilename);
@@ -162,13 +176,15 @@ function saveProjectToLocalStorage(formData) {
     window.dispatchEvent(new CustomEvent('projectAdded', { detail: newProject }));
 }
 
-function updateDownloadSectionUI(formData) {
+function updateDownloadSectionUI(formData, extraMessage = '') {
+    const statusText = extraMessage ? `<p>${escapeHtml(extraMessage)}</p>` : '';
     const successMessage = document.createElement('div');
     successMessage.className = 'success-message';
     successMessage.innerHTML = `
         <div class="success-content">
             <h3>✨ Project Created Successfully!</h3>
             <p><strong>${escapeHtml(formData.projectName)}</strong> has been added to your projects table.</p>
+            ${statusText}
             <div class="action-buttons">
                 <a href="ProjectsTable.html" class="btn btn-primary">View All Projects</a>
                 <button class="btn btn-secondary" onclick="document.querySelector('.success-message').remove()">Continue</button>
@@ -201,7 +217,7 @@ function generateProjectHTML(data) {
     <nav class="navbar">
         <div class="nav-container">
             <a href="../index.html" class="nav-logo">
-                <span class="logo-symbol">&lt;/&gt;</span>
+                <span class="logo-symbol">🤖</span>
                 <span>Jack Maguire</span>
             </a>
             <div class="nav-menu">
@@ -409,7 +425,77 @@ if (hamburger) {
     hamburger.addEventListener('click', () => {
         navMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
+        document.body.classList.toggle('nav-open', navMenu.classList.contains('active'));
     });
+}
+
+async function pushProjectToGitHub(formData, token) {
+    const owner = 'JMagDev1';
+    const repo = 'jmagdev1.github.io';
+    const path = 'HTML%20Pages/projects-data.js';
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+    try {
+        const response = await fetch(apiUrl, {
+            headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+
+        if (!response.ok) {
+            const err = await response.json();
+            return { success: false, message: (err.message || response.statusText) };
+        }
+
+        const fileData = await response.json();
+        const decoded = atob(fileData.content.replace(/\n/g, ''));
+
+        const arrayRegex = /const projectsData = \[([\s\S]*?)\];/;
+        const match = decoded.match(arrayRegex);
+        if (!match) {
+            return { success: false, message: 'Could not parse projects-data.js.' };
+        }
+
+        const currentArray = match[1].trim();
+        const newProject = {
+            name: formData.projectName,
+            year: formData.projectYear || 'N/A',
+            type: formData.projectType || 'N/A',
+            language: formData.projectLanguage || 'N/A',
+            link: formData.projectLink || 'view-custom-project.html'
+        };
+
+        const jsonObj = JSON.stringify(newProject, null, 4)
+            .replace(/"([^\"]+)":/g, '$1:')
+            .replace(/"/g, "'");
+
+        const newEntry = `    ${jsonObj}`;
+        const updatedArray = currentArray.endsWith(',') ? `${currentArray}\n${newEntry}` : `${currentArray},\n${newEntry}`;
+        const newFileContents = decoded.replace(arrayRegex, `const projectsData = [\n${updatedArray}\n];`);
+
+        const commitResp = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json'
+            },
+            body: JSON.stringify({
+                message: `Add project ${formData.projectName}`,
+                content: btoa(unescape(encodeURIComponent(newFileContents))),
+                sha: fileData.sha
+            })
+        });
+
+        if (!commitResp.ok) {
+            const err = await commitResp.json();
+            return { success: false, message: (err.message || commitResp.statusText) };
+        }
+
+        return { success: true };
+    } catch (error) {
+        return { success: false, message: error.message };
+    }
 }
 
 // Helper function to escape HTML

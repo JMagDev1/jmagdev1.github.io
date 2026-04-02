@@ -6,6 +6,7 @@ if (hamburger) {
     hamburger.addEventListener('click', () => {
         navMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
+        document.body.classList.toggle('nav-open', navMenu.classList.contains('active'));
     });
 }
 
