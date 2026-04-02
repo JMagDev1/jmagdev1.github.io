@@ -436,6 +436,7 @@ body {
         padding: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         border-radius: 0 0 8px 8px;
+        z-index: 1000;
     }
 
     .hamburger.active span:nth-child(1) {
@@ -448,6 +449,15 @@ body {
 
     .hamburger.active span:nth-child(3) {
         transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .projects-table {
+        min-width: 600px;
     }
 
     .section-header h1 {

@@ -793,6 +793,10 @@ section {
 
 /* === RESPONSIVE DESIGN === */
 @media (max-width: 768px) {
+    .navbar {
+        position: relative;
+    }
+
     .nav-menu {
         display: none;
     }
@@ -812,6 +816,7 @@ section {
         padding: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         border-radius: 0 0 8px 8px;
+        z-index: 1000;
     }
 
     .hamburger.active span:nth-child(1) {

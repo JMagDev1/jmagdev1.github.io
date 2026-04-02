@@ -8,6 +8,12 @@ const newProjectBtn = document.getElementById('newProjectBtn');
 let generatedHTML = '';
 let uploadedImages = [];
 
+// Admin check
+if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+    alert('You must be logged in as admin to create projects.');
+    window.location.href = '../index.html';
+}
+
 // Form input event listeners for live preview
 form.addEventListener('input', updatePreview);
 form.addEventListener('change', (e) => {
