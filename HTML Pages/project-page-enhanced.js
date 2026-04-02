@@ -255,21 +255,52 @@ function populateCarousel() {
 
     // For static projects, dynamically check for images and only add existing ones
     const imagePath = `../images/${imageDir}/`;
-    let validImages = 0;
-    const maxImages = 10; // Check up to 10 images
+    
+    // First, try to get the actual list of images from the directory
+    // Since we can't directly list directory contents from client-side JS,
+    // we'll check for common naming patterns and actual filenames we know exist
+    
+    // Define known image mappings for each project
+    const knownImages = {
+        'Autoclicker': ['autoclicker-image.png'],
+        'Finance Web App': ['Whole Page.png', 'Pic 2 - Added Expense.png', 'Pic 3 - Added savings target and amount.png', 'Pic 4 - amount out of savings.png', 'Pic 5 - Add bills.png', 'Pic 6 - Added bills.png'],
+        'GHP3': ['Image1.png', 'Image2Preset1.png', 'Image3Settings.png', 'Image4SettingsP1.png'],
+        'Golf Score Card': ['Pic1.jpg', 'Pic2.jpg', 'Pic3.jpg', 'Pic4.jpg'],
+        '2nd Google Home Page': ['Pic1.png', 'Pic2.png', 'Pic3.png', 'Pic4.png'],
+        'Nature Explorer': ['Pic1.png', 'Pic2.png', 'Pic3.png'],
+        'HyperDrive Havoc': ['Image1.png', 'Image2.png', 'Image3.png', 'AllCars.png', 'Car1.png', 'Car2.png', 'Car3.png', 'Car4.png', 'UIImageOnLoad.png'],
+        'Interests Form - Linked to JARVIS': ['Jarvis.png'],
+        'Iron Man Helmet': ['Pic1.jpg', 'Pic2.jpg', 'Pic3.jpg'],
+        'Marvel Movies Project': ['Menu.png', 'Phase-three-example.png', 'Phases.png', 'Timeline-example.png', 'Timeline.png'],
+        'Ski Trip Organiser - GCSE Digital Technology': ['FrmAddPupil.png', 'FrmAddTimes.png', 'FrmQuiz.png', 'FrmReports-GroupLvls.png', 'FrmReports-QuizScore.png', 'FrmReports-StudentList.png', 'login-both.png', 'Login-pg.png', 'Menu.png'],
+        'GCSE Technology and Design Coursework Project': ['Top view.jpg'],
+        'Weather Web App': ['Image1.png'],
+        'Calculator': ['image1.png'],
+        'Pirelli F1 Tyre': ['image1.png']
+    };
 
-    // Create image load promises to check existence
-    const imagePromises = [];
-    for (let i = 1; i <= maxImages; i++) {
-        imagePromises.push(
-            new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => resolve({i, exists: true});
-                img.onerror = () => resolve({i, exists: false});
-                img.src = `${imagePath}image${i}.png`;
-            })
-        );
+    // Get the list of images for this project
+    const projectImages = knownImages[projectName] || [];
+    
+    if (projectImages.length === 0) {
+        // No images defined for this project - show placeholder
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide active';
+        slide.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:var(--muted-text);font-size:1.2rem;">📸 No images available yet</div>';
+        container.appendChild(slide);
+        carousel.style.display = 'block';
+        return;
     }
+
+    // Check which images actually exist
+    const imagePromises = projectImages.map((imageName, index) => 
+        new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve({name: imageName, index, exists: true});
+            img.onerror = () => resolve({name: imageName, index, exists: false});
+            img.src = `${imagePath}${imageName}`;
+        })
+    );
 
     Promise.all(imagePromises).then((results) => {
         const existingImages = results.filter(r => r.exists);
@@ -291,7 +322,7 @@ function populateCarousel() {
             if (index === 0) slide.classList.add('active');
             
             const img = document.createElement('img');
-            img.src = `${imagePath}image${result.i}.png`;
+            img.src = `${imagePath}${result.name}`;
             img.alt = `Project image ${index + 1}`;
             
             slide.appendChild(img);
@@ -305,12 +336,21 @@ function populateCarousel() {
             controlsContainer.appendChild(dot);
         });
 
+        // Update carousel info
         const info = carousel.querySelector('.carousel-info');
         if (info) {
             info.textContent = `${existingImages.length} image${existingImages.length !== 1 ? 's' : ''}`;
         }
 
+        // Add carousel controls
         addCarouselControls(container, controlsContainer);
+    }).catch((error) => {
+        console.error('Error loading carousel images:', error);
+        // Show placeholder on error
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide active';
+        slide.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:var(--muted-text);font-size:1.2rem;">📸 Error loading images</div>';
+        container.appendChild(slide);
         carousel.style.display = 'block';
     });
 }
