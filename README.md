@@ -88,7 +88,7 @@ This website can be deployed to:
 
 ## 📄 License
 
-This portfolio website is personal work © 2024 Jack Maguire.
+This portfolio website is personal work © 2026 Jack Maguire.
 
 ## 💡 Features to Add
 
