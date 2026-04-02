@@ -334,8 +334,8 @@ body {
 }
 
 .tech-icon-img {
-    width: 48px;
-    height: 48px;
+    width: 2.5rem;
+    height: 2.5rem;
     object-fit: contain;
     margin-bottom: 0.5rem;
     filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
