@@ -120,9 +120,9 @@ if (contactForm) {
 
         // Get form data
         const data = {
-            from_name: this.querySelector('input[type="text"]').value,
+            from_name: this.querySelector('input[placeholder="Your Name"]').value,
             from_email: this.querySelector('input[type="email"]').value,
-            subject: this.querySelector('input[type="text"]:nth-of-type(3)').value || 'Contact Form Submission',
+            subject: this.querySelector('input[placeholder="Subject"]').value || 'Contact Form Submission',
             message: this.querySelector('textarea').value,
             to_name: 'Jack Maguire'
         };
