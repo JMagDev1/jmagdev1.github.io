@@ -11,6 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProjects();
     setupEventListeners();
     
+    // Admin check for create project button
+    const createBtn = document.querySelector('a[href="project-creator.html"]');
+    if (createBtn) {
+        if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+            createBtn.style.display = 'none';
+        }
+    }
+    
     // Listen for new projects being added
     window.addEventListener('projectAdded', (e) => {
         filterAndRender();

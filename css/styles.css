@@ -809,7 +809,7 @@ section {
         display: flex;
         flex-direction: column;
         position: absolute;
-        top: 100%;
+        top: 80px;
         left: 0;
         right: 0;
         background: var(--bg-color);
@@ -850,11 +850,11 @@ section {
 
     .floating-card {
         width: 250px;
-        height: 250px;
+        height: 280px;
     }
 
     .tech-slide {
-        padding: 1rem;
+        padding: 0.5rem;
     }
 
     .tech-icon {
