@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Jack Maguire Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/PicForBar.png">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --dark-bg: #0f172a;
+            --darker-bg: #020617;
+            --light-text: #f1f5f9;
+            --muted-text: #cbd5e1;
+            --border-color: #334155;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            color: var(--light-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        /* === LOGIN CONTAINER === */
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0.5rem;
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--muted-text);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-btn:hover {
+            color: var(--light-text);
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        .login-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .login-header p {
+            color: var(--muted-text);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--light-text);
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--light-text);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: var(--muted-text);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.85rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            display: none;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            color: #fca5a5;
+            animation: slideInDown 0.3s ease-out;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* === ADMIN PANEL === */
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-panel.show {
+            display: block;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .admin-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .logout-btn {
+            padding: 0.6rem 1.2rem;
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .projects-list {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .projects-list h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .project-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .project-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .project-info h4 {
+            color: var(--light-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .project-info small {
+            color: var(--muted-text);
+        }
+
+        .delete-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .no-projects {
+            text-align: center;
+            padding: 2rem;
+            color: var(--muted-text);
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 1.5rem;
+            }
+
+            .login-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .project-item {
+                flex-direction: column;
+                text-align: center;
+                align-items: stretch;
+            }
+
+            .delete-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Form -->
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <a href="../index.html" class="back-btn" title="Back to Portfolio">←</a>
+                <h1>🔐 Admin Panel</h1>
+                <p>Jack Maguire Portfolio Management</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="error-message" id="errorMessage"></div>
+                
+                <div class="form-group">
+                    <label for="password">Admin Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter admin password" required>
+                </div>
+
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div style="max-width: 800px; width: 100%;">
+            <div class="admin-header">
+                <h2>👨‍💼 Admin Dashboard</h2>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+
+            <div class="projects-list">
+                <h3>📋 All Projects</h3>
+                <div id="projectsList"></div>
+            </div>
+
+            <div class="projects-list">
+                <h3>🔧 System Info</h3>
+                <div style="color: var(--muted-text);">
+                    <p>Total Projects: <strong style="color: var(--light-text);" id="totalProjects">0</strong></p>
+                    <p>Static Projects: <strong style="color: var(--light-text);" id="staticProjects">0</strong></p>
+                    <p>Custom Projects: <strong style="color: var(--light-text);" id="customProjects">0</strong></p>
+                    <p>Storage Used: <strong style="color: var(--light-text);" id="storageUsed">0 KB</strong></p>
+                    <button style="margin-top: 1rem; padding: 0.5rem 1rem; background: rgba(239, 68, 68, 0.2); color: var(--danger-color); border: 1px solid var(--danger-color); border-radius: 6px; cursor: pointer; font-weight: 600;" id="clearAllBtn">Clear All Custom Projects</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="projects-data.js"></script>
+    <script>
+        // Admin password (change this to something secure)
+        const ADMIN_PASSWORD = 'jackadmin123';
+
+        const loginForm = document.getElementById('loginForm');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('errorMessage');
+        const loginContainer = document.querySelector('.login-container');
+        const adminPanel = document.getElementById('adminPanel');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const projectsList = document.getElementById('projectsList');
+        const totalProjectsEl = document.getElementById('totalProjects');
+        const staticProjectsEl = document.getElementById('staticProjects');
+        const customProjectsEl = document.getElementById('customProjects');
+        const storageUsedEl = document.getElementById('storageUsed');
+        const clearAllBtn = document.getElementById('clearAllBtn');
+
+        // Load admin session from localStorage
+        function checkAdminSession() {
+            const isLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
+            if (isLoggedIn) {
+                showAdminPanel();
+            }
+        }
+
+        // Login handler
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = passwordInput.value;
+
+            if (password === ADMIN_PASSWORD) {
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                showAdminPanel();
+            } else {
+                errorMessage.textContent = '❌ Invalid password. Please try again.';
+                errorMessage.classList.add('show');
+                passwordInput.value = '';
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 3000);
+            }
+        });
+
+        // Show admin panel
+        function showAdminPanel() {
+            loginContainer.style.display = 'none';
+            adminPanel.classList.add('show');
+            loadProjects();
+        }
+
+        // Logout handler
+        logoutBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('adminLoggedIn');
+            location.reload();
+        });
+
+        // Load and display projects
+        function loadProjects() {
+            // Get static projects from projects-data.js
+            const staticProjects = window.projectsData || [];
+            const customProjects = JSON.parse(localStorage.getItem('customProjects') || '[]');
+            const allProjects = [...staticProjects, ...customProjects];
+            
+            totalProjectsEl.textContent = allProjects.length;
+            staticProjectsEl.textContent = staticProjects.length;
+            customProjectsEl.textContent = customProjects.length;
+
+            // Calculate storage used (only custom projects use localStorage)
+            const storageString = localStorage.getItem('customProjects') || '';
+            const storageKB = (new Blob([storageString]).size / 1024).toFixed(2);
+            storageUsedEl.textContent = `${storageKB} KB`;
+
+            if (allProjects.length === 0) {
+                projectsList.innerHTML = '<div class="no-projects">No projects found</div>';
+                return;
+            }
+
+            projectsList.innerHTML = allProjects.map((project, index) => {
+                const isCustom = index >= staticProjects.length;
+                const actualIndex = isCustom ? index - staticProjects.length : index;
+                
+                return `
+                    <div class="project-item">
+                        <div class="project-info">
+                            <h4>${project.name || 'Unnamed Project'}</h4>
+                            <small>${project.year || 'N/A'} • ${project.type || 'N/A'} ${isCustom ? '• <span style="color: #10b981;">Custom</span>' : '• <span style="color: #6366f1;">Static</span>'}</small>
+                        </div>
+                        ${isCustom ? `<button class="delete-btn" onclick="deleteProject(${actualIndex})">Delete</button>` : '<span style="color: var(--muted-text); font-size: 0.9rem;">Static Project</span>'}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Delete project
+        window.deleteProject = function(index) {
+            const projects = JSON.parse(localStorage.getItem('customProjects') || '[]');
+            const projectName = projects[index].name;
+
+            if (confirm(`Delete "${projectName}"?\n\nThis cannot be undone.`)) {
+                projects.splice(index, 1);
+                localStorage.setItem('customProjects', JSON.stringify(projects));
+                loadProjects();
+            }
+        };
+
+        // Clear all projects
+        clearAllBtn.addEventListener('click', () => {
+            if (confirm('⚠️ Delete ALL custom projects?\n\nThis action cannot be undone!')) {
+                localStorage.removeItem('customProjects');
+                loadProjects();
+            }
+        });
+
+        // Check session on page load
+        checkAdminSession();
+    </script>
+</body>
+</html>

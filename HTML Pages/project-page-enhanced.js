@@ -24,11 +24,11 @@ class ProjectCarousel {
         const nextBtn = document.querySelector('.carousel-button.next');
         const dots = document.querySelectorAll('.carousel-dot');
 
-        if (prevBtn) prevBtn.addEventListener('click', () => this.previousSlide());
-        if (nextBtn) nextBtn.addEventListener('click', () => this.nextSlide());
+        if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); this.previousSlide(); });
+        if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); this.nextSlide(); });
         
         dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => this.showSlide(index));
+            dot.addEventListener('click', (e) => { e.preventDefault(); this.showSlide(index); });
         });
 
         // Keyboard navigation
@@ -83,7 +83,16 @@ class ProjectEditor {
         const deleteBtn = document.querySelector('.btn-delete');
 
         if (editBtn) editBtn.addEventListener('click', () => this.openEditModal());
-        if (deleteBtn) deleteBtn.addEventListener('click', () => this.openDeleteConfirm());
+        if (deleteBtn) {
+            // Check if user is admin
+            const isAdmin = sessionStorage.getItem('adminLoggedIn') === 'true';
+            if (isAdmin) {
+                deleteBtn.addEventListener('click', () => this.openDeleteConfirm());
+            } else {
+                // Hide delete button and add login prompt on click
+                deleteBtn.style.display = 'none';
+            }
+        }
 
         this.setupModal();
     }
@@ -223,7 +232,7 @@ function populateCarousel() {
 
             const info = carousel.querySelector('.carousel-info');
             if (info && project.images.length > 0) {
-                info.textContent = `Image 1 of ${project.images.length}`;
+                info.textContent = `${project.images.length} image${project.images.length !== 1 ? 's' : ''}`;
             }
 
             // Add carousel controls
@@ -232,49 +241,78 @@ function populateCarousel() {
         }
     }
 
-    // For static projects, show sample placeholder
+    // For static projects, check which images actually exist
     const imageDir = imageDirs[projectName];
     if (!imageDir) {
         // No images available - show placeholder
         const slide = document.createElement('div');
         slide.className = 'carousel-slide active';
-        slide.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:var(--muted-text);font-size:1.2rem;">No images available yet</div>';
+        slide.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:var(--muted-text);font-size:1.2rem;">📸 No images available yet</div>';
         container.appendChild(slide);
+        carousel.style.display = 'block';
         return;
     }
 
-    // Create slides for static projects (up to 3 samples)
-    const totalImages = 3;
-    for (let i = 1; i <= totalImages; i++) {
-        const slide = document.createElement('div');
-        slide.className = 'carousel-slide';
-        if (i === 1) slide.classList.add('active');
-        
-        const img = document.createElement('img');
-        img.src = `../images/${imageDir}/image${i}.png`;
-        img.alt = `Project image ${i}`;
-        img.onerror = function() {
-            // If image doesn't exist, replace with placeholder
-            this.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:rgba(99,102,241,0.1);color:var(--muted-text);">Image not available</div>';
-        };
-        
-        slide.appendChild(img);
-        container.appendChild(slide);
+    // For static projects, dynamically check for images and only add existing ones
+    const imagePath = `../images/${imageDir}/`;
+    let validImages = 0;
+    const maxImages = 10; // Check up to 10 images
 
-        // Create dot
-        const dot = document.createElement('button');
-        dot.className = 'carousel-dot';
-        if (i === 1) dot.classList.add('active');
-        dot.setAttribute('data-slide', i - 1);
-        controlsContainer.appendChild(dot);
+    // Create image load promises to check existence
+    const imagePromises = [];
+    for (let i = 1; i <= maxImages; i++) {
+        imagePromises.push(
+            new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve({i, exists: true});
+                img.onerror = () => resolve({i, exists: false});
+                img.src = `${imagePath}image${i}.png`;
+            })
+        );
     }
 
-    const info = carousel.querySelector('.carousel-info');
-    if (info) {
-        info.textContent = `Image 1 of ${totalImages}`;
-    }
+    Promise.all(imagePromises).then((results) => {
+        const existingImages = results.filter(r => r.exists);
 
-    addCarouselControls(container, controlsContainer);
+        if (existingImages.length === 0) {
+            // No images found - show placeholder
+            const slide = document.createElement('div');
+            slide.className = 'carousel-slide active';
+            slide.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:var(--muted-text);font-size:1.2rem;">📸 No images available yet</div>';
+            container.appendChild(slide);
+            carousel.style.display = 'block';
+            return;
+        }
+
+        // Add only existing images
+        existingImages.forEach((result, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'carousel-slide';
+            if (index === 0) slide.classList.add('active');
+            
+            const img = document.createElement('img');
+            img.src = `${imagePath}image${result.i}.png`;
+            img.alt = `Project image ${index + 1}`;
+            
+            slide.appendChild(img);
+            container.appendChild(slide);
+
+            // Create dot
+            const dot = document.createElement('button');
+            dot.className = 'carousel-dot';
+            if (index === 0) dot.classList.add('active');
+            dot.setAttribute('data-slide', index);
+            controlsContainer.appendChild(dot);
+        });
+
+        const info = carousel.querySelector('.carousel-info');
+        if (info) {
+            info.textContent = `${existingImages.length} image${existingImages.length !== 1 ? 's' : ''}`;
+        }
+
+        addCarouselControls(container, controlsContainer);
+        carousel.style.display = 'block';
+    });
 }
 
 function addCarouselControls(container, controlsContainer) {
