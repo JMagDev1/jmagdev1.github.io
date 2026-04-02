@@ -33,7 +33,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="container" id="projectContent">
+    <main class="container" id="projectContent" style="padding-top: 100px;">
         <!-- Will be loaded from localStorage -->
     </main>
 
@@ -48,6 +48,8 @@
         </div>
     </footer>
 
+    <script src="project-page.js"></script>
+    <script src="project-page-enhanced.js"></script>
     <script>
         // Get project ID from URL parameter
         const urlParams = new URLSearchParams(window.location.search);
@@ -58,10 +60,109 @@
             const customProjects = JSON.parse(localStorage.getItem('customProjects') || '[]');
             const project = customProjects[parseInt(projectId)];
 
-            if (project && project.html) {
-                // Insert the project HTML content
+            if (project) {
                 const contentDiv = document.getElementById('projectContent');
-                contentDiv.innerHTML = project.html;
+                
+                // Insert project content
+                contentDiv.innerHTML = `
+                    <section class="project-content">
+                        <div class="container">
+                            <div class="content-grid">
+                                <div class="main-content" data-custom-project="${projectId}">
+                                    <h1>${project.name || 'Custom Project'}</h1>
+                                    
+                                    <!-- Image Carousel -->
+                                    <div class="image-carousel">
+                                        <div class="carousel-container"></div>
+                                        <div class="carousel-controls"></div>
+                                        <div class="carousel-info">Loading images...</div>
+                                    </div>
+
+                                    <!-- Project Actions -->
+                                    <div class="project-actions">
+                                        <button class="btn btn-delete">🗑️ Delete Project</button>
+                                        <a href="ProjectsTable.html" class="btn btn-primary">← Back to Projects</a>
+                                    </div>
+
+                                    <div class="project-meta">
+                                        <div class="meta-item">
+                                            <span class="label">Year:</span>
+                                            <span>${project.year || 'N/A'}</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span class="label">Type:</span>
+                                            <span class="badge">${project.type || 'N/A'}</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span class="label">Technology:</span>
+                                            <span>${project.language || 'N/A'}</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span class="label">Status:</span>
+                                            <span class="status ${(project.status || 'Completed').toLowerCase()}">${project.status || 'Completed'}</span>
+                                        </div>
+                                    </div>
+
+                                    <section class="description-section">
+                                        <h2>About This Project</h2>
+                                        <p>${project.description || 'No description available'}</p>
+                                    </section>
+
+                                    ${project.challenges ? `
+                                        <section class="challenges-section">
+                                            <h2>Challenges & Solutions</h2>
+                                            <p>${project.challenges}</p>
+                                        </section>
+                                    ` : ''}
+
+                                    ${project.learnings ? `
+                                        <section class="learnings-section">
+                                            <h2>What I Learned</h2>
+                                            <p>${project.learnings}</p>
+                                        </section>
+                                    ` : ''}
+                                </div>
+
+                                <aside class="sidebar">
+                                    <div class="sidebar-card">
+                                        <h3>Navigation</h3>
+                                        <a href="ProjectsTable.html" class="sidebar-link">Back to All Projects</a>
+                                        <a href="../index.html" class="sidebar-link">Home</a>
+                                    </div>
+
+                                    <div class="sidebar-card">
+                                        <h3>Project Details</h3>
+                                        <div class="details-list">
+                                            <div class="detail-item">
+                                                <span class="detail-label">Type:</span>
+                                                <span>${project.type || 'N/A'}</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="detail-label">Year:</span>
+                                                <span>${project.year || 'N/A'}</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="detail-label">Tech Stack:</span>
+                                                <span>${project.language || 'N/A'}</span>
+                                            </div>
+                                            <div class="detail-item">
+                                                <span class="detail-label">Status:</span>
+                                                <span class="status ${(project.status || 'Completed').toLowerCase()}">${project.status || 'Completed'}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+                        </div>
+                    </section>
+                `;
+
+                // Initialize carousel with custom project images
+                setTimeout(() => {
+                    window.carousel = new ProjectCarousel();
+                    window.editor = new ProjectEditor();
+                    populateCarousel();
+                }, 100);
             } else {
                 document.getElementById('projectContent').innerHTML = `
                     <div style="text-align: center; padding: 3rem;">
@@ -80,26 +181,6 @@
                 </div>
             `;
         }
-
-        // Hamburger Menu Toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-
-        if (hamburger) {
-            hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-            });
-        }
-
-        // Close menu when clicking on a link
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (navMenu) navMenu.classList.remove('active');
-                if (hamburger) hamburger.classList.remove('active');
-            });
-        });
     </script>
 </body>
 </html>

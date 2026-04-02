@@ -6,11 +6,40 @@ const copyBtn = document.getElementById('copyBtn');
 const newProjectBtn = document.getElementById('newProjectBtn');
 
 let generatedHTML = '';
+let uploadedImages = [];
 
 // Form input event listeners for live preview
 form.addEventListener('input', updatePreview);
-form.addEventListener('change', updatePreview);
+form.addEventListener('change', (e) => {
+    if (e.target.id === 'projectImages') {
+        handleImageUpload(e);
+    }
+    updatePreview();
+});
 form.addEventListener('submit', handleFormSubmit);
+
+// Handle image uploads
+function handleImageUpload(e) {
+    const files = Array.from(e.target.files).slice(0, 5); // Limit to 5 images
+    uploadedImages = [];
+    
+    let loadedCount = 0;
+    
+    files.forEach((file, index) => {
+        const reader = new FileReader();
+        
+        reader.onload = (event) => {
+            uploadedImages[index] = event.target.result;
+            loadedCount++;
+            
+            if (loadedCount === files.length) {
+                console.log(`Uploaded ${uploadedImages.length} images`);
+            }
+        };
+        
+        reader.readAsDataURL(file);
+    });
+}
 
 function updatePreview() {
     const projectName = document.getElementById('projectName').value;
@@ -111,7 +140,10 @@ function saveProjectToLocalStorage(formData) {
         description: formData.projectDescription,
         status: formData.projectStatus || 'Completed',
         link: `view-custom-project.html?id=${existingProjects.length}`,
-        html: projectContent  // Store just the main content, not full HTML
+        html: projectContent,
+        images: uploadedImages.filter(img => img !== undefined), // Include uploaded images
+        challenges: formData.projectChallenges || '',
+        learnings: formData.projectLearnings || ''
     };
     
     // Add the new project

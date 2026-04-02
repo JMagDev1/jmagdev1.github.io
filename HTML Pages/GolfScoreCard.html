@@ -54,6 +54,21 @@
                 <div class="main-content">
                     <h1>Golf Score Card</h1>
                     
+                    <!-- Image Carousel -->
+                    <div class="image-carousel">
+                        <div class="carousel-container">
+                            <!-- Slides will be populated by JavaScript -->
+                        </div>
+                        <div class="carousel-controls"></div>
+                        <div class="carousel-info">Image gallery</div>
+                    </div>
+
+                    <!-- Project Actions -->
+                    <div class="project-actions">
+                        <button class="btn btn-edit">✏️ Edit Project</button>
+                        <button class="btn btn-delete">🗑️ Delete Project</button>
+                    </div>
+                    
                     <div class="project-meta">
                         <div class="meta-item">
                             <span class="label">Year:</span>
@@ -150,6 +165,44 @@
         </div>
     </footer>
 
+    <!-- Edit Project Modal -->
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Project</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form class="edit-form">
+                <div class="form-group">
+                    <label for="projectName">Project Name</label>
+                    <input type="text" id="projectName" name="projectName" required>
+                </div>
+                <div class="form-group">
+                    <label for="projectYear">Year</label>
+                    <input type="text" id="projectYear" name="projectYear">
+                </div>
+                <div class="form-group">
+                    <label for="projectType">Type</label>
+                    <select id="projectType" name="projectType">
+                        <option value="Coding">Coding</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                        <option value="Robotics">Robotics</option>
+                        <option value="Electronics">Electronics</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="projectDescription">Description</label>
+                    <textarea id="projectDescription" name="projectDescription" required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="document.querySelector('.modal').classList.remove('active')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script src="project-page.js"></script>
+    <script src="project-page-enhanced.js"></script>
 </body>
 </html>
