@@ -831,6 +831,11 @@ section {
         transform: rotate(-45deg) translate(7px, -6px);
     }
 
+    .hero {
+        min-height: 120vh;
+        padding-bottom: 140px;
+    }
+
     .hero-content {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -846,11 +851,17 @@ section {
 
     .hero-image {
         margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
     }
 
     .floating-card {
+        position: sticky;
+        top: 100px;
         width: 250px;
-        height: 280px;
+        height: 300px;
+        margin: 0 auto;
     }
 
     .tech-slide {
