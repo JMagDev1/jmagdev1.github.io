@@ -939,6 +939,26 @@ img {
         height: 40px;
         font-size: 1rem;
     }
+
+    .modal-content {
+        width: 95%;
+        padding: 1rem;
+        max-height: 90vh;
+    }
+
+    .modal-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .project-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .project-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 480px) {
@@ -949,5 +969,10 @@ img {
     .carousel-button {
         width: 35px;
         height: 35px;
+    }
+
+    .modal-content {
+        width: 98%;
+        padding: 0.5rem;
     }
 }
