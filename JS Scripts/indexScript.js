@@ -80,7 +80,7 @@ form.addEventListener('submit', (e) => {
       // If emails match, send email
       btn.value = 'Sending...';
 
-      const serviceID = 'default_service';
+      const serviceID = 'service_ebxxda5';
       const templateID = 'template_a4s18pd';
 
       emailjs.sendForm(serviceID, templateID, form)

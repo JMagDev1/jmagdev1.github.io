@@ -8,10 +8,8 @@ A modern, responsive portfolio website showcasing my projects, skills, and exper
 - **Responsive Layout**: Fully responsive design that works on all devices
 - **Interactive Elements**: Smooth scrolling, hover effects, and scroll animations
 - **Project Showcase**: Elegant project cards with detailed descriptions
-- **Contact Form**: Functional contact form with EmailJS integration and bot protection
 - **Admin Panel**: Password-protected admin interface for managing custom projects
 - **Image Carousels**: Interactive image galleries for project showcases
-- **Human Verification**: Math-based CAPTCHA to prevent automated spam
 - **Fast Performance**: Optimized for speed and accessibility
 - **Mobile Menu**: Hamburger menu for mobile navigation
 - **GitHub Pages Ready**: No server required, works with static hosting
@@ -44,30 +42,14 @@ jack-maguire-portfolio/
 2. **About Me** - Background, interests, and skills
 3. **Projects** - Featured projects with descriptions and links
 4. **Education** - Educational background and certifications
-5. **Contact** - Contact form and social links
-6. **Footer** - Copyright and quick links
+5. **Footer** - Copyright and quick links
 
 ## 🛠️ Technologies Used
 
 - **HTML5** - Semantic markup
 - **CSS3** - Modern styling with animations and gradients
 - **JavaScript (Vanilla)** - No frameworks, pure JS for interactivity
-- **EmailJS** - Client-side email sending service
 - **Local Storage** - Browser storage for admin sessions and custom projects
-
-## 📧 Contact Form Setup
-
-The contact form uses EmailJS to send emails directly from the browser without requiring a server. This makes it perfect for GitHub Pages hosting.
-
-### Features:
-- **Human Verification**: Math-based CAPTCHA prevents automated spam
-- **EmailJS Integration**: Sends emails through a third-party service
-- **No Server Required**: Works entirely client-side
-- **Form Validation**: Ensures all required fields are filled
-- **Success Feedback**: Shows confirmation when message is sent
-
-### Setup Instructions:
-See `EMAIL_SETUP.md` for detailed instructions on configuring EmailJS.
 
 ## 🔐 Admin Panel
 

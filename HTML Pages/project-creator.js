@@ -202,7 +202,7 @@ function generateProjectHTML(data) {
                 <a href="../index.html#home" class="nav-link">Home</a>
                 <a href="../index.html#about" class="nav-link">About</a>
                 <a href="../index.html#projects" class="nav-link">Projects</a>
-                <a href="../index.html#contact" class="nav-link">Contact</a>
+                <a href="../index.html" class="nav-link">Home</a>
             </div>
             <div class="hamburger">
                 <span></span>
