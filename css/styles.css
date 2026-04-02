@@ -334,11 +334,11 @@ body {
 }
 
 .tech-icon-img {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
     object-fit: contain;
     margin-bottom: 0.5rem;
-    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
+    filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.5));
     animation: pulse 2s ease-in-out infinite;
 }
 
