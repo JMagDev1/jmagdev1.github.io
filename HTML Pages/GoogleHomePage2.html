@@ -3,41 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Styles/2ndGoogleHomePageStyles.css">
+    <title>2nd Google Home Page - Jack Maguire Portfolio</title>
+    <link rel="stylesheet" href="../css/project-page.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque&family=Poppins:wght@300&display=swap" rel="stylesheet">
-    <link rel = "icon" type = "image/png" href ="../Images/PicForBar.png">
-    <title>2nd Google Home Page </title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/PicForBar.png">
 </head>
 <body>
-    <div class="title">
-        <div class="WebsiteLink">
-            <a href="../index.html"><img src="../Images/PicForBar.png" alt=""></a>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-symbol">&lt;/&gt;</span>
+                <span>Jack Maguire</span>
+            </a>
+            <div class="nav-menu">
+                <a href="../index.html#home" class="nav-link">Home</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#projects" class="nav-link">Projects</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <h1>2nd Google Home Page</h1>
-    </div>
-    
-    
-    <div class="SectionOne">  
-        <img class="image" src="../Images/2nd Google Home Page/Pic1.png" alt="Image 1">
-        <p class="text">On the left there are images of the google home page. This first image is the image that gets displayed once the page is loaded. You can also see the grid of buttons that take you to different websites.</p>     
-    </div>
+    </nav>
 
-    <div class="SectionTwo">
-        <img class="image" src="../Images/2nd Google Home Page/Pic2.png" alt="Image 2">
-        <p class="text">When the user clicks the left or right buttons the backgoround image changes, these are shown on the left below.</p>
-    </div>
+    <!-- Project Header -->
+    <section class="project-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span>/</span>
+                    <a href="ProjectsTable.html">Projects</a>
+                    <span>/</span>
+                    <span>2nd Google Home Page</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="SectionThree">
-        <img class="image" src="../Images/2nd Google Home Page/Pic3.png" alt="Image 3">
-        <p class="text">As you can see at the top of the screen is the current time. This displays the time based on the system time, not based on location. I could in the future make it get the users locatoin and then get the current time based on their location so their system is taken out of it.</p>
-    </div>
+    <!-- Project Content -->
+    <section class="project-content">
+        <div class="container">
+            <div class="content-grid">
+                <div class="main-content">
+                    <h1>2nd Google Home Page</h1>
+                    
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span class="label">Year:</span>
+                            <span>December 2023</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">Type:</span>
+                            <span class="badge">Coding</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">Technology:</span>
+                            <span>HTML, CSS & JS</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">Status:</span>
+                            <span class="status completed">Completed</span>
+                        </div>
+                    </div>
 
-    <div class="SectionFour">
-        <img class="image" src="../Images/2nd Google Home Page/Pic4.png" alt="Image 4">
-        <p class="text">As well as the current time and 16 shortcuts there is a small shortcut in the bottom left of the screen. When the user clicks on it, they are taken to my second website so if they want to view my work it is linked.</p>
-    </div>
+                    <section class="description-section">
+                        <h2>About This Project</h2>
+                        <p>My second Google homepage recreation, demonstrating improved understanding of semantic HTML and CSS layout techniques.</p>
+                    </section>
 
+                    
+                    <section class="features-section">
+                        <h2>Key Features</h2>
+                        <ul class="features-list">
+                            <li>Search bar</li><li>Google-like styling</li><li>Responsive design</li><li>Navigation links</li>
+                        </ul>
+                    </section>
+
+                    
+                    <section class="challenges-section">
+                        <h2>Challenges & Solutions</h2>
+                        <p>Creating a visually similar design while maintaining clean, semantic HTML code.</p>
+                    </section>
+
+                    
+                    <section class="learnings-section">
+                        <h2>What I Learned</h2>
+                        <p>This iteration improved my CSS skills and understanding of flexbox and grid layouts for creating professional-looking web pages.</p>
+                    </section>
+                </div>
+
+                <aside class="sidebar">
+                    <div class="sidebar-card">
+                        <h3>Project Links</h3>
+                        <a href="ProjectsTable.html" class="sidebar-link">Back to All Projects</a>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Project Details</h3>
+                        <div class="details-list">
+                            <div class="detail-item">
+                                <span class="detail-label">Type:</span>
+                                <span>Coding</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Year:</span>
+                                <span>December 2023</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Tech Stack:</span>
+                                <span>HTML, CSS & JS</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Status:</span>
+                                <span class="status completed">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation to other projects -->
+    <section class="related-projects">
+        <div class="container">
+            <h2>Explore More Projects</h2>
+            <a href="ProjectsTable.html" class="btn btn-primary">View All Projects →</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Jack Maguire. Showcasing my passion for coding and creation.</p>
+            <div class="social-links">
+                <a href="https://github.com/JMagDev1" target="_blank">GitHub</a>
+                <a href="../index.html">Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="project-page.js"></script>
 </body>
 </html>

@@ -11,6 +11,7 @@ Your portfolio now has a full-featured projects management system with three pow
 **File:** `HTML Pages/ProjectsTable.html`
 
 ### Features
+
 - ✨ Modern, responsive data table with all 18+ projects
 - 🔍 **Live Search** - Search by project name or technology instantly
 - 📁 **Type Filtering** - Filter between Coding and Manufacturing projects
@@ -20,6 +21,7 @@ Your portfolio now has a full-featured projects management system with three pow
 - 📱 **Fully Responsive** - Perfect on all screen sizes
 
 ### How It Works
+
 1. User visits `ProjectsTable.html`
 2. All projects from `projects-data.js` load in the table
 3. Filters update in real-time as user types or selects options
@@ -27,6 +29,7 @@ Your portfolio now has a full-featured projects management system with three pow
 5. Clicking "View Project" links to individual project pages
 
 ### Technical Details
+
 - Uses **Intersection Observer API** for scroll animations
 - **Dynamic filtering** without page reloads
 - **No dependencies** - pure vanilla JavaScript
@@ -37,12 +40,14 @@ Your portfolio now has a full-featured projects management system with three pow
 
 ## 🎨 Component 2: Project Creator UI
 
-**Files:** 
+**Files:**
+
 - `HTML Pages/project-creator.html` - Form interface
 - `HTML Pages/project-creator.js` - Generation logic
 - `css/project-creator.css` - Form styling
 
 ### Features
+
 - 📝 **Comprehensive form** with validation
 - 👁️ **Live Preview** - See your project as you type
 - 🔄 **Multi-section form** organized by category
@@ -55,25 +60,30 @@ Your portfolio now has a full-featured projects management system with three pow
 ### Form Fields
 
 **Basic Information** (All required)
+
 - Project Name
 - Year/Date
 - Type (Coding, Manufacturing, Design, Research)
 - Language/Technology
 
 **Description Section**
+
 - Detailed project description
 - Key features (comma-separated)
 
 **Media & Links**
+
 - Featured image URL
 - Project link/GitHub URL
 - Project status (Completed, In Progress, On Hold)
 
 **Development Notes**
+
 - Challenges & Solutions
 - What You Learned
 
 ### How It Works
+
 1. User fills form fields
 2. Live preview updates in real-time on the right panel
 3. Form validation ensures required fields are filled
@@ -82,6 +92,7 @@ Your portfolio now has a full-featured projects management system with three pow
 6. Generated HTML is production-ready and fully styled
 
 ### Generated Page Features
+
 - Professional header with hero image (if provided)
 - Project metadata display
 - Breadcrumb navigation
@@ -100,11 +111,13 @@ Your portfolio now has a full-featured projects management system with three pow
 ## 📦 Component 3: Project Data System
 
 **Files:**
+
 - `HTML Pages/projects-data.js` - Data array + utilities
 - `HTML Pages/projects-table.js` - Table logic
 - `HTML Pages/project-page.js` - Page functionality
 
 ### Project Data Structure
+
 ```javascript
 {
     name: "JARVIS",
@@ -118,20 +131,24 @@ Your portfolio now has a full-featured projects management system with three pow
 ### Key JavaScript Functions
 
 **In projects-data.js:**
+
 - `getYearValue()` - Extracts year for sorting
 
 **In projects-table.js:**
+
 - `filterAndRender()` - Applies filters and re-renders table
 - `renderProjects()` - Populates table with filtered data
 - `setupEventListeners()` - Attaches event handlers
 
 **In project-creator.js:**
+
 - `updatePreview()` - Updates live preview as user types
 - `generateProjectHTML()` - Creates complete project HTML
 - `downloadFile()` - Triggers file download
 - `copyToClipboard()` - Copies HTML to clipboard
 
 **In project-page.js:**
+
 - `hamburger toggle` - Mobile menu functionality
 - `scroll effects` - Navbar shadow on scroll
 - `smooth scrolling` - Anchor link navigation
@@ -178,11 +195,13 @@ jack-maguire-portfolio/
 ## 🎯 How to Use
 
 ### For Viewing Projects
+
 1. Click "View All Projects" on main portfolio
 2. Use filters, search, and sort to find projects
 3. Click "View Project" to see detailed pages
 
 ### For Creating New Projects
+
 1. Go to all projects table
 2. Click "+ Create New Project Page"
 3. Fill out the form completely
@@ -191,8 +210,10 @@ jack-maguire-portfolio/
 6. Download or copy the HTML file
 
 ### For Adding Generated Projects
+
 1. Place downloaded HTML file in `HTML Pages/` folder
 2. Update `projects-data.js` with new entry:
+
 ```javascript
 {
     name: "Your New Project",
@@ -202,6 +223,7 @@ jack-maguire-portfolio/
     link: "your-file-name.html"
 }
 ```
+
 3. Your project automatically appears on the projects table!
 
 ---
@@ -222,6 +244,7 @@ jack-maguire-portfolio/
 ## 🎨 Design Features
 
 ### Color Palette
+
 - **Primary**: Indigo (#6366f1)
 - **Secondary**: Purple (#8b5cf6)
 - **Accent**: Pink (#ec4899)
@@ -229,6 +252,7 @@ jack-maguire-portfolio/
 - **Dark backgrounds** with light text
 
 ### Interactive Elements
+
 - ✨ Gradient badges and buttons
 - 🎯 Smooth hover animations
 - 📊 Animated table rows
@@ -237,6 +261,7 @@ jack-maguire-portfolio/
 - 🎪 Glassmorphism effects
 
 ### Responsive Design
+
 - 📱 Mobile: Single column, optimized touch
 - 📊 Tablet: 2-column layouts
 - 🖥️ Desktop: Full multi-column layouts
@@ -247,21 +272,25 @@ jack-maguire-portfolio/
 ## 📚 Complete File List (New Files)
 
 ### HTML Files
+
 - `HTML Pages/ProjectsTable.html` - Projects table page
 - `HTML Pages/project-creator.html` - Project creator form
 
 ### JavaScript Files
+
 - `HTML Pages/projects-data.js` - Project data array
 - `HTML Pages/projects-table.js` - Table logic
 - `HTML Pages/project-creator.js` - Creator form logic
 - `HTML Pages/project-page.js` - Generated page functionality
 
 ### CSS Files
+
 - `css/projects-table.css` - Table styling
 - `css/project-creator.css` - Form styling
 - `css/project-page.css` - Generated project page styling
 
 ### Documentation
+
 - `HTML Pages/PROJECTS_SYSTEM_README.md` - Full system docs
 
 ---
@@ -306,6 +335,7 @@ index.html (Main Portfolio)
 ## 📊 Current Projects in System
 
 All 18 existing projects are loaded:
+
 1. JARVIS
 2. Google Homepage
 3. Iron Man Helmet
@@ -330,6 +360,7 @@ All 18 existing projects are loaded:
 ## 🎓 Learning & Features
 
 ### Technologies Used
+
 - **HTML5** - Semantic markup
 - **CSS3** - Modern styling with animations, gradients
 - **JavaScript (Vanilla)** - No frameworks or dependencies
@@ -338,6 +369,7 @@ All 18 existing projects are loaded:
 - **Local Generation** - All processing on client-side
 
 ### Best Practices Implemented
+
 - ✅ Semantic HTML structure
 - ✅ Accessible form labels
 - ✅ Keyboard navigation support
@@ -365,6 +397,7 @@ All 18 existing projects are loaded:
 ## 🚀 Deployment Ready
 
 The entire system is production-ready:
+
 - ✅ All files created and tested
 - ✅ Git repository initialized
 - ✅ 4 commits with documentation
@@ -379,6 +412,7 @@ The entire system is production-ready:
 ## 📞 Summary
 
 Your portfolio now has:
+
 - **Modern projects table** with filtering, search, and sorting
 - **No-code project creator** - generate HTML pages with a form
 - **Professional styling** matching your portfolio theme

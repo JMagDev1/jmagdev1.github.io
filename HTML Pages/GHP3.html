@@ -3,47 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Styles/GHP3Styles.css">
+    <title>Google Home Page 3 - Jack Maguire Portfolio</title>
+    <link rel="stylesheet" href="../css/project-page.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque&family=Poppins:wght@300&display=swap" rel="stylesheet">
-    <link rel = "icon" type = "image/png" href ="../Images/PicForBar.png">
-    <title>Google Home Page 3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/PicForBar.png">
 </head>
 <body>
-    <div class="title">
-        <div class="WebsiteLink">
-            <a href="../index.html"><img src="../Images/PicForBar.png" alt=""></a>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-symbol">&lt;/&gt;</span>
+                <span>Jack Maguire</span>
+            </a>
+            <div class="nav-menu">
+                <a href="../index.html#home" class="nav-link">Home</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#projects" class="nav-link">Projects</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <h1>Google Home Page 3</h1>
-    </div>
-    
-    
-    <div class="SectionOne">  
-        <img class="image" src="../Images/GHP3/Image1.png" alt="Image 1">
-        <p class="text">On the left is the custom layout of links, here the user can display up to 20 links of their choice.</p>     
-    </div>
+    </nav>
 
-    <div class="SectionTwo">
-        <img class="image" src="../Images/GHP3/Image2Preset1.png" alt="Image 2">
-        <p class="text">This image showcases the layout of preset 1, this is the layout I copied over from my 2nd Google Home Page. Using this preset the user cannot add or remove any links in the settings menu. Your preference on layout is saved using localstorage and will re open as that layout when the page is closed.</p>
-    </div>
+    <!-- Project Header -->
+    <section class="project-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span>/</span>
+                    <a href="ProjectsTable.html">Projects</a>
+                    <span>/</span>
+                    <span>Google Home Page 3</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="SectionThree">
-        <img class="image" src="../Images/GHP3/Image3Settings.png" alt="Image 3">
-        <p class="textImg3">The image on the left shows the settings bar along the bottom of the screen. This is used to: Set your name, save links to the button container on the page, Remove links, adjust the blur and brightness of the image, setting the background picture theme and also set the colour theme of the page. The name and links are saved using localstorage and so does the background theme and colour theme.</p>
-    </div>
+    <!-- Project Content -->
+    <section class="project-content">
+        <div class="container">
+            <div class="content-grid">
+                <div class="main-content">
+                    <h1>Google Home Page 3</h1>
+                    
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span class="label">Year:</span>
+                            <span>February 2024</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">Type:</span>
+                            <span class="badge">Coding</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">Technology:</span>
+                            <span>HTML, CSS, JS</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">Status:</span>
+                            <span class="status completed">Completed</span>
+                        </div>
+                    </div>
 
-    <div class="SectionFour">
-        <img class="image" src="../Images/GHP3/Image4SettingsP1.png" alt="Image 4">
-        <p class="text">This image shows the settings bar for those who choose the preset for links on the Google Home Page. As you can see you can't add or remove any buttons with this preset because it is a set layout and buttons. This can be beneficial for the user because they don't need to spend time adding custom links.</p>
-    </div>
+                    <section class="description-section">
+                        <h2>About This Project</h2>
+                        <p>The third iteration of my Google homepage remake. This version shows my evolution in web design and development skills, incorporating modern CSS techniques and improved JavaScript functionality.</p>
+                    </section>
 
-    <div class="SectionFour">
-        <p class="textFooter">I spent over 10 hours in total working on this project. I recorded around 6 hours and put it into a timelapse, <a href="https://youtu.be/GEEhVsY4d4A">this</a> is a link to the video of my recording.</p>
-    </div>
+                    
+                    <section class="features-section">
+                        <h2>Key Features</h2>
+                        <ul class="features-list">
+                            <li>Search functionality</li><li>Modern CSS styling</li><li>Responsive layout</li><li>Clean interface</li>
+                        </ul>
+                    </section>
 
+                    
+                    <section class="challenges-section">
+                        <h2>Challenges & Solutions</h2>
+                        <p>Creating a search interface that mimics Google while keeping the code simple was an interesting challenge in balancing functionality with simplicity.</p>
+                    </section>
 
+                    
+                    <section class="learnings-section">
+                        <h2>What I Learned</h2>
+                        <p>Each iteration of this project demonstrated my growing understanding of web design principles, CSS animations, and user experience optimization.</p>
+                    </section>
+                </div>
 
+                <aside class="sidebar">
+                    <div class="sidebar-card">
+                        <h3>Project Links</h3>
+                        <a href="ProjectsTable.html" class="sidebar-link">Back to All Projects</a>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Project Details</h3>
+                        <div class="details-list">
+                            <div class="detail-item">
+                                <span class="detail-label">Type:</span>
+                                <span>Coding</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Year:</span>
+                                <span>February 2024</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Tech Stack:</span>
+                                <span>HTML, CSS, JS</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Status:</span>
+                                <span class="status completed">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation to other projects -->
+    <section class="related-projects">
+        <div class="container">
+            <h2>Explore More Projects</h2>
+            <a href="ProjectsTable.html" class="btn btn-primary">View All Projects →</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Jack Maguire. Showcasing my passion for coding and creation.</p>
+            <div class="social-links">
+                <a href="https://github.com/JMagDev1" target="_blank">GitHub</a>
+                <a href="../index.html">Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="project-page.js"></script>
 </body>
 </html>

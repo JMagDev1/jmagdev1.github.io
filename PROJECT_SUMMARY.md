@@ -5,6 +5,7 @@
 Your new modernized portfolio website has been created with enhanced design, animations, and a contemporary layout.
 
 ### 📍 Location
+
 ```
 C:\Users\jackm\Documents\Coding\Personal Website\Website - V3\jack-maguire-portfolio
 ```
@@ -14,12 +15,14 @@ C:\Users\jackm\Documents\Coding\Personal Website\Website - V3\jack-maguire-portf
 ## 📦 What's Included
 
 ### **Core Files**
+
 - ✨ **index.html** - Modern, fully-structured homepage
 - 🎨 **css/styles.css** - Contemporary styling with gradients, animations, and responsive design
 - ⚡ **js/script.js** - Vanilla JavaScript for interactivity
 - 📖 **README.md** - Project documentation
 
 ### **Project Resources**
+
 - 🖼️ **images/** - All 90+ images from your original projects
 - 📄 **documents/** - PDFs including GCSE projects
 - 📰 **HTML Pages/** - Individual project pages (preserved from original)
@@ -27,6 +30,7 @@ C:\Users\jackm\Documents\Coding\Personal Website\Website - V3\jack-maguire-portf
 - 🔧 **JS Scripts/** - Original project scripts
 
 ### **Configuration**
+
 - 🔒 **.gitignore** - Git ignore rules
 - 📦 **Version Control** - Initialized as a Git repository with initial commit
 
@@ -35,12 +39,14 @@ C:\Users\jackm\Documents\Coding\Personal Website\Website - V3\jack-maguire-portf
 ## 🎨 Design Features
 
 ### Modern & Contemporary
+
 - **Dark Theme**: Professional dark background with accent colors
 - **Gradient Accents**: Indigo to purple gradients throughout
 - **Glassmorphism**: Frosted glass effect on cards
 - **Smooth Animations**: Hover effects, scroll animations, fade-ins
 
 ### Responsive Design
+
 - 📱 Mobile-first approach
 - 🖥️ Optimized for all screen sizes
 - ⚡ Fast performance and accessibility
@@ -137,6 +143,7 @@ C:\Users\jackm\Documents\Coding\Personal Website\Website - V3\jack-maguire-portf
 ## 🎯 How to Use
 
 ### View Locally
+
 1. Open the project folder in your browser
 2. Open `index.html` in your browser
 3. Or use a local server:
@@ -149,13 +156,16 @@ C:\Users\jackm\Documents\Coding\Personal Website\Website - V3\jack-maguire-portf
    ```
 
 ### Deploy Online
+
 The website can be deployed to:
+
 - **GitHub Pages** - Free hosting
 - **Netlify** - Simple deployment
 - **Vercel** - Optimized for web
 - **Any static host** - Works anywhere
 
 ### Customize
+
 - Update text in `index.html`
 - Modify colors in CSS variables at the top of `css/styles.css`
 - Add/remove projects by editing project cards
@@ -166,11 +176,13 @@ The website can be deployed to:
 ## 🔧 Git Repository
 
 The project is already initialized as a Git repository with:
+
 - ✅ Initial commit created
 - ✅ All files tracked
 - ✅ Ready for GitHub upload
 
 To push to GitHub:
+
 ```bash
 cd jack-maguire-portfolio
 git remote add origin https://github.com/YOUR-USERNAME/jack-maguire-portfolio.git

@@ -1,4 +1,4 @@
-let filteredProjects = [...projectsData];
+let filteredProjects = [...getAllProjects()];
 
 const typeFilter = document.getElementById('typeFilter');
 const searchInput = document.getElementById('searchInput');
@@ -10,6 +10,11 @@ const projectCount = document.getElementById('projectCount');
 document.addEventListener('DOMContentLoaded', () => {
     renderProjects();
     setupEventListeners();
+    
+    // Listen for new projects being added
+    window.addEventListener('projectAdded', (e) => {
+        filterAndRender();
+    });
 });
 
 function setupEventListeners() {
@@ -19,7 +24,8 @@ function setupEventListeners() {
 }
 
 function filterAndRender() {
-    filteredProjects = projectsData.filter(project => {
+    const allProjects = getAllProjects();
+    filteredProjects = allProjects.filter(project => {
         const matchesType = !typeFilter.value || project.type === typeFilter.value;
         const matchesSearch = !searchInput.value || 
             project.name.toLowerCase().includes(searchInput.value.toLowerCase()) ||

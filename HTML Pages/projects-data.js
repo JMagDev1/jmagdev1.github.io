@@ -132,3 +132,14 @@ function getYearValue(yearString) {
     const match = yearString.match(/(\d{4})/);
     return match ? parseInt(match[0]) : 0;
 }
+
+// Function to get all projects (static + custom from localStorage)
+function getAllProjects() {
+    const customProjects = JSON.parse(localStorage.getItem('customProjects') || '[]');
+    return [...projectsData, ...customProjects];
+}
+
+// Function to clear custom projects (for debugging/reset)
+function clearCustomProjects() {
+    localStorage.removeItem('customProjects');
+}

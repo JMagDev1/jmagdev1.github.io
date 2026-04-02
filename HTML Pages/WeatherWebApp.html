@@ -3,26 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Styles/WeatherWebAppStyles.css">
+    <title>Weather Web App - Jack Maguire Portfolio</title>
+    <link rel="stylesheet" href="../css/project-page.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque&family=Poppins:wght@300&display=swap" rel="stylesheet">
-    <link rel = "icon" type = "image/png" href ="../Images/PicForBar.png">
-    <title>Weather Web App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/PicForBar.png">
 </head>
 <body>
-    <div class="title">
-        <div class="WebsiteLink">
-            <a href="../index.html"><img src="../Images/PicForBar.png" alt=""></a>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-symbol">&lt;/&gt;</span>
+                <span>Jack Maguire</span>
+            </a>
+            <div class="nav-menu">
+                <a href="../index.html#home" class="nav-link">Home</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#projects" class="nav-link">Projects</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <h1>Weather Web App</h1>
-    </div>
-    
-    
-    <div class="SectionOne">  
-        <img class="image" src="../Images/Weather Web App/Image1.png" alt="Image 1">
-        <p class="text">This is my weather app, it is hosted on GitHub and gets the weather of the location you enter in the search bar. By default it is northern Ireland, it then uses unsplash to get an image of the location that you entered. You can see at the bottom of the screen that their are hourly forcasts, these give the hourly weather for the next 5 days.</p>     
-    </div>
+    </nav>
 
+    <!-- Project Header -->
+    <section class="project-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span>/</span>
+                    <a href="ProjectsTable.html">Projects</a>
+                    <span>/</span>
+                    <span>Weather Web App</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <section class="project-content">
+        <div class="container">
+            <div class="content-grid">
+                <div class="main-content">
+                    <h1>Weather Web App</h1>
+                    
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span class="label">Year:</span>
+                            <span>December 2023</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">Type:</span>
+                            <span class="badge">Coding</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">Technology:</span>
+                            <span>HTML, CSS, JS</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">Status:</span>
+                            <span class="status completed">Completed</span>
+                        </div>
+                    </div>
+
+                    <section class="description-section">
+                        <h2>About This Project</h2>
+                        <p>An interactive weather application that displays current weather information and forecasts. Built with vanilla JavaScript and styled with modern CSS, this app demonstrates API integration and real-time data handling.</p>
+                    </section>
+
+                    
+                    <section class="features-section">
+                        <h2>Key Features</h2>
+                        <ul class="features-list">
+                            <li>Current weather display</li><li>Weather forecasting</li><li>Location-based data</li><li>Responsive interface</li><li>Real-time updates</li>
+                        </ul>
+                    </section>
+
+                    
+                    <section class="challenges-section">
+                        <h2>Challenges & Solutions</h2>
+                        <p>The main challenges were working with external APIs, handling API errors gracefully, and creating an interface that clearly presents complex weather data. Managing asynchronous operations and error handling for network requests was important.</p>
+                    </section>
+
+                    
+                    <section class="learnings-section">
+                        <h2>What I Learned</h2>
+                        <p>Building this app taught me about working with APIs, handling asynchronous requests, parsing JSON data, and creating interfaces that work with real-time information. I learned about weather data structures and presentation.</p>
+                    </section>
+                </div>
+
+                <aside class="sidebar">
+                    <div class="sidebar-card">
+                        <h3>Project Links</h3>
+                        <a href="ProjectsTable.html" class="sidebar-link">Back to All Projects</a>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Project Details</h3>
+                        <div class="details-list">
+                            <div class="detail-item">
+                                <span class="detail-label">Type:</span>
+                                <span>Coding</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Year:</span>
+                                <span>December 2023</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Tech Stack:</span>
+                                <span>HTML, CSS, JS</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Status:</span>
+                                <span class="status completed">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation to other projects -->
+    <section class="related-projects">
+        <div class="container">
+            <h2>Explore More Projects</h2>
+            <a href="ProjectsTable.html" class="btn btn-primary">View All Projects →</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Jack Maguire. Showcasing my passion for coding and creation.</p>
+            <div class="social-links">
+                <a href="https://github.com/JMagDev1" target="_blank">GitHub</a>
+                <a href="../index.html">Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="project-page.js"></script>
 </body>
 </html>

@@ -5,9 +5,11 @@
 This portfolio now includes a modern, interactive projects management system with three main components:
 
 ### 1. **All Projects Table** (`ProjectsTable.html`)
+
 A comprehensive table view of all projects with filtering, searching, and sorting capabilities.
 
 **Features:**
+
 - 📊 Responsive data table with all 18+ projects
 - 🔍 **Search functionality** - Search by project name or technology
 - 📁 **Type filtering** - Filter by Coding or Manufacturing projects
@@ -16,6 +18,7 @@ A comprehensive table view of all projects with filtering, searching, and sortin
 - 📱 **Fully responsive** - Works perfectly on all devices
 
 **How to Use:**
+
 1. Navigate to "View All Projects" from the main portfolio
 2. Use the filter controls to find specific projects
 3. Click "View Project" to go to detailed project pages
@@ -23,9 +26,11 @@ A comprehensive table view of all projects with filtering, searching, and sortin
 ---
 
 ### 2. **Project Creator UI** (`project-creator.html`)
+
 An interactive form-based tool to quickly create new project pages without coding.
 
 **Features:**
+
 - 📝 **Comprehensive form** with sections for:
   - Basic project information (name, year, type, technology)
   - Detailed description
@@ -40,9 +45,10 @@ An interactive form-based tool to quickly create new project pages without codin
 - ✨ **Beautiful generated pages** - Creates professional project pages automatically
 
 **How to Use:**
+
 1. Click "+ Create New Project Page" on the projects table
 2. Fill out the form fields:
-   - All fields marked with * are required
+   - All fields marked with \* are required
    - Use comma-separated values for features list
 3. Watch the live preview update in real-time
 4. Click "Generate Project Page" to create the HTML
@@ -51,21 +57,25 @@ An interactive form-based tool to quickly create new project pages without codin
 **Form Sections:**
 
 **Basic Information**
+
 - Project Name (required)
 - Year/Date (required)
 - Type: Coding, Manufacturing, Design, Research (required)
 - Language/Technology (required)
 
 **Description**
+
 - Project Description (required) - Main overview
 - Key Features - Comma-separated list
 
 **Media & Links**
+
 - Featured Image URL
 - Project Link/GitHub URL
 - Status: Completed, In Progress, On Hold
 
 **Development Notes**
+
 - Challenges & Solutions - What you overcame
 - What You Learned - Key takeaways
 
@@ -74,6 +84,7 @@ An interactive form-based tool to quickly create new project pages without codin
 ### 3. **Project Data System** (`projects-data.js`, `projects-table.js`)
 
 **Data Structure:**
+
 ```javascript
 {
     name: "Project Name",
@@ -85,6 +96,7 @@ An interactive form-based tool to quickly create new project pages without codin
 ```
 
 **JavaScript Functions:**
+
 - `filterAndRender()` - Handles filtering and re-rendering
 - `renderProjects()` - Populates table with project data
 - `updatePreview()` - Updates live preview in creator
@@ -115,12 +127,14 @@ jack-maguire-portfolio/
 ## Features Breakdown
 
 ### Search & Filter
+
 - **Live search** across project names and technologies
 - **Type filtering** by Coding or Manufacturing
 - **Multiple sort options** for better organization
 - **Project counter** shows filtered results
 
 ### Project Creator Magic
+
 - **Real-time preview** updates as you type
 - **HTML generation** creates production-ready code
 - **Validation** ensures all required fields are filled
@@ -128,6 +142,7 @@ jack-maguire-portfolio/
 - **Easy sharing** - download or copy code
 
 ### Generated Project Pages Include
+
 - Professional header with breadcrumb navigation
 - Project metadata display (year, type, technology, status)
 - Detailed description section
@@ -162,6 +177,7 @@ Then use the Project Creator to generate the HTML file!
 ## Design Features
 
 ### Color Scheme
+
 - Primary: Indigo (#6366f1)
 - Secondary: Purple (#8b5cf6)
 - Accent: Pink (#ec4899)
@@ -169,6 +185,7 @@ Then use the Project Creator to generate the HTML file!
 - Dark background with light text
 
 ### Interactive Elements
+
 - Gradient badges for project types
 - Hover animations on project cards
 - Smooth transitions on all interactions
@@ -176,6 +193,7 @@ Then use the Project Creator to generate the HTML file!
 - Sticky sidebar on project detail pages
 
 ### Accessibility
+
 - Semantic HTML structure
 - Keyboard navigation support
 - Color contrast compliance
@@ -187,6 +205,7 @@ Then use the Project Creator to generate the HTML file!
 ## Mobile Optimization
 
 All components are fully responsive:
+
 - 📱 Mobile: Optimized single-column layout
 - 📱 Tablet: 2-column layouts where appropriate
 - 🖥️ Desktop: Full multi-column designs
@@ -201,6 +220,7 @@ Tables collapse into readable formats on mobile, and all buttons/forms stack ver
 2. **Download the file** with a meaningful name
 3. **Place it in the `HTML Pages/` folder**
 4. **Update `projects-data.js`** with the new entry:
+
 ```javascript
 {
     name: "Your New Project",
@@ -210,6 +230,7 @@ Tables collapse into readable formats on mobile, and all buttons/forms stack ver
     link: "your-new-project.html"
 }
 ```
+
 5. Your project now appears on the projects table automatically!
 
 ---
@@ -217,6 +238,7 @@ Tables collapse into readable formats on mobile, and all buttons/forms stack ver
 ## Future Enhancements
 
 Potential additions:
+
 - Image gallery for project screenshots
 - Video embed support
 - Team member credits
@@ -252,15 +274,19 @@ Potential additions:
 ## Troubleshooting
 
 **Problem**: Projects table doesn't show all projects
+
 - **Solution**: Check that `projects-data.js` is properly formatted and loads
 
 **Problem**: Creator form doesn't generate HTML
-- **Solution**: Ensure all required fields (marked with *) are filled in
+
+- **Solution**: Ensure all required fields (marked with \*) are filled in
 
 **Problem**: Generated page styling looks broken
+
 - **Solution**: Make sure `project-page.css` is in the `css/` folder and path is correct
 
 **Problem**: Mobile menu doesn't work
+
 - **Solution**: Check that hamburger event listeners are properly attached in JavaScript files
 
 ---
@@ -268,6 +294,7 @@ Potential additions:
 ## Support & Customization
 
 To customize the project system:
+
 1. Edit CSS variables in any `.css` file to change colors
 2. Modify form fields in `project-creator.html`
 3. Update project template in `generateProjectHTML()` function

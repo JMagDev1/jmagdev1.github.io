@@ -69,22 +69,76 @@ function handleFormSubmit(e) {
         projectLink: document.getElementById('projectLink').value,
         projectStatus: document.getElementById('projectStatus').value,
         projectChallenges: document.getElementById('projectChallenges').value,
-        projectLearnings: document.getElementById('projectLearnings').value
+        projectLearnings: document.getElementById('projectLearnings').value,
+        projectFilename: document.getElementById('projectFilename').value
     };
 
     // Generate HTML file
     generatedHTML = generateProjectHTML(formData);
 
+    // Save project to localStorage
+    saveProjectToLocalStorage(formData);
+
     // Show download section
     downloadSection.style.display = 'block';
     downloadSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+    // Create success message with link to projects table
+    updateDownloadSectionUI(formData);
+
     // Setup event listeners for download buttons
-    downloadBtn.onclick = () => downloadFile(formData.projectName);
+    downloadBtn.onclick = () => downloadFile(formData.projectName, formData.projectFilename);
     copyBtn.onclick = () => copyToClipboard();
 
     // Hide preview placeholder when showing download section
     form.style.display = 'none';
+}
+
+function saveProjectToLocalStorage(formData) {
+    // Get existing custom projects or initialize empty array
+    const existingProjects = JSON.parse(localStorage.getItem('customProjects') || '[]');
+    
+    // Extract just the main content from generated HTML (between <main> tags)
+    const mainMatch = generatedHTML.match(/<main[^>]*>([\s\S]*?)<\/main>/);
+    const projectContent = mainMatch ? mainMatch[1] : generatedHTML;
+    
+    // Create project object for the table
+    const newProject = {
+        name: formData.projectName,
+        year: formData.projectYear || 'N/A',
+        type: formData.projectType || 'N/A',
+        language: formData.projectLanguage || 'N/A',
+        description: formData.projectDescription,
+        status: formData.projectStatus || 'Completed',
+        link: `view-custom-project.html?id=${existingProjects.length}`,
+        html: projectContent  // Store just the main content, not full HTML
+    };
+    
+    // Add the new project
+    existingProjects.push(newProject);
+    
+    // Save back to localStorage
+    localStorage.setItem('customProjects', JSON.stringify(existingProjects));
+    
+    // Dispatch custom event so other pages can listen for project updates
+    window.dispatchEvent(new CustomEvent('projectAdded', { detail: newProject }));
+}
+
+function updateDownloadSectionUI(formData) {
+    const successMessage = document.createElement('div');
+    successMessage.className = 'success-message';
+    successMessage.innerHTML = `
+        <div class="success-content">
+            <h3>✨ Project Created Successfully!</h3>
+            <p><strong>${escapeHtml(formData.projectName)}</strong> has been added to your projects table.</p>
+            <div class="action-buttons">
+                <a href="ProjectsTable.html" class="btn btn-primary">View All Projects</a>
+                <button class="btn btn-secondary" onclick="document.querySelector('.success-message').remove()">Continue</button>
+            </div>
+        </div>
+    `;
+    
+    downloadSection.insertAdjacentElement('afterend', successMessage);
 }
 
 function generateProjectHTML(data) {
@@ -256,9 +310,9 @@ function generateProjectHTML(data) {
     return html;
 }
 
-function downloadFile(projectName) {
+function downloadFile(projectName, projectFilename) {
     const element = document.createElement('a');
-    const fileName = projectName.toLowerCase().replace(/\s+/g, '-') + '.html';
+    const fileName = projectFilename ? projectFilename + '.html' : projectName.toLowerCase().replace(/\s+/g, '-') + '.html';
     element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(generatedHTML));
     element.setAttribute('download', fileName);
     element.style.display = 'none';

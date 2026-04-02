@@ -3,26 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Styles/InterestsFormJarvisStyles.css">
+    <title>Interests Form - Linked to JARVIS - Jack Maguire Portfolio</title>
+    <link rel="stylesheet" href="../css/project-page.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque&family=Poppins:wght@300&display=swap" rel="stylesheet">
-    <link rel = "icon" type = "image/png" href ="../Images/PicForBar.png">
-    <title>Interests Form - JARVIS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../images/PicForBar.png">
 </head>
 <body>
-    <div class="title">
-        <div class="WebsiteLink">
-            <a href="../index.html"><img src="../Images/PicForBar.png" alt=""></a>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-symbol">&lt;/&gt;</span>
+                <span>Jack Maguire</span>
+            </a>
+            <div class="nav-menu">
+                <a href="../index.html#home" class="nav-link">Home</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#projects" class="nav-link">Projects</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <h1>Interests Form - JARVIS</h1>
-    </div>
-    
-    
-    <div class="SectionOne">  
-        <img class="image" src="../Images/Interests Form Jarvis/Jarvis.png" alt="Image 1">
-        <p class="text">When I was creating JARVIS I wanted to create a form that took in information based on the name of a person eg where they were from, their height, their favourite food etc. Unfortunatly at the time I did not have the knowledge to make this a reality. I planned to make this form from a C# .NET Form, then it would be able to get the information that the user inputs into system and be able to do different things with the information.</p>     
-    </div>
+    </nav>
 
+    <!-- Project Header -->
+    <section class="project-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span>/</span>
+                    <a href="ProjectsTable.html">Projects</a>
+                    <span>/</span>
+                    <span>Interests Form - Linked to JARVIS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <section class="project-content">
+        <div class="container">
+            <div class="content-grid">
+                <div class="main-content">
+                    <h1>Interests Form - Linked to JARVIS</h1>
+                    
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span class="label">Year:</span>
+                            <span>2023</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">Type:</span>
+                            <span class="badge">Coding</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">Technology:</span>
+                            <span>C#</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">Status:</span>
+                            <span class="status completed">Completed</span>
+                        </div>
+                    </div>
+
+                    <section class="description-section">
+                        <h2>About This Project</h2>
+                        <p>A form-based application built with C# that integrates with the JARVIS system. This application collects user interests and preferences for processing within the larger JARVIS ecosystem.</p>
+                    </section>
+
+                    
+                    <section class="features-section">
+                        <h2>Key Features</h2>
+                        <ul class="features-list">
+                            <li>User interest collection</li><li>Form validation</li><li>Data processing</li><li>JARVIS integration</li>
+                        </ul>
+                    </section>
+
+                    
+                    <section class="challenges-section">
+                        <h2>Challenges & Solutions</h2>
+                        <p>Creating a seamless integration between the form and the JARVIS system required careful planning and data structure design.</p>
+                    </section>
+
+                    
+                    <section class="learnings-section">
+                        <h2>What I Learned</h2>
+                        <p>This project taught me about form handling, data validation, and integration between different application components.</p>
+                    </section>
+                </div>
+
+                <aside class="sidebar">
+                    <div class="sidebar-card">
+                        <h3>Project Links</h3>
+                        <a href="ProjectsTable.html" class="sidebar-link">Back to All Projects</a>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Project Details</h3>
+                        <div class="details-list">
+                            <div class="detail-item">
+                                <span class="detail-label">Type:</span>
+                                <span>Coding</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Year:</span>
+                                <span>2023</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Tech Stack:</span>
+                                <span>C#</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Status:</span>
+                                <span class="status completed">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation to other projects -->
+    <section class="related-projects">
+        <div class="container">
+            <h2>Explore More Projects</h2>
+            <a href="ProjectsTable.html" class="btn btn-primary">View All Projects →</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Jack Maguire. Showcasing my passion for coding and creation.</p>
+            <div class="social-links">
+                <a href="https://github.com/JMagDev1" target="_blank">GitHub</a>
+                <a href="../index.html">Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="project-page.js"></script>
 </body>
 </html>
