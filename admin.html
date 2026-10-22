@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en-GB" data-root="" data-page="admin">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src &#39;none&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; img-src &#39;self&#39; data: blob:; font-src &#39;self&#39;; connect-src &#39;self&#39; https://api.github.com; media-src &#39;self&#39; blob:; frame-src &#39;self&#39;; base-uri &#39;self&#39;; form-action &#39;none&#39;; object-src &#39;none&#39;; upgrade-insecure-requests">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · Jack Maguire</title>
+<meta name="description" content="Site admin.">
+<link rel="canonical" href="https://jmagdev1.github.io/admin.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Jack Maguire">
+<meta property="og:title" content="Admin · Jack Maguire">
+<meta property="og:description" content="Site admin.">
+<meta property="og:url" content="https://jmagdev1.github.io/admin.html">
+<meta property="og:image" content="https://jmagdev1.github.io/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0d1a" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f6fc" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="preload" href="assets/fonts/poppins-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css?v=a52d88511e">
+<link rel="stylesheet" href="assets/css/admin.css?v=a52d88511e">
+<script src="assets/js/theme-init.js?v=a52d88511e"></script>
+<script type="module" src="assets/js/admin/app.js?v=a52d88511e"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<main id="main" tabindex="-1">
+<div class="admin" data-admin>
+  <header class="admin-bar">
+    <div class="container admin-bar-inner">
+      <a class="brand" href="index.html"><span class="brand-bot" aria-hidden="true">🤖</span><span class="brand-name">Jack Maguire</span></a>
+      <span class="admin-badge">Admin</span>
+      <div class="admin-bar-actions" data-session hidden>
+        <span class="admin-user" data-user></span>
+        <a class="btn btn-ghost btn-sm" href="index.html" target="_blank" rel="noopener">View site <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+        <button class="btn btn-ghost btn-sm" type="button" data-signout>Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <noscript><p class="container notice">The admin panel needs JavaScript.</p></noscript>
+
+  <section class="admin-view" data-admin-view="signin" hidden>
+    <div class="signin-card">
+      <p class="eyebrow">Secure sign in</p>
+      <h1>Portfolio admin</h1>
+      <p class="muted" data-signin-intro>Sign in with a GitHub fine-grained access token to add, edit and publish projects. The token is kept in this tab's memory only. It is never saved and is only ever sent to api.github.com.</p>
+      <p class="notice notice--warn" data-signin-locked hidden>You were signed out after 30 minutes of inactivity. Enter your token again to continue. Your unpublished changes are still here.</p>
+      <form class="signin-form" data-signin-form autocomplete="on" novalidate>
+        <input class="sr-only" type="text" name="username" autocomplete="username" value="JMagDev1" readonly tabindex="-1" aria-hidden="true">
+        <label class="field">
+          <span>GitHub access token</span>
+          <input class="input" type="password" name="token" autocomplete="current-password" spellcheck="false" autocapitalize="off" autocorrect="off" maxlength="255" placeholder="github_pat_…" required>
+        </label>
+        <p class="form-error" role="alert" data-signin-error></p>
+        <button class="btn btn-primary" type="submit" data-signin-submit>Sign in</button>
+      </form>
+      <details class="help">
+        <summary>How do I create a token?</summary>
+        <ol>
+          <li>On GitHub, open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">Settings → Developer settings → Fine-grained tokens → Generate new token</a>.</li>
+          <li>Name it something like <em>Portfolio admin</em> and pick an expiry (90 days or less is sensible).</li>
+          <li>Under <strong>Repository access</strong> choose <strong>Only select repositories</strong> and pick <code>jmagdev1.github.io</code>.</li>
+          <li>Under <strong>Permissions → Repository permissions</strong> set <strong>Contents</strong> to <strong>Read and write</strong>. Leave everything else as <em>No access</em>.</li>
+          <li>Generate the token, copy it, and save it in your password manager. Paste it above whenever you want to edit the site.</li>
+        </ol>
+        <p class="muted">Classic tokens (starting <code>ghp_</code>) are refused because they can reach every repository you own.</p>
+      </details>
+      <p class="notice notice--warn" data-frame-notice hidden>For security, the admin panel doesn't work when it's shown inside another page. Open <strong>jmagdev1.github.io/admin.html</strong> directly to sign in.</p>
+    </div>
+  </section>
+
+  <section class="admin-view" data-admin-view="dashboard" hidden>
+    <div class="container">
+      <div class="dash-head">
+        <div>
+          <h1>Projects</h1>
+          <p class="muted" data-dash-sub></p>
+          <p class="muted small">Projects you add or edit here go live on jmagdev1.github.io for everyone once you press <strong>Publish</strong>.</p>
+        </div>
+        <div class="dash-actions">
+          <button class="btn btn-primary" type="button" data-new>+ New project</button>
+        </div>
+      </div>
+      <p class="live-status" role="status" data-live-status hidden></p>
+      <div class="notice notice--warn" data-data-warnings hidden></div>
+      <div class="notice" data-legacy hidden></div>
+
+      <section class="pending" data-pending hidden aria-labelledby="pending-title">
+        <div class="pending-head">
+          <h2 id="pending-title">Unpublished changes</h2>
+          <button class="btn btn-ghost btn-sm" type="button" data-discard-all>Discard all</button>
+        </div>
+        <ul class="pending-list" data-pending-list></ul>
+        <div class="pending-publish">
+          <label class="field">
+            <span>Description of this update (shown in the GitHub history)</span>
+            <input class="input" type="text" maxlength="200" data-commit-message>
+          </label>
+          <button class="btn btn-primary" type="button" data-publish>Publish to website</button>
+        </div>
+        <div class="publish-progress" data-publish-progress hidden><span></span></div>
+        <p class="publish-status" role="status" data-publish-status></p>
+      </section>
+
+      <div class="dash-tools">
+        <label class="search-wrap dash-search"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="sr-only">Filter projects</span><input class="input input-search" type="search" placeholder="Filter projects" data-dash-search></label>
+      </div>
+      <div class="table-wrap">
+        <table class="projects-table admin-table">
+          <caption class="sr-only">All projects</caption>
+          <thead><tr><th scope="col">Project</th><th scope="col">Type</th><th scope="col">Date</th><th scope="col">Status</th><th scope="col">On home page</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+          <tbody data-dash-rows></tbody>
+        </table>
+      </div>
+
+      <details class="maint">
+        <summary>Maintenance</summary>
+        <div class="maint-body">
+          <p class="muted">Regenerate every project page from the data file. Only needed after a design change to the page template.</p>
+          <button class="btn btn-ghost btn-sm" type="button" data-rebuild>Queue a rebuild of all project pages</button>
+          <p class="muted">Download a backup of all project data (text only, images stay on GitHub).</p>
+          <button class="btn btn-ghost btn-sm" type="button" data-export>Download backup (JSON)</button>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="admin-view" data-admin-view="editor" hidden>
+    <div class="editor-layout">
+      <div class="editor-pane">
+        <div class="editor-head">
+          <button class="btn btn-ghost btn-sm" type="button" data-editor-back><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Back to projects</button>
+          <h1 data-editor-title>New project</h1>
+        </div>
+        <div class="form-errors" role="alert" tabindex="-1" data-editor-errors hidden></div>
+        <form class="editor-form" data-editor-form novalidate></form>
+      </div>
+      <aside class="editor-preview" aria-label="Live preview">
+        <div class="preview-head">
+          <span>Live preview</span>
+          <span class="muted">Updates as you type</span>
+        </div>
+        <iframe title="Preview of the project page" sandbox="allow-same-origin" referrerpolicy="no-referrer" data-preview></iframe>
+      </aside>
+    </div>
+  </section>
+
+  <dialog class="confirm" data-confirm aria-labelledby="confirm-title">
+    <div class="confirm-body">
+      <h2 id="confirm-title" data-confirm-title>Are you sure?</h2>
+      <p data-confirm-text></p>
+      <label class="field" data-confirm-typed hidden><span data-confirm-typed-label></span><input class="input" type="text" autocomplete="off" spellcheck="false" data-confirm-input></label>
+      <div class="confirm-actions">
+        <button class="btn btn-ghost btn-sm" type="button" data-confirm-cancel>Cancel</button>
+        <button class="btn btn-primary btn-sm" type="button" data-confirm-ok>OK</button>
+      </div>
+    </div>
+  </dialog>
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+</div>
+
+</main>
+
+</body>
+</html>

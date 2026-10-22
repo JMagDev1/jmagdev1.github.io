@@ -1,0 +1,1425 @@
+{
+  "version": 1,
+  "assetVersion": "a52d88511e",
+  "types": [
+    "Coding",
+    "Manufacturing",
+    "Robotics",
+    "Electronics"
+  ],
+  "projects": [
+    {
+      "slug": "third-personal-website",
+      "title": "3rd Personal Website",
+      "type": "Coding",
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "start": "2026-04",
+      "end": "2026-10",
+      "status": "completed",
+      "summary": "A modernised portfolio with a dark indigo and purple theme, scroll animations, a rotating skills card and a searchable, filterable projects table.",
+      "highlights": [
+        {
+          "icon": "🌌",
+          "text": "Dark Gradient Theme"
+        },
+        {
+          "icon": "✨",
+          "text": "Scroll Animations"
+        },
+        {
+          "icon": "🔎",
+          "text": "Filterable Projects"
+        }
+      ],
+      "about": "My third personal website, a full redesign of the second one. It has a dark theme with indigo and purple gradients, frosted-glass cards and animations that play as you scroll.\n\nThe home page covers my skills, featured projects and education, and an All Projects page lets you search, filter by type and sort every project.",
+      "features": [
+        "Hero section with a rotating skills card",
+        "Scroll-triggered animations",
+        "Featured project cards",
+        "Education and certifications section",
+        "Projects table with search, type filter and sorting",
+        "Project pages with an image carousel",
+        "Mobile menu"
+      ],
+      "challenges": "Projects added through its admin panel were only saved in the browser's local storage, so they never appeared for anyone else. This site (the 4th version) fixes that by publishing new projects straight to GitHub.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/third-personal-website/01.webp",
+          "alt": "Hero section with the gradient name heading and the rotating skills card",
+          "thumb": "assets/projects/third-personal-website/01-thumb.webp",
+          "w": 1440,
+          "h": 900
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/third-personal-website/02.webp",
+          "alt": "About Me section with four skill cards",
+          "thumb": "assets/projects/third-personal-website/02-thumb.webp",
+          "w": 1440,
+          "h": 900
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/third-personal-website/03.webp",
+          "alt": "Featured project cards for JARVIS, the 2nd Google Home Page and Nature Explorer",
+          "thumb": "assets/projects/third-personal-website/03-thumb.webp",
+          "w": 1440,
+          "h": 900
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/third-personal-website/04.webp",
+          "alt": "Education and certifications section above the footer",
+          "thumb": "assets/projects/third-personal-website/04-thumb.webp",
+          "w": 1440,
+          "h": 900
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/third-personal-website/05.webp",
+          "alt": "All Projects page with a type filter, search box and sorting",
+          "thumb": "assets/projects/third-personal-website/05-thumb.webp",
+          "w": 1440,
+          "h": 900
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/third-personal-website/06.webp",
+          "alt": "Nature Explorer project page with an image carousel and project details",
+          "thumb": "assets/projects/third-personal-website/06-thumb.webp",
+          "w": 1440,
+          "h": 900
+        }
+      ],
+      "links": [
+        {
+          "label": "Live site",
+          "url": "https://jmagdev1.github.io/Personal_Website_3/"
+        },
+        {
+          "label": "Source on GitHub",
+          "url": "https://github.com/JMagDev1/Personal_Website_3"
+        },
+        {
+          "label": "2nd Personal Website",
+          "url": "projects/second-personal-website.html"
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "outrider-rc-car",
+      "title": "Outrider RC Car",
+      "type": "Robotics",
+      "badge": "ESP32",
+      "tech": [
+        "ESP32",
+        "Arduino (C++)",
+        "Custom PCB",
+        "OpenSCAD"
+      ],
+      "start": "2026",
+      "end": "",
+      "ongoing": true,
+      "dateLabel": "2026 – Present",
+      "status": "in-progress",
+      "featured": true,
+      "order": 0,
+      "summary": "My biggest build yet: a full RC vehicle designed end to end, from ESP32 firmware and a custom controller PCB to the chassis and its own branding. Driving, steering and lights already work. It isn't finished yet, but it will be soon.",
+      "highlights": [
+        {
+          "icon": "🎮",
+          "text": "Xbox Bluetooth Control"
+        },
+        {
+          "icon": "🔌",
+          "text": "Custom 190×140mm PCB"
+        },
+        {
+          "icon": "💡",
+          "text": "Full Lighting System"
+        }
+      ],
+      "about": "Outrider is a complete RC vehicle system that I'm building from the ground up, covering the firmware, the electronics, the physical design and the branding.\n\nAn ESP32 connects to an Xbox Series X controller over Bluetooth, drives the motor through a BTS7960 motor driver and steers with a servo. Motor control, steering and the lighting system are all working.\n\nThe project isn't complete yet, but it will be soon. This page will be updated as the final build comes together.",
+      "features": [
+        "ESP32 firmware that pairs with an Xbox Series X controller over Bluetooth",
+        "Motor control through a BTS7960 driver using ESP32-native LEDC PWM",
+        "Servo steering with a tuned joystick deadzone",
+        "Lighting system with headlights, hazards and turn indicators on the controller bumpers",
+        "Custom 190 × 140 mm controller PCB, fabricated by PCBWay",
+        "High-current external power switch: through-hole pads wired to a panel-mount slide switch on the +12 V rail",
+        "Parametric OpenSCAD tube-frame buggy chassis",
+        "Overlander-style body concept and \"Outrider\" stickers for the PCB panels"
+      ],
+      "challenges": "The BTS7960 library I started with only supported AVR boards, so I replaced it with ESP32-native LEDC PWM functions.\n\nThe steering initially went the wrong way. The Xbox controller library was returning joystick values as unsigned numbers instead of signed ones, so I fixed the conversion and corrected the steering direction. I also had to resolve GPIO pin conflicts on the ESP32.\n\nBefore ordering the PCB I reviewed the Gerber files and found an empty Edge_Cuts layer, which I fixed before submitting the order to PCBWay.",
+      "sections": [
+        {
+          "heading": "Chassis and body",
+          "body": "I analysed an existing 1/10 scale RC truck chassis (about 294 mm wheelbase) from its STL file, then generated a parametric tube-frame buggy chassis in OpenSCAD with rendered previews. The body is an overlander-style concept, drawn in SVG."
+        },
+        {
+          "heading": "Tuning notes",
+          "body": "Confirmed working values in the firmware: joyDeadzone = 200, centerPulse = 1200, maxOffset = 650, with the steering servo on GPIO 19."
+        }
+      ],
+      "milestones": [
+        {
+          "label": "Motor control and steering working",
+          "done": true
+        },
+        {
+          "label": "Lighting system: headlights, indicators and hazards",
+          "done": true
+        },
+        {
+          "label": "Custom controller PCB designed and fabricated",
+          "done": true
+        },
+        {
+          "label": "Chassis analysed and parametric chassis designed",
+          "done": true
+        },
+        {
+          "label": "Body concept and Outrider branding",
+          "done": true
+        },
+        {
+          "label": "Build the chassis and body",
+          "done": false
+        },
+        {
+          "label": "Final assembly and testing",
+          "done": false
+        }
+      ],
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/outrider-rc-car/01.webp",
+          "alt": "Illustration of the Outrider RC car (placeholder until build photos are added)",
+          "thumb": "assets/projects/outrider-rc-car/01-thumb.webp",
+          "w": 1600,
+          "h": 1000
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "filing-cabinet",
+      "title": "Filing Cabinet",
+      "type": "Manufacturing",
+      "tech": [],
+      "start": "2025-06",
+      "end": "2025-06",
+      "dateLabel": "June 2025",
+      "status": "completed",
+      "summary": "A filing cabinet built from 3/4\" birch plywood, with soft-close runners, a black stain and a chrome handle.",
+      "about": "Built from 3/4\" Birch Plywood to store all of my important documents. With a soft close drawer runner ensuring a premium feel. Couple that with a black stain and a chrome handle to match the rest of the furniture, suddenly a premium looking piece of furniture has been built.",
+      "features": [
+        "Soft-close runners",
+        "Large size"
+      ],
+      "challenges": "Ensuring a perfect 90 degree join for all of the corners, especially with basic equipment. Along with this, to keep the premium feel of the cabinet I needed to make sure there was an equal surround around all 4 sides of the drawer front. I used playing cards to achieve this.",
+      "learned": "An understanding of how to achieve a high-end finish on something that does not have to cost the earth. Sometimes a simpler solution can work just as well as a manufactured jig (playing cards).",
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "second-personal-website",
+      "title": "2nd Personal Website",
+      "type": "Coding",
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "start": "2024-02",
+      "end": "2025-10",
+      "status": "completed",
+      "summary": "My second portfolio website, made to tell visitors a bit about me and showcase my projects. The heading unscrambles itself with a \"hacker\" text effect when the page loads.",
+      "highlights": [
+        {
+          "icon": "💻",
+          "text": "Hacker Text Effect"
+        },
+        {
+          "icon": "🧭",
+          "text": "Single-page Layout"
+        },
+        {
+          "icon": "📋",
+          "text": "Projects Table"
+        }
+      ],
+      "about": "My second personal website. It introduces me as a Computer Science student at Ulster University (Magee) and showcases my projects.\n\nThe page scrolls through three sections: a landing page, About Me and Projects, each with its own navigation panel. The Projects section highlights JARVIS, the 2nd Google Home Page and Nature Explorer, and links to a full projects table with a page for every project.",
+      "features": [
+        "\"Hacker\" text effect that unscrambles the heading on load",
+        "Home, About and Projects sections with side navigation",
+        "Featured projects with short write-ups",
+        "Projects table showing year, type and language",
+        "A page for each project with images"
+      ],
+      "challenges": "I started adding a contact form protected by a CAPTCHA, but checking a CAPTCHA needs a web server and GitHub Pages only hosts static files, so I took the form out.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/second-personal-website/01.webp",
+          "alt": "Landing page with the welcome heading and an About Me link",
+          "thumb": "assets/projects/second-personal-website/01-thumb.webp",
+          "w": 1440,
+          "h": 900
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/second-personal-website/02.webp",
+          "alt": "About Me section beside the navigation panel",
+          "thumb": "assets/projects/second-personal-website/02-thumb.webp",
+          "w": 1440,
+          "h": 900
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/second-personal-website/03.webp",
+          "alt": "Projects section highlighting JARVIS, the 2nd Google Home Page and Nature Explorer",
+          "thumb": "assets/projects/second-personal-website/03-thumb.webp",
+          "w": 1440,
+          "h": 900
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/second-personal-website/04.webp",
+          "alt": "Projects table listing each project with its year, type and language",
+          "thumb": "assets/projects/second-personal-website/04-thumb.webp",
+          "w": 1440,
+          "h": 900
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/second-personal-website/05.webp",
+          "alt": "Iron Man Helmet project page with a photo and description",
+          "thumb": "assets/projects/second-personal-website/05-thumb.webp",
+          "w": 1440,
+          "h": 900
+        }
+      ],
+      "links": [
+        {
+          "label": "Live site",
+          "url": "https://jmagdev1.github.io/PersonalWebsiteV2/"
+        },
+        {
+          "label": "Source on GitHub",
+          "url": "https://github.com/JMagDev1/PersonalWebsiteV2"
+        },
+        {
+          "label": "1st Personal Website",
+          "url": "projects/first-personal-website.html"
+        },
+        {
+          "label": "3rd Personal Website",
+          "url": "projects/third-personal-website.html"
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "google-home-page-3",
+      "title": "Google Home Page 3",
+      "type": "Coding",
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "start": "2024-02",
+      "end": "2024-02",
+      "dateLabel": "February 2024",
+      "status": "completed",
+      "summary": "The third iteration of my Google homepage remake, showing how my web design and development skills evolved.",
+      "about": "The third iteration of my Google homepage remake. This version shows my evolution in web design and development skills, incorporating modern CSS techniques and improved JavaScript functionality.",
+      "features": [
+        "Search functionality",
+        "Modern CSS styling",
+        "Responsive layout",
+        "Clean interface"
+      ],
+      "challenges": "Creating a search interface that mimics Google while keeping the code simple was an interesting challenge in balancing functionality with simplicity.",
+      "learned": "Each iteration of this project demonstrated my growing understanding of web design principles, CSS animations, and user experience optimization.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/google-home-page-3/01.webp",
+          "alt": "Start page with a clock, greeting and shortcut buttons over a cloud background",
+          "thumb": "assets/projects/google-home-page-3/01-thumb.webp",
+          "w": 1600,
+          "h": 755
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/google-home-page-3/02.webp",
+          "alt": "The same page using a red-on-space colour preset",
+          "thumb": "assets/projects/google-home-page-3/02-thumb.webp",
+          "w": 1600,
+          "h": 760
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/google-home-page-3/03.webp",
+          "alt": "Settings bar for changing the page colours",
+          "thumb": "assets/projects/google-home-page-3/03-thumb.webp",
+          "w": 1600,
+          "h": 748
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/google-home-page-3/04.webp",
+          "alt": "Settings applied to a preset theme",
+          "thumb": "assets/projects/google-home-page-3/04-thumb.webp",
+          "w": 1600,
+          "h": 754
+        }
+      ],
+      "links": [
+        {
+          "label": "Live demo",
+          "url": "https://jmagdev1.github.io/GHP3/"
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "hyperdrive-havoc",
+      "title": "HyperDrive Havoc",
+      "type": "Coding",
+      "badge": "Unity",
+      "tech": [
+        "Unity",
+        "C#"
+      ],
+      "start": "2023-12",
+      "end": "2024-01",
+      "dateLabel": "December 2023 – January 2024",
+      "status": "completed",
+      "featured": true,
+      "order": 3,
+      "summary": "A Unity and C# game showcasing game development fundamentals: physics, collisions and game loop mechanics.",
+      "highlights": [
+        {
+          "icon": "🎮",
+          "text": "Unity Game"
+        },
+        {
+          "icon": "🏎️",
+          "text": "4 Playable Cars"
+        },
+        {
+          "icon": "🗺️",
+          "text": "6 Maps"
+        }
+      ],
+      "about": "A game developed using Unity and C#. HyperDrive Havoc is an action-packed game showcasing game development fundamentals including physics, collisions, and game loop mechanics.",
+      "features": [
+        "Physics-based gameplay",
+        "Collision detection",
+        "Game mechanics",
+        "Player controls",
+        "Enemy AI basics"
+      ],
+      "challenges": "Managing game complexity, physics interactions, and creating engaging gameplay mechanics were significant challenges. Optimization for smooth gameplay was also important.",
+      "learned": "Game development with Unity taught me about game loops, event-driven programming, and how to structure complex interactive applications. I learned about physics simulation and real-time rendering.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/hyperdrive-havoc/01.webp",
+          "alt": "HyperDrive Havoc title screen with a Play Game button",
+          "thumb": "assets/projects/hyperdrive-havoc/01-thumb.webp",
+          "w": 1600,
+          "h": 901
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/hyperdrive-havoc/02.webp",
+          "alt": "A car driving on a track in the game",
+          "thumb": "assets/projects/hyperdrive-havoc/02-thumb.webp",
+          "w": 1600,
+          "h": 902
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/hyperdrive-havoc/03.webp",
+          "alt": "Car selection screen with arrows to switch cars",
+          "thumb": "assets/projects/hyperdrive-havoc/03-thumb.webp",
+          "w": 1600,
+          "h": 904
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/hyperdrive-havoc/04.webp",
+          "alt": "Map selection menu with six maps",
+          "thumb": "assets/projects/hyperdrive-havoc/04-thumb.webp",
+          "w": 1600,
+          "h": 900
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/hyperdrive-havoc/05.webp",
+          "alt": "All four playable cars side by side",
+          "thumb": "assets/projects/hyperdrive-havoc/05-thumb.webp",
+          "w": 1600,
+          "h": 949
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/hyperdrive-havoc/06.webp",
+          "alt": "Silver muscle car with black stripes",
+          "thumb": "assets/projects/hyperdrive-havoc/06-thumb.webp",
+          "w": 685,
+          "h": 432
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/hyperdrive-havoc/07.webp",
+          "alt": "Blue muscle car with white stripes",
+          "thumb": "assets/projects/hyperdrive-havoc/07-thumb.webp",
+          "w": 727,
+          "h": 417
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/hyperdrive-havoc/08.webp",
+          "alt": "Red classic car with white stripes",
+          "thumb": "assets/projects/hyperdrive-havoc/08-thumb.webp",
+          "w": 732,
+          "h": 422
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/hyperdrive-havoc/09.webp",
+          "alt": "Silver drift car",
+          "thumb": "assets/projects/hyperdrive-havoc/09-thumb.webp",
+          "w": 620,
+          "h": 387
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "google-home-page-2",
+      "title": "2nd Google Home Page",
+      "type": "Coding",
+      "badge": "HTML/CSS",
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "start": "2023-12",
+      "end": "2023-12",
+      "dateLabel": "December 2023",
+      "status": "completed",
+      "summary": "A recreated Google homepage with modern design improvements. This was my first project with a \"client\" (a close friend), where I learned the importance of feedback and iterative design. The final version achieves the intended aesthetic while maintaining functionality.",
+      "highlights": [
+        {
+          "icon": "🎨",
+          "text": "Modern Design"
+        },
+        {
+          "icon": "👥",
+          "text": "Client Feedback"
+        },
+        {
+          "icon": "🔍",
+          "text": "Search Integration"
+        }
+      ],
+      "about": "My second Google homepage recreation, demonstrating improved understanding of semantic HTML and CSS layout techniques.\n\nThis was my first project with a \"client\" (a close friend), where I learned the importance of feedback and iterative design.",
+      "features": [
+        "Search bar",
+        "Google-like styling",
+        "Responsive design",
+        "Navigation links"
+      ],
+      "challenges": "Creating a visually similar design while maintaining clean, semantic HTML code.",
+      "learned": "This iteration improved my CSS skills and understanding of flexbox and grid layouts for creating professional-looking web pages.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/google-home-page-2/01.webp",
+          "alt": "Home page with a large clock, search bar and shortcut buttons over a night-sky background",
+          "thumb": "assets/projects/google-home-page-2/01-thumb.webp",
+          "w": 1600,
+          "h": 735
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/google-home-page-2/02.webp",
+          "alt": "The same home page with a different background image",
+          "thumb": "assets/projects/google-home-page-2/02-thumb.webp",
+          "w": 1600,
+          "h": 736
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/google-home-page-2/03.webp",
+          "alt": "Home page with a sunset landscape background",
+          "thumb": "assets/projects/google-home-page-2/03-thumb.webp",
+          "w": 1600,
+          "h": 735
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/google-home-page-2/04.webp",
+          "alt": "Home page with a purple mountain background",
+          "thumb": "assets/projects/google-home-page-2/04-thumb.webp",
+          "w": 1600,
+          "h": 733
+        }
+      ],
+      "links": [
+        {
+          "label": "Live demo",
+          "url": "https://jmagdev1.github.io/Google-Home/"
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "weather-web-app",
+      "title": "Weather Web App",
+      "type": "Coding",
+      "badge": "JavaScript/API",
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Weather API"
+      ],
+      "start": "2023-12",
+      "end": "2023-12",
+      "dateLabel": "December 2023",
+      "status": "completed",
+      "summary": "A real-time weather application that fetches current conditions and forecasts. Displays weather data with intuitive visuals and location-based services. Built to provide users with accurate and accessible weather information.",
+      "highlights": [
+        {
+          "icon": "🌡️",
+          "text": "Real-time Data"
+        },
+        {
+          "icon": "📍",
+          "text": "Location Based"
+        },
+        {
+          "icon": "📈",
+          "text": "Forecasts"
+        }
+      ],
+      "about": "An interactive weather application that displays current weather information and forecasts. Built with vanilla JavaScript and styled with modern CSS, this app demonstrates API integration and real-time data handling.",
+      "features": [
+        "Current weather display",
+        "Weather forecasting",
+        "Location-based data",
+        "Responsive interface",
+        "Real-time updates"
+      ],
+      "challenges": "The main challenges were working with external APIs, handling API errors gracefully, and creating an interface that clearly presents complex weather data. Managing asynchronous operations and error handling for network requests was important.",
+      "learned": "Building this app taught me about working with APIs, handling asynchronous requests, parsing JSON data, and creating interfaces that work with real-time information. I learned about weather data structures and presentation.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/weather-web-app/01.webp",
+          "alt": "Weather app showing current conditions and a forecast over a city background",
+          "thumb": "assets/projects/weather-web-app/01-thumb.webp",
+          "w": 1600,
+          "h": 760
+        }
+      ],
+      "links": [
+        {
+          "label": "Live demo",
+          "url": "https://jmagdev1.github.io/Weather-App/"
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "nature-explorer",
+      "title": "Nature Explorer",
+      "type": "Coding",
+      "badge": "Unity 3D",
+      "tech": [
+        "Unity",
+        "C#"
+      ],
+      "start": "2023-11",
+      "end": "2023-12",
+      "dateLabel": "November – December 2023",
+      "status": "completed",
+      "summary": "My first proper 3D game built with Unity. Features a medieval village and modern city environment with realistic horse and car movement mechanics. While I didn't create the assets, I programmed all movement logic and level design.",
+      "highlights": [
+        {
+          "icon": "🎮",
+          "text": "3D Game"
+        },
+        {
+          "icon": "🏞️",
+          "text": "Two Environments"
+        },
+        {
+          "icon": "🚗",
+          "text": "Vehicle Physics"
+        }
+      ],
+      "about": "My first proper 3D game built with Unity. It features a medieval village and a modern city environment, with realistic horse and car movement mechanics.\n\nWhile I didn't create the assets, I programmed all of the movement logic and did the level design.",
+      "features": [
+        "Medieval village environment",
+        "Modern city environment",
+        "Horse and car movement mechanics",
+        "Interactive exploration",
+        "Level design"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/nature-explorer/01.webp",
+          "alt": "Overview of the game world: a green landscape with a town and roads",
+          "thumb": "assets/projects/nature-explorer/01-thumb.webp",
+          "w": 845,
+          "h": 532
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/nature-explorer/02.webp",
+          "alt": "Aerial view of the modern city area with buildings and roads",
+          "thumb": "assets/projects/nature-explorer/02-thumb.webp",
+          "w": 873,
+          "h": 552
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/nature-explorer/03.webp",
+          "alt": "Aerial view of the medieval village surrounded by forest",
+          "thumb": "assets/projects/nature-explorer/03-thumb.webp",
+          "w": 795,
+          "h": 518
+        },
+        {
+          "type": "video",
+          "src": "assets/projects/nature-explorer/video-04.mp4",
+          "alt": "Driving a taxi through the city in the Unity editor",
+          "poster": "assets/projects/nature-explorer/video-04-poster.webp",
+          "w": 1280,
+          "h": 720
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "pirelli-f1-tyre",
+      "title": "Pirelli F1 Tyre",
+      "type": "Manufacturing",
+      "tech": [],
+      "start": "2023-07",
+      "end": "2023-08",
+      "dateLabel": "July – August 2023",
+      "status": "completed",
+      "summary": "A replica Pirelli Formula 1 tyre, focused on precision manufacturing, material selection and attention to detail.",
+      "about": "A manufacturing project focused on creating a replica Pirelli Formula 1 tire. This project demonstrates skills in precision manufacturing, material selection, and attention to detail in creating automotive components.",
+      "features": [
+        "Precision manufacturing",
+        "Material research",
+        "Scale modeling",
+        "Detail-oriented construction"
+      ],
+      "challenges": "Achieving the correct scale and detail while working with limited manufacturing equipment was challenging. Researching authentic tire specifications and selecting appropriate materials for the replica were key aspects of this project.",
+      "learned": "This project deepened my understanding of manufacturing processes, material properties, and the engineering challenges involved in creating automotive components. I learned about tire construction, rubber compounds, and the precision required in F1 engineering.",
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "finance-web-app",
+      "title": "Finance Web App",
+      "type": "Coding",
+      "badge": "JavaScript",
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "start": "2023-06",
+      "end": "2023-08",
+      "dateLabel": "June – August 2023",
+      "status": "completed",
+      "summary": "A comprehensive financial management tool for tracking expenses, savings goals, and bills. Features interactive UI with real-time calculations and visual progress indicators. Built to help users manage their personal finances effectively.",
+      "highlights": [
+        {
+          "icon": "💰",
+          "text": "Expense Tracking"
+        },
+        {
+          "icon": "🎯",
+          "text": "Savings Goals"
+        },
+        {
+          "icon": "📊",
+          "text": "Visual Analytics"
+        }
+      ],
+      "about": "A comprehensive personal finance tracker with multiple features for managing money. The app includes expense tracking, savings goals, bill management, and income/expense categorization. Built entirely with HTML, CSS, and JavaScript.",
+      "features": [
+        "Expense and income tracking with categories",
+        "Savings goal tracker with progress indicators",
+        "Monthly bill organizer",
+        "Transactional tables with sorting",
+        "Real-time calculations",
+        "Responsive data tables"
+      ],
+      "challenges": "The main challenge was managing data persistence without a backend database. At the time, I wanted to add backend functionality to save data permanently, but lacked the knowledge. This motivated me to learn backend technologies later. I also had to optimize table rendering for multiple simultaneous datasets.",
+      "learned": "This project deepened my understanding of DOM manipulation, data organization, and creating intuitive user interfaces. I learned how to structure complex applications with multiple interconnected features and manage user input effectively.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/finance-web-app/01.webp",
+          "alt": "The whole Finance Web App page with income, savings and bills panels",
+          "thumb": "assets/projects/finance-web-app/01-thumb.webp",
+          "w": 1600,
+          "h": 734
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/finance-web-app/02.webp",
+          "alt": "An expense added to the transactions table",
+          "thumb": "assets/projects/finance-web-app/02-thumb.webp",
+          "w": 1600,
+          "h": 738
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/finance-web-app/03.webp",
+          "alt": "Savings target of £100 with £25 saved",
+          "thumb": "assets/projects/finance-web-app/03-thumb.webp",
+          "w": 932,
+          "h": 276
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/finance-web-app/04.webp",
+          "alt": "Savings reduced to £15 after taking money out",
+          "thumb": "assets/projects/finance-web-app/04-thumb.webp",
+          "w": 938,
+          "h": 277
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/finance-web-app/05.webp",
+          "alt": "Prompt asking where a monthly bill is from",
+          "thumb": "assets/projects/finance-web-app/05-thumb.webp",
+          "w": 550,
+          "h": 202
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/finance-web-app/06.webp",
+          "alt": "A £250 electric bill added to monthly expenses",
+          "thumb": "assets/projects/finance-web-app/06-thumb.webp",
+          "w": 885,
+          "h": 263
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "calculator",
+      "title": "Calculator",
+      "type": "Coding",
+      "badge": "HTML/CSS/JS",
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "start": "2023-06",
+      "end": "2023-06",
+      "dateLabel": "June 2023",
+      "status": "completed",
+      "summary": "A functional calculator application with a clean interface. Supports basic arithmetic operations and demonstrates fundamental JavaScript logic and DOM manipulation.",
+      "highlights": [
+        {
+          "icon": "🧮",
+          "text": "Math Operations"
+        },
+        {
+          "icon": "💻",
+          "text": "Interactive UI"
+        },
+        {
+          "icon": "📱",
+          "text": "Responsive Design"
+        }
+      ],
+      "about": "A fully functional calculator built with vanilla JavaScript. This was my first project working with JavaScript logic and DOM manipulation. The calculator supports basic arithmetic operations and demonstrates event handling and state management.",
+      "features": [
+        "Basic arithmetic operations",
+        "Clear button",
+        "Real-time display",
+        "Responsive design"
+      ],
+      "challenges": "The main challenge was managing the calculator state and ensuring operations behaved correctly. I also learned the best practices for organizing JavaScript code with clear function separation.",
+      "learned": "Building this project taught me how to structure JavaScript code for user interactions, handle edge cases in calculations, and create a clean user interface. I learned the importance of proper input validation and error handling.",
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "first-personal-website",
+      "title": "1st Personal Website",
+      "type": "Coding",
+      "tech": [
+        "HTML",
+        "CSS"
+      ],
+      "start": "2023-05",
+      "end": "2023-06",
+      "dateLabel": "May – June 2023",
+      "status": "completed",
+      "summary": "My first personal website, marking the beginning of my web development journey.",
+      "about": "My first personal website project, marking the beginning of my web development journey. This basic website showcased my early understanding of HTML structure and CSS styling, serving as a foundation for my future web development projects.",
+      "features": [
+        "Basic HTML structure",
+        "CSS styling",
+        "Simple navigation",
+        "Personal branding"
+      ],
+      "challenges": "Creating a cohesive design from scratch without frameworks or templates was challenging. Learning to balance aesthetics with functionality and ensuring cross-browser compatibility were key learning points.",
+      "learned": "This project taught me the fundamentals of web development, including HTML semantics, CSS layout techniques, and the importance of responsive design. It was my introduction to creating digital content and presenting myself online.",
+      "links": [
+        {
+          "label": "Live site",
+          "url": "https://jmagdev1.github.io/JMagDev1OriginalWebsite/"
+        },
+        {
+          "label": "2nd Personal Website",
+          "url": "projects/second-personal-website.html"
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "autoclicker",
+      "title": "Autoclicker",
+      "type": "Coding",
+      "badge": "Automation",
+      "tech": [
+        "Python"
+      ],
+      "start": "2023",
+      "end": "2023",
+      "dateLabel": "2023",
+      "status": "completed",
+      "summary": "An automation tool designed to perform repetitive clicking tasks. Useful for testing and automating workflows. Demonstrates understanding of event simulation and timing concepts in programming.",
+      "highlights": [
+        {
+          "icon": "⚡",
+          "text": "Automation"
+        },
+        {
+          "icon": "⏱️",
+          "text": "Timing Control"
+        },
+        {
+          "icon": "🔄",
+          "text": "Repetitive Tasks"
+        }
+      ],
+      "about": "A Python automation tool that can automatically perform mouse clicks at specified intervals. This utility application demonstrates understanding of automation, timing, and the Python libraries for system control.",
+      "features": [
+        "Configurable click intervals",
+        "Multiple click patterns",
+        "Automation control",
+        "Easy configuration"
+      ],
+      "challenges": "Creating reliable automation while providing clear user controls required careful handling of timing and system events. Ensuring accuracy in automating user input was important.",
+      "learned": "Building this automation tool taught me about Python libraries for system access (pyautogui, etc.), threading for event handling, and creating utility applications. I learned about automation principles and user control.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/autoclicker/01.webp",
+          "alt": "The Python source code for the autoclicker using pyautogui and keyboard hotkeys",
+          "thumb": "assets/projects/autoclicker/01-thumb.webp",
+          "w": 727,
+          "h": 758
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "google-homepage",
+      "title": "Google Homepage",
+      "type": "Coding",
+      "tech": [
+        "HTML",
+        "CSS"
+      ],
+      "start": "2023",
+      "end": "2023",
+      "dateLabel": "2023",
+      "status": "completed",
+      "summary": "My first recreation of the Google homepage, built with HTML and CSS. It was the starting point for the later versions of this project.",
+      "links": [
+        {
+          "label": "Live demo",
+          "url": "https://jmagdev1.github.io/GHP_Original/"
+        },
+        {
+          "label": "2nd Google Home Page",
+          "url": "projects/google-home-page-2.html"
+        },
+        {
+          "label": "Google Home Page 3",
+          "url": "projects/google-home-page-3.html"
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "interests-form-jarvis",
+      "title": "Interests Form – Linked to JARVIS",
+      "type": "Coding",
+      "tech": [
+        "C#"
+      ],
+      "start": "2023",
+      "end": "2023",
+      "dateLabel": "2023",
+      "status": "completed",
+      "summary": "A C# form application that collects user interests and preferences for the JARVIS system.",
+      "about": "A form-based application built with C# that integrates with the JARVIS system. This application collects user interests and preferences for processing within the larger JARVIS ecosystem.",
+      "features": [
+        "User interest collection",
+        "Form validation",
+        "Data processing",
+        "JARVIS integration"
+      ],
+      "challenges": "Creating a seamless integration between the form and the JARVIS system required careful planning and data structure design.",
+      "learned": "This project taught me about form handling, data validation, and integration between different application components.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/interests-form-jarvis/01.webp",
+          "alt": "JARVIS logo",
+          "thumb": "assets/projects/interests-form-jarvis/01-thumb.webp",
+          "w": 1280,
+          "h": 640
+        }
+      ],
+      "links": [
+        {
+          "label": "JARVIS project",
+          "url": "projects/jarvis.html"
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "iron-man-helmet",
+      "title": "Iron Man Helmet",
+      "type": "Manufacturing",
+      "badge": "Manufacturing",
+      "tech": [],
+      "start": "2023",
+      "end": "2023",
+      "dateLabel": "2023",
+      "status": "completed",
+      "featured": true,
+      "order": 1,
+      "summary": "A creative hardware project where I designed and built a functional Iron Man helmet. This demonstrates hands-on engineering skills and creative problem-solving beyond pure software development.",
+      "highlights": [
+        {
+          "icon": "🛠️",
+          "text": "Hardware Design"
+        },
+        {
+          "icon": "🎨",
+          "text": "3D Engineering"
+        },
+        {
+          "icon": "⚙️",
+          "text": "Problem Solving"
+        }
+      ],
+      "about": "A physical Iron Man helmet replica project created through 3D design and manufacturing. This project demonstrates skills in design, modeling, and physical construction.",
+      "features": [
+        "3D design",
+        "Detailed replica",
+        "Structural engineering",
+        "Creative manufacturing"
+      ],
+      "challenges": "Translating the digital design into a wearable, safe replica required careful attention to proportions, structural integrity, and comfort. Material selection and durability were key concerns.",
+      "learned": "This project taught me about 3D design principles, materials selection, and the challenges of translating digital designs into physical objects. I learned about different manufacturing techniques and material properties.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/iron-man-helmet/01.webp",
+          "alt": "The finished red and gold Iron Man helmet from the side",
+          "thumb": "assets/projects/iron-man-helmet/01-thumb.webp",
+          "w": 1200,
+          "h": 1600
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/iron-man-helmet/02.webp",
+          "alt": "Front view of the helmet showing the gold faceplate",
+          "thumb": "assets/projects/iron-man-helmet/02-thumb.webp",
+          "w": 1218,
+          "h": 1600
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/iron-man-helmet/03.webp",
+          "alt": "Close-up of the helmet faceplate and eye slots",
+          "thumb": "assets/projects/iron-man-helmet/03-thumb.webp",
+          "w": 925,
+          "h": 1600
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "jarvis",
+      "title": "JARVIS",
+      "type": "Coding",
+      "badge": "Python",
+      "tech": [
+        "Python"
+      ],
+      "start": "2022",
+      "end": "2024",
+      "dateLabel": "2022 – 2024",
+      "status": "completed",
+      "featured": true,
+      "order": 2,
+      "summary": "An intelligent voice-controlled automation program built with Python. JARVIS can perform over 100 tasks including controlling music, opening applications, and managing web browsing. This was my first major programming undertaking when I taught myself Python.",
+      "highlights": [
+        {
+          "icon": "🎯",
+          "text": "100+ Tasks"
+        },
+        {
+          "icon": "🎤",
+          "text": "Voice Control"
+        },
+        {
+          "icon": "⚙️",
+          "text": "Automation"
+        }
+      ],
+      "about": "An intelligent voice-controlled automation program built with Python. JARVIS can perform over 100 tasks including controlling music, opening applications, and managing web browsing.\n\nThis was my first major programming undertaking when I taught myself Python.",
+      "features": [
+        "Over 100 voice-controlled tasks",
+        "Music control",
+        "Opening applications",
+        "Managing web browsing"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/jarvis/01.webp",
+          "alt": "JARVIS logo",
+          "thumb": "assets/projects/jarvis/01-thumb.webp",
+          "w": 1280,
+          "h": 640
+        }
+      ],
+      "links": [
+        {
+          "label": "Visit the JARVIS website",
+          "url": "https://jmagdev1.github.io/JARVISWebsite/"
+        },
+        {
+          "label": "Interests Form (linked to JARVIS)",
+          "url": "projects/interests-form-jarvis.html"
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "gcse-technology-and-design",
+      "title": "GCSE Technology and Design Coursework Project",
+      "type": "Manufacturing",
+      "tech": [],
+      "start": "2022-01",
+      "end": "2023-01",
+      "dateLabel": "Jan '22 – Jan '23",
+      "status": "completed",
+      "summary": "A year-long GCSE Technology and Design project: a handheld reaction timer for motorsport drivers and athletes, taken from concept through to a working prototype.",
+      "about": "A full year GCSE Technology and Design coursework project demonstrating comprehensive design and manufacturing skills. This project shows the entire design process from concept through testing.\n\nThe product is a handheld reaction timer shaped like a gaming controller, designed for motorsport drivers, athletes and gym users. Five LEDs light up and go out at a random time; the user presses a button as fast as they can and their reaction time is shown on an LCD screen to three decimal places. It runs on a 9 V battery inside a 3D-printed PLA case.",
+      "features": [
+        "Complete design process",
+        "Technical drawings",
+        "Manufacturing execution",
+        "Testing and evaluation"
+      ],
+      "challenges": "Managing a year-long project required planning, time management, and the ability to adapt designs based on practical constraints. Balancing aesthetic design with functional engineering was challenging.",
+      "learned": "This extensive project taught me about the complete design-to-manufacturing pipeline, problem-solving under constraints, resource management, and iterative improvement through testing and feedback.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/gcse-technology-and-design/01.webp",
+          "alt": "Top view of the grey controller-shaped reaction timer with five red LEDs and an LCD screen",
+          "thumb": "assets/projects/gcse-technology-and-design/01-thumb.webp",
+          "w": 1600,
+          "h": 1200
+        }
+      ],
+      "links": [
+        {
+          "label": "Coursework portfolio (PDF)",
+          "url": "assets/docs/tech-design-gcse-portfolio-2022-2023.pdf"
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "golf-score-card",
+      "title": "Golf Score Card",
+      "type": "Coding",
+      "badge": "C#",
+      "tech": [
+        "C#"
+      ],
+      "start": "2022",
+      "end": "2022",
+      "dateLabel": "2022",
+      "status": "completed",
+      "summary": "A digital scorecard application for golf enthusiasts. Tracks round scores, provides statistics, and helps golfers improve their game through data analysis and performance tracking.",
+      "highlights": [
+        {
+          "icon": "⛳",
+          "text": "Scorekeeping"
+        },
+        {
+          "icon": "📊",
+          "text": "Statistics"
+        },
+        {
+          "icon": "📈",
+          "text": "Performance Tracking"
+        }
+      ],
+      "about": "A golf scorecard application built with C#. This application helps golfers track their scores across multiple holes and provides scoring statistics.",
+      "features": [
+        "Score tracking",
+        "Hole-by-hole scoring",
+        "Statistics calculation",
+        "Score storage"
+      ],
+      "challenges": "Building a user-friendly interface for score entry while ensuring data accuracy was the primary focus of this project.",
+      "learned": "This project introduced me to desktop application development with C# and taught me about data management and calculation logic in a structured environment.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/golf-score-card/01.webp",
+          "alt": "New round form with holes 1 to 18, yards, par, stroke index and score columns",
+          "thumb": "assets/projects/golf-score-card/01-thumb.webp",
+          "w": 1033,
+          "h": 467
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/golf-score-card/02.webp",
+          "alt": "Saved round summary listing the result for every hole",
+          "thumb": "assets/projects/golf-score-card/02-thumb.webp",
+          "w": 1028,
+          "h": 482
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/golf-score-card/03.webp",
+          "alt": "A completed scorecard with scores filled in",
+          "thumb": "assets/projects/golf-score-card/03-thumb.webp",
+          "w": 1020,
+          "h": 451
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/golf-score-card/04.webp",
+          "alt": "Confirmation message: Your round has been saved!",
+          "thumb": "assets/projects/golf-score-card/04-thumb.webp",
+          "w": 227,
+          "h": 186
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "marvel-movies",
+      "title": "Marvel Movies Project",
+      "type": "Coding",
+      "tech": [
+        "C#"
+      ],
+      "start": "2022",
+      "end": "2022",
+      "dateLabel": "2022",
+      "status": "completed",
+      "summary": "A C# application for browsing Marvel movies in timeline order or by phase.",
+      "about": "A C# application for managing and organizing information about Marvel movies. This project demonstrates data management and application structure with a focus on movie cataloging.",
+      "features": [
+        "Movie database",
+        "Information organization",
+        "Search functionality",
+        "Data management"
+      ],
+      "challenges": "Organizing large datasets and creating an intuitive interface for browsing and searching were the main challenges.",
+      "learned": "Building this application taught me about structuring data, creating organized systems, and managing collections of information in code.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/marvel-movies/01.webp",
+          "alt": "Main menu with \"Movies in Timeline Order\" and \"Movies in Phases\" options",
+          "thumb": "assets/projects/marvel-movies/01-thumb.webp",
+          "w": 787,
+          "h": 485
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/marvel-movies/02.webp",
+          "alt": "Grid of every Marvel film in timeline order",
+          "thumb": "assets/projects/marvel-movies/02-thumb.webp",
+          "w": 1091,
+          "h": 485
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/marvel-movies/03.webp",
+          "alt": "Film synopsis for Captain America: The First Avenger",
+          "thumb": "assets/projects/marvel-movies/03-thumb.webp",
+          "w": 791,
+          "h": 360
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/marvel-movies/04.webp",
+          "alt": "Menu for choosing Phase One to Phase Four",
+          "thumb": "assets/projects/marvel-movies/04-thumb.webp",
+          "w": 773,
+          "h": 447
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/marvel-movies/05.webp",
+          "alt": "The films in Phase Three",
+          "thumb": "assets/projects/marvel-movies/05-thumb.webp",
+          "w": 782,
+          "h": 446
+        }
+      ],
+      "updated": "2026-10-22"
+    },
+    {
+      "slug": "ski-trip-organiser",
+      "title": "Ski Trip Organiser – GCSE Digital Technology",
+      "type": "Coding",
+      "tech": [
+        "C#"
+      ],
+      "start": "2021",
+      "end": "2022",
+      "dateLabel": "2021 – 2022",
+      "status": "completed",
+      "summary": "GCSE Digital Technology coursework: a C# program that helps a teacher assign pupils on a school ski trip to the right ski group.",
+      "about": "A coursework project for GCSE Digital Technology that demonstrates the ability to create a functional application addressing a real-world problem.\n\nThe brief was a school ski trip: the organiser needed a way to assign each pupil to a beginner, intermediate or advanced group, based on their dry ski slope times and a quiz on ski safety.",
+      "features": [
+        "Staff login screen",
+        "Adding pupil details",
+        "Ski safety quiz",
+        "Recording five ski slope times for each pupil",
+        "Average time and group level for each pupil",
+        "Reports: student list, quiz scores and group levels"
+      ],
+      "challenges": "The main challenge was understanding and implementing user requirements while maintaining clean code structure. Creating a system that was both powerful and user-friendly required careful planning.",
+      "learned": "This GCSE coursework project taught me how to approach a problem systematically, design solutions, implement them in code, and test thoroughly. I learned about user requirements and designing software to meet specific needs.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/ski-trip-organiser/01.webp",
+          "alt": "Staff login screen over a northern lights background",
+          "thumb": "assets/projects/ski-trip-organiser/01-thumb.webp",
+          "w": 987,
+          "h": 578
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/ski-trip-organiser/02.webp",
+          "alt": "Login success and incorrect password messages",
+          "thumb": "assets/projects/ski-trip-organiser/02-thumb.webp",
+          "w": 750,
+          "h": 795
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/ski-trip-organiser/03.webp",
+          "alt": "Main menu: Add Pupil, Reports, Log Out, Add Times and Quiz",
+          "thumb": "assets/projects/ski-trip-organiser/03-thumb.webp",
+          "w": 992,
+          "h": 588
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/ski-trip-organiser/04.webp",
+          "alt": "Form for adding a pupil's details",
+          "thumb": "assets/projects/ski-trip-organiser/04-thumb.webp",
+          "w": 987,
+          "h": 585
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/ski-trip-organiser/05.webp",
+          "alt": "Form for entering five ski times for a pupil",
+          "thumb": "assets/projects/ski-trip-organiser/05-thumb.webp",
+          "w": 983,
+          "h": 585
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/ski-trip-organiser/06.webp",
+          "alt": "Ski safety quiz question about clothing",
+          "thumb": "assets/projects/ski-trip-organiser/06-thumb.webp",
+          "w": 991,
+          "h": 587
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/ski-trip-organiser/07.webp",
+          "alt": "Report showing average times and group levels",
+          "thumb": "assets/projects/ski-trip-organiser/07-thumb.webp",
+          "w": 985,
+          "h": 590
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/ski-trip-organiser/08.webp",
+          "alt": "Report showing quiz scores",
+          "thumb": "assets/projects/ski-trip-organiser/08-thumb.webp",
+          "w": 987,
+          "h": 598
+        },
+        {
+          "type": "image",
+          "src": "assets/projects/ski-trip-organiser/09.webp",
+          "alt": "Report listing pupils with class and parent name",
+          "thumb": "assets/projects/ski-trip-organiser/09-thumb.webp",
+          "w": 985,
+          "h": 595
+        }
+      ],
+      "links": [
+        {
+          "label": "Coursework brief (PDF)",
+          "url": "assets/docs/digital-tech-ski-trip-brief.pdf"
+        }
+      ],
+      "updated": "2026-10-22"
+    }
+  ]
+}
