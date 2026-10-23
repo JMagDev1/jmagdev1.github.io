@@ -9,6 +9,47 @@
   ],
   "projects": [
     {
+      "slug": "brake-disc-light",
+      "title": "Brake Disc Light",
+      "type": "Manufacturing",
+      "tech": [],
+      "start": "2026-09",
+      "end": "2026-09",
+      "status": "completed",
+      "featured": true,
+      "order": 4,
+      "summary": "Using an old brake disc taken from my car and turned it into a working light.",
+      "highlights": [
+        {
+          "icon": "",
+          "text": "3D printed stand"
+        },
+        {
+          "icon": "",
+          "text": "Real Brake Disc"
+        }
+      ],
+      "about": "I used an old brake disc fron my car and using an LED strip turned it into a multicolour light.",
+      "features": [
+        "Real Brake Disc",
+        "3D printed stand",
+        "LED strip lights"
+      ],
+      "challenges": "One struggle i faced was getting the brake disc to sit upright without closing it in. Due to its centre of gravity it would tip forward.",
+      "learned": "By angling the brake disc at 5 degrees it allows it to sit sturdy and still be a statement piece without it being a safety concern.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/projects/brake-disc-light/mvkve2po-1.webp",
+          "alt": "Brake Disc Light",
+          "thumb": "assets/projects/brake-disc-light/mvkve2po-1-thumb.webp",
+          "w": 1200,
+          "h": 1600
+        }
+      ],
+      "updated": "2026-10-23"
+    },
+    {
       "slug": "third-personal-website",
       "title": "3rd Personal Website",
       "type": "Coding",
