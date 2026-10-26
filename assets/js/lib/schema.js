@@ -135,3 +135,19 @@ export function normalizeData(raw) {
   const assetVersion = /^[a-z0-9]{1,16}$/.test(raw?.assetVersion || '') ? raw.assetVersion : '1';
   return { data: { version: 1, assetVersion, types, projects }, errors };
 }
+
+/**
+ * Plain-English problem with an image description, or '' if it's fine.
+ * Used by the admin editor so every new image gets real alt text.
+ */
+export function altTextProblem(alt, title = '') {
+  const a = String(alt || '').trim();
+  if (!a) return 'needs a description (alt text) so screen reader users know what it shows.';
+  if (/\.(jpe?g|png|webp|gif|heic|avif|bmp)$/i.test(a) || /^(img|dsc|pxl|mvimg|screenshot|screen shot|photo|image|wp|vid|picture)[\s_-]*\d/i.test(a) || /^\d{6,}/.test(a)) {
+    return 'description looks like a file name. Describe what the picture shows instead.';
+  }
+  const norm = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  if (title && norm(a) === norm(title)) return 'description just repeats the project title. Describe what the picture shows.';
+  if (a.length < 4) return 'description is too short to be useful.';
+  return '';
+}

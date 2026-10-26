@@ -2,17 +2,21 @@
 // dashed bars mean only the year is known. Drag or scroll sideways to explore.
 
 import { projectSpan, dateLabel, typeKey, STATUSES } from './util.js';
-import { el, clear, debounce } from './dom.js';
+import { el, clear, debounce, svgIcon, prefersReducedMotion } from './dom.js';
 
 const PAD = 24;
-const LANE_H = 38;
 const GAP = 10;
 
+// Sizes scale with the visitor's browser text size (rem), so bigger text
+// never overlaps or gets clipped.
+const remPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
 let measureCtx;
-function textWidth(text) {
+function textWidth(text, label) {
   measureCtx ||= document.createElement('canvas').getContext('2d');
-  measureCtx.font = '600 12.5px Poppins, system-ui, sans-serif';
-  return measureCtx.measureText(text).width;
+  const cs = label ? getComputedStyle(label) : null;
+  measureCtx.font = cs ? `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}` : `600 ${0.78 * remPx()}px Poppins, system-ui, sans-serif`;
+  const spacing = cs && cs.letterSpacing !== 'normal' ? parseFloat(cs.letterSpacing) * text.length : 0;
+  return measureCtx.measureText(text).width + spacing;
 }
 
 /**
@@ -27,9 +31,41 @@ export function createTimeline(host, projects, { hrefFor, now = new Date() } = {
   const inner = el('div', { class: 'timeline' });
   const legend = el('div', { class: 'timeline-legend' });
   const tooltip = el('div', { class: 'tooltip', role: 'presentation', 'aria-hidden': 'true' });
+  // Buttons as an alternative to dragging (WCAG 2.5.7) and for keyboard users.
+  const scrollBy = (dir) => scroller.scrollBy({ left: dir * scroller.clientWidth * 0.8, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  const earlier = el('button', { class: 'btn btn-ghost btn-sm', type: 'button', onclick: () => scrollBy(-1) }, [svgIcon('back'), 'Earlier']);
+  const later = el('button', { class: 'btn btn-ghost btn-sm', type: 'button', onclick: () => scrollBy(1) }, ['Later', svgIcon('arrow')]);
+  const nav = el('div', { class: 'timeline-nav', role: 'group', 'aria-label': 'Scroll the timeline' }, [earlier, later]);
+  const syncNav = () => {
+    nav.hidden = scroller.scrollWidth <= scroller.clientWidth + 2; // nothing to scroll
+    earlier.disabled = scroller.scrollLeft <= 2;
+    later.disabled = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 2;
+  };
+  scroller.addEventListener('scroll', debounce(syncNav, 60), { passive: true });
   scroller.append(inner);
-  host.append(scroller, legend);
+  host.append(nav, scroller, legend);
   document.body.append(tooltip);
+
+  // Tooltip: stays while hovered (so it can be read or zoomed) and Esc hides it (WCAG 1.4.13).
+  let hideTimer = 0;
+  let anchor = null;
+  const hideTip = () => { clearTimeout(hideTimer); anchor = null; tooltip.classList.remove('is-visible'); };
+  // The tooltip is fixed to the screen, so keep it next to its bar while the page or timeline scrolls.
+  const placeTip = () => {
+    if (!anchor) return;
+    const r = anchor.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) { hideTip(); return; }
+    const tw = tooltip.offsetWidth;
+    const th = tooltip.offsetHeight;
+    tooltip.style.left = `${Math.min(Math.max(8, r.left), window.innerWidth - tw - 8)}px`;
+    tooltip.style.top = `${r.top - th - 10 >= 8 ? r.top - th - 10 : r.bottom + 10}px`;
+  };
+  window.addEventListener('scroll', placeTip, { passive: true });
+  scroller.addEventListener('scroll', placeTip, { passive: true });
+  const hideSoon = () => { clearTimeout(hideTimer); hideTimer = setTimeout(hideTip, 250); };
+  tooltip.addEventListener('pointerenter', () => clearTimeout(hideTimer));
+  tooltip.addEventListener('pointerleave', hideSoon);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && tooltip.classList.contains('is-visible')) hideTip(); });
 
   let current = projects;
   let highlighted = null;
@@ -43,7 +79,9 @@ export function createTimeline(host, projects, { hrefFor, now = new Date() } = {
 
   function render() {
     clear(inner);
-    tooltip.classList.remove('is-visible');
+    hideTip();
+    const rem = remPx() / 16;
+    const LANE_H = Math.round(38 * Math.max(1, rem));
     const list = current.filter((p) => projectSpan(p, now));
     if (!list.length) {
       inner.append(el('p', { class: 'empty-state', text: 'No projects in this range.' }));
@@ -51,7 +89,12 @@ export function createTimeline(host, projects, { hrefFor, now = new Date() } = {
     }
     const b = bounds(list);
     const months = b.max - b.min + 1;
-    const width = Math.max(scroller.clientWidth || 0, 1100);
+    // A hidden sample label tells us the real font, size and spacing in use.
+    const sampleLabel = el('span', { class: 'tl-label', 'aria-hidden': 'true' });
+    sampleLabel.style.visibility = 'hidden';
+    sampleLabel.style.position = 'absolute';
+    inner.append(sampleLabel);
+    const width = Math.max(scroller.clientWidth || 0, Math.round(1100 * Math.max(1, rem)));
     inner.style.width = `${width}px`;
     const ppm = (width - PAD * 2) / months;
     const x = (m) => PAD + (m - b.min) * ppm;
@@ -76,7 +119,7 @@ export function createTimeline(host, projects, { hrefFor, now = new Date() } = {
       const s = projectSpan(p, now);
       const barLeft = x(s.start);
       const barW = Math.max(ppm * (s.end - s.start + 1), 14);
-      const labelW = Math.ceil(textWidth(p.title)) + 6;
+      const labelW = Math.ceil(textWidth(p.title, sampleLabel)) + 6;
       const inside = barW >= labelW + 24;
       // Put the label on the left of the bar if it would run off the right edge.
       const flip = !inside && barLeft + barW + 8 + labelW > width - 4;
@@ -100,28 +143,30 @@ export function createTimeline(host, projects, { hrefFor, now = new Date() } = {
       const a = el('a', {
         class: `timeline-item${s.approx ? ' is-approx' : ''}${p.ongoing ? ' is-ongoing' : ''}${it.flip ? ' is-flipped' : ''}`,
         href: hrefFor(p), 'data-type': typeKey(p.type), 'data-slug': p.slug,
-        'aria-label': `${p.title}, ${p.type}, ${dateLabel(p)}`,
+        'aria-label': `${p.title}, ${p.type}, ${dateLabel(p)}${p.status !== 'completed' ? `, ${STATUSES[p.status] || ''}` : ''}`,
       }, [bar, it.inside ? null : el('span', { class: 'tl-label', 'aria-hidden': 'true', text: p.title })]);
       a.style.left = `${it.left}px`;
       a.style.top = `${it.lane * LANE_H}px`;
+      a.style.height = `${LANE_H - 8}px`;
       a.style.width = `${Math.ceil(it.w)}px`;
       const show = () => {
+        clearTimeout(hideTimer);
         clear(tooltip).append(el('strong', { text: p.title }), el('span', { text: `${p.type} · ${dateLabel(p)}${p.status !== 'completed' ? ` · ${STATUSES[p.status]}` : ''}` }));
-        const r = a.getBoundingClientRect();
+        anchor = a;
         tooltip.classList.add('is-visible');
-        const tw = tooltip.offsetWidth;
-        tooltip.style.left = `${Math.min(Math.max(8, r.left), window.innerWidth - tw - 8)}px`;
-        tooltip.style.top = `${Math.max(8, r.top - tooltip.offsetHeight - 10)}px`;
+        placeTip();
       };
-      const hide = () => tooltip.classList.remove('is-visible');
-      a.addEventListener('mouseenter', show);
+      // Pointer events on both the bar and the tooltip, so their enter/leave order is reliable.
+      a.addEventListener('pointerenter', show);
       a.addEventListener('focus', show);
-      a.addEventListener('mouseleave', hide);
-      a.addEventListener('blur', hide);
+      a.addEventListener('pointerleave', hideSoon);
+      a.addEventListener('blur', hideTip);
       lanes.append(a);
     }
+    sampleLabel.remove();
     inner.append(years, grid, lanes);
     applyHighlight();
+    requestAnimationFrame(syncNav);
   }
 
   function renderLegend() {
@@ -164,7 +209,7 @@ export function createTimeline(host, projects, { hrefFor, now = new Date() } = {
   renderLegend();
   render();
   // Start scrolled to the most recent work.
-  requestAnimationFrame(() => { scroller.scrollLeft = scroller.scrollWidth; });
+  requestAnimationFrame(() => { scroller.scrollLeft = scroller.scrollWidth; syncNav(); });
 
   return {
     update(list) { current = list; render(); },

@@ -52,7 +52,21 @@ export function clear(node) {
   return node;
 }
 
-export const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* ---------- Motion ----------
+ * Animations follow the device's "reduce motion" setting. Visitors can also
+ * turn animations off for this site only (the <html> element then has the
+ * class "reduce-motion"); they can never be forced back on over the device. */
+let motionQuery;
+const mq = () => (motionQuery ||= window.matchMedia('(prefers-reduced-motion: reduce)'));
+export const deviceReducesMotion = () => mq().matches;
+export const prefersReducedMotion = () => mq().matches || document.documentElement.classList.contains('reduce-motion');
+
+/** Call `fn(reduced)` whenever the effective motion preference changes. */
+export function onMotionChange(fn) {
+  const run = () => fn(prefersReducedMotion());
+  mq().addEventListener?.('change', run);
+  document.addEventListener('motionchange', run);
+}
 
 export function debounce(fn, ms = 150) {
   let t;

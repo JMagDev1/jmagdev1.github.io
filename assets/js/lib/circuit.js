@@ -1,7 +1,8 @@
 // Animated "circuit board" behind the hero. Traces light up near the cursor,
 // signal pulses travel along them, and clicking fires a burst of pulses.
 // Pauses when off-screen or when the tab is hidden; static if the visitor
-// prefers reduced motion.
+// prefers reduced motion (or turns animations off in the display settings).
+// Returns { setReduced(bool) } so the setting can change without a reload.
 
 const GRID = 30;
 const DIRS = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]];
@@ -154,9 +155,15 @@ export function initCircuit(canvas, { interactiveArea = canvas.parentElement, re
   }
   function stop() { running = false; cancelAnimationFrame(raf); }
 
+  function drawStill() {
+    pulses = [];
+    traces.forEach((tr) => { tr.glow = 0; });
+    draw(0);
+  }
+
   readColors();
   build();
-  if (reduced) draw(0); else start();
+  if (reduced) drawStill(); else start();
 
   interactiveArea.addEventListener('pointermove', (e) => {
     const r = canvas.getBoundingClientRect();
@@ -171,8 +178,16 @@ export function initCircuit(canvas, { interactiveArea = canvas.parentElement, re
   });
 
   let resizeT;
-  new ResizeObserver(() => { clearTimeout(resizeT); resizeT = setTimeout(() => { build(); if (reduced) draw(0); }, 150); }).observe(canvas);
-  new MutationObserver(() => { readColors(); if (reduced) draw(0); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  new ResizeObserver(() => { clearTimeout(resizeT); resizeT = setTimeout(() => { build(); if (reduced) drawStill(); }, 150); }).observe(canvas);
+  // Colours follow the theme, including the device switching light/dark.
+  document.addEventListener('themechange', () => { readColors(); if (reduced) drawStill(); });
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; if (visible) start(); else stop(); }).observe(canvas);
   document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
+
+  return {
+    setReduced(value) {
+      reduced = Boolean(value);
+      if (reduced) { stop(); drawStill(); } else start();
+    },
+  };
 }

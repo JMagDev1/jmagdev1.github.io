@@ -26,6 +26,20 @@ const rangeFill = document.querySelector('[data-range-fill]');
 const histogram = document.querySelector('[data-histogram]');
 const rangeScale = document.querySelector('[data-range-scale]');
 const viewButtons = [...document.querySelectorAll('[data-view]')];
+// Screen readers hear the result count once typing pauses, not on every key.
+const liveEl = document.createElement('p');
+liveEl.className = 'sr-only';
+liveEl.setAttribute('aria-live', 'polite');
+liveEl.setAttribute('aria-atomic', 'true');
+countEl?.after(liveEl);
+countEl?.removeAttribute('aria-live');
+let announceTimer = 0;
+let quiet = true; // nothing is announced for the first render on page load
+function announce(text) {
+  if (quiet) { quiet = false; return; }
+  clearTimeout(announceTimer);
+  announceTimer = setTimeout(() => { liveEl.textContent = text; }, 700);
+}
 
 const state = { q: '', types: new Set(), status: '', tech: '', from: 0, to: 0, sort: 'newest', view: 'grid' };
 let all = [];
@@ -93,7 +107,9 @@ function buildTypeChips() {
     typeHost.append(el('button', {
       class: 'chip', type: 'button', 'data-type': typeKey(t), 'data-type-name': t, 'aria-pressed': String(state.types.has(t)),
       onclick: () => { if (state.types.has(t)) state.types.delete(t); else state.types.add(t); update(); },
-    }, [el('span', { class: 'chip-dot', 'aria-hidden': 'true' }), t, el('span', { class: 'chip-count', text: String(n) })]));
+    }, [el('span', { class: 'chip-dot', 'aria-hidden': 'true' }), t,
+      el('span', { class: 'chip-count', 'aria-hidden': 'true', text: String(n) }),
+      el('span', { class: 'sr-only', text: `, ${n} project${n === 1 ? '' : 's'}` })]));
   }
 }
 
@@ -162,11 +178,14 @@ function renderTable(list) {
 }
 
 function resetFilters() {
+  // If the button that was pressed is about to disappear, keep focus somewhere sensible.
+  const lostFocus = document.activeElement?.closest('[data-results]');
   state.q = ''; state.types.clear(); state.status = ''; state.tech = '';
   state.from = minYear; state.to = maxYear;
   searchInput.value = ''; statusSelect.value = ''; techSelect.value = '';
   fromInput.value = String(minYear); toInput.value = String(maxYear);
   update();
+  if (lostFocus) searchInput.focus();
 }
 
 function update() {
@@ -177,6 +196,7 @@ function update() {
 
   const list = sorted(all.filter((p) => matches(p)));
   clear(countEl).append('Showing ', el('strong', { text: String(list.length) }), ` of ${all.length} projects`);
+  announce(list.length ? `Showing ${list.length} of ${all.length} projects` : 'No projects match those filters');
 
   if (!list.length) {
     timeline = null;

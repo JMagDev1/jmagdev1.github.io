@@ -1,46 +1,74 @@
 import {
-  loadData, projectCard, projectUrl, reveal, showLoadError, url,
+  loadData, projectCard, projectUrl, reveal, showLoadError, url, setReduceMotion,
 } from './site.js';
-import { el, svgIcon, clear, prefersReducedMotion } from './lib/dom.js';
+import {
+  el, svgIcon, clear, prefersReducedMotion, deviceReducesMotion, onMotionChange,
+} from './lib/dom.js';
 import { initCircuit } from './lib/circuit.js';
 import { createTimeline } from './lib/timeline.js';
 import {
   typeKey, coverOf, milestoneProgress, safeAssetPath, SITE,
 } from './lib/util.js';
 
-const reduced = prefersReducedMotion();
+// Animations follow the device's reduce-motion setting and the site's own
+// "Reduce animations" / "Pause animations" controls, and react live.
+let reduced = prefersReducedMotion();
 
 /* ---------- Hero ---------- */
 const canvas = document.querySelector('[data-circuit]');
-if (canvas) initCircuit(canvas, { interactiveArea: canvas.closest('section'), reduced });
+const circuit = canvas ? initCircuit(canvas, { interactiveArea: canvas.closest('section'), reduced }) : null;
 
 function initRoles() {
   const host = document.querySelector('[data-roles]');
-  if (!host || reduced) return;
+  if (!host) return { update() {} };
   const roles = (host.dataset.roles || '').split('|').map((r) => r.trim()).filter(Boolean);
-  if (!roles.length) return;
   const visible = host.querySelector('[data-roles-visible]');
-  const typed = el('span', { class: 'role-type' });
-  clear(visible).append(typed, el('span', { class: 'role-caret' }));
-  let i = 0; let n = 0; let deleting = false;
-  const step = () => {
-    const word = roles[i];
-    n += deleting ? -1 : 1;
-    typed.textContent = word.slice(0, n);
-    let delay = deleting ? 32 : 62;
-    if (!deleting && n === word.length) { deleting = true; delay = 1700; }
-    else if (deleting && n === 0) { deleting = false; i = (i + 1) % roles.length; delay = 350; }
-    setTimeout(step, delay);
+  const still = visible.textContent;
+  let timer = 0;
+  const stopTyping = () => { clearTimeout(timer); timer = 0; visible.textContent = still; };
+  const startTyping = () => {
+    if (timer || !roles.length) return;
+    const typed = el('span', { class: 'role-type' });
+    clear(visible).append(typed, el('span', { class: 'role-caret' }));
+    let i = 0; let n = 0; let deleting = false;
+    const step = () => {
+      const word = roles[i];
+      n += deleting ? -1 : 1;
+      typed.textContent = word.slice(0, n);
+      let delay = deleting ? 32 : 62;
+      if (!deleting && n === word.length) { deleting = true; delay = 1700; }
+      else if (deleting && n === 0) { deleting = false; i = (i + 1) % roles.length; delay = 350; }
+      timer = setTimeout(step, delay);
+    };
+    step();
   };
-  step();
+  const update = () => (reduced ? stopTyping() : startTyping());
+  update();
+  return { update };
+}
+
+/** "Pause animations" button in the hero (WCAG 2.2.2: moving content can be paused). */
+function initMotionToggle() {
+  const btn = document.querySelector('[data-motion-toggle]');
+  if (!btn) return;
+  const label = btn.querySelector('[data-motion-label]');
+  const paint = () => {
+    // Nothing moves if the device already asks for reduced motion, so no button is needed.
+    btn.hidden = deviceReducesMotion();
+    label.textContent = reduced ? 'Play animations' : 'Pause animations';
+    btn.replaceChild(svgIcon(reduced ? 'play' : 'pause'), btn.querySelector('svg'));
+  };
+  btn.addEventListener('click', () => setReduceMotion(!reduced));
+  paint();
+  return paint;
 }
 
 function initOrbit(onPick) {
   const orbit = document.querySelector('[data-orbit]');
-  if (!orbit) return;
+  if (!orbit) return () => {};
   const chips = [...orbit.querySelectorAll('.orbit-chip')];
   chips.forEach((c) => c.addEventListener('click', () => onPick(c.dataset.filter, c)));
-  const small = window.matchMedia('(max-width: 520px)');
+  const small = window.matchMedia('(max-width: 32.5em)');
   // Only spin for mouse users (hovering pauses it); touch screens get a still ring of chips.
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   let angle = -Math.PI / 2;
@@ -80,6 +108,7 @@ function initOrbit(onPick) {
     if (!e.isIntersecting) { cancelAnimationFrame(raf); running = false; } else if (!running) mode();
   }).observe(orbit);
   mode();
+  return mode;
 }
 
 /* ---------- Stats ---------- */
@@ -106,6 +135,8 @@ function renderStats(projects) {
     active: projects.filter((p) => p.status !== 'completed').length,
   };
   const nodes = host.querySelectorAll('[data-stat]');
+  // Screen readers get the final numbers straight away; only the visual copy counts up.
+  host.querySelectorAll('[data-stat-text]').forEach((n) => { n.textContent = String(values[n.dataset.statText] ?? 0); });
   const io = new IntersectionObserver((entries) => {
     if (!entries.some((e) => e.isIntersecting)) return;
     io.disconnect();
@@ -133,12 +164,15 @@ function renderSpotlight(projects) {
         : el('div', { class: 'cover-art', 'data-type': typeKey(p.type), 'aria-hidden': 'true' }, [el('span', { text: p.title[0] })]),
     ]),
     el('div', { class: 'spotlight-body' }, [
-      el('span', { class: 'live-dot', text: 'Currently building' }),
+      el('p', { class: 'live-dot', text: 'Currently building' }),
       el('h3', { text: p.title }),
       el('p', { text: p.summary }),
       prog ? el('div', { class: 'progress' }, [
         el('div', { class: 'progress-top' }, [el('span', { text: 'Build progress' }), el('span', { text: `${prog.done} of ${prog.total} milestones` })]),
-        el('div', { class: 'progress-bar', role: 'progressbar', 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': String(prog.pct), 'aria-label': 'Build progress' }, [bar]),
+        el('div', {
+          class: 'progress-bar', role: 'progressbar', 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': String(prog.pct),
+          'aria-valuetext': `${prog.pct}%, ${prog.done} of ${prog.total} milestones done`, 'aria-label': 'Build progress',
+        }, [bar]),
       ]) : null,
       prog ? el('ul', { class: 'mini-milestones' }, p.milestones.map((m) => el('li', { class: m.done ? 'is-done' : '' }, [
         el('span', { class: 'tick', 'aria-hidden': 'true' }, m.done ? [svgIcon('check')] : []),
@@ -181,7 +215,9 @@ function renderFeatured(projects) {
   const chip = (label, type, count) => el('button', {
     class: 'chip', type: 'button', 'aria-pressed': String(type === current), 'data-type': type ? typeKey(type) : null,
     onclick: () => applyFeaturedFilter(type),
-  }, [type ? el('span', { class: 'chip-dot', 'aria-hidden': 'true' }) : null, label, el('span', { class: 'chip-count', text: String(count) })]);
+  }, [type ? el('span', { class: 'chip-dot', 'aria-hidden': 'true' }) : null, label,
+    el('span', { class: 'chip-count', 'aria-hidden': 'true', text: String(count) }),
+    el('span', { class: 'sr-only', text: `, ${count} project${count === 1 ? '' : 's'}` })]);
   const renderChips = () => {
     clear(chipsHost).append(chip('All', '', list.length), ...types.map((t) => chip(t, t, list.filter((p) => p.type === t).length)));
   };
@@ -213,12 +249,22 @@ function pickSkill(type, chipEl) {
   document.querySelectorAll('.orbit-chip').forEach((c) => c.classList.toggle('is-active', c === chipEl));
   const target = document.getElementById('projects');
   target?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+  // Move keyboard and screen reader focus to the filtered list as well.
+  document.getElementById('projects-title')?.focus({ preventScroll: true });
   setTimeout(() => applyFeaturedFilter(type), reduced ? 0 : 450);
 }
 
 /* ---------- Boot ---------- */
-initRoles();
-initOrbit(pickSkill);
+const roles = initRoles();
+const orbitMode = initOrbit(pickSkill);
+const paintMotionToggle = initMotionToggle();
+onMotionChange((r) => {
+  reduced = r;
+  circuit?.setReduced(r);
+  roles.update();
+  orbitMode();
+  paintMotionToggle?.();
+});
 
 loadData().then(({ projects }) => {
   renderStats(projects);

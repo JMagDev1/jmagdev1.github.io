@@ -130,11 +130,11 @@
 .toast { position: fixed; left: 50%; bottom: 24px; z-index: 300; transform: translate(-50%, 20px); max-width: min(560px, calc(100vw - 24px)); padding: 12px 18px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border-strong); box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s; font-size: 0.93rem; }
 .toast.is-visible { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
 
-@media (max-width: 1100px) {
+@media (max-width: 68.75em) {
   .editor-layout { grid-template-columns: 1fr; }
   .editor-preview { position: static; height: 70vh; }
 }
-@media (max-width: 600px) {
+@media (max-width: 37.5em) {
   .grid-2, .pending-publish { grid-template-columns: 1fr; }
   .media-row { grid-template-columns: 90px minmax(0, 1fr); }
   .media-row .row-tools { grid-column: 1 / -1; justify-content: flex-end; }
@@ -146,3 +146,19 @@
 .live-status[data-state="live"] { border-color: color-mix(in srgb, var(--success) 50%, transparent); }
 .live-status[data-state="live"]::before { background: var(--success); animation: none; }
 .live-status a { font-weight: 600; }
+.idle-warning {
+  position: fixed; left: 50%; bottom: 24px; z-index: 320; transform: translateX(-50%);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; width: min(600px, calc(100vw - 24px));
+  padding: 14px 18px; border-radius: 14px; background: var(--surface); border: 2px solid var(--warning); box-shadow: var(--shadow);
+}
+.idle-warning p { margin: 0; flex: 1 1 260px; }
+.media-main label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
+.media-main .input[aria-invalid="true"] { border-color: var(--danger); }
+.form-errors a { color: inherit; text-decoration: underline; }
+@media (forced-colors: active) {
+  .idle-warning, .toast { border: 2px solid CanvasText; }
+  .switch-ui { border: 1px solid CanvasText; }
+  .switch-ui::after { forced-color-adjust: none; background: CanvasText; }
+  .switch input:checked + .switch-ui { forced-color-adjust: none; background: Highlight; border-color: Highlight; }
+  .switch input:checked + .switch-ui::after { background: HighlightText; }
+}

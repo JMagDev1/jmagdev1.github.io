@@ -3,7 +3,7 @@
 import {
   STATUSES, LIMITS, slugify, isValidSlug, dateLabel, safeUrl, escapeHtml,
 } from '../lib/util.js';
-import { normalizeProject } from '../lib/schema.js';
+import { normalizeProject, altTextProblem } from '../lib/schema.js';
 import { renderProjectPage } from '../lib/template.js';
 import { el, svgIcon, clear, debounce } from '../lib/dom.js';
 import { processImage } from './images.js';
@@ -226,13 +226,22 @@ export function buildEditor(opts) {
   function drawMedia() {
     clear(mediaHost);
     d.media.forEach((m, i) => {
-      const alt = onInput(input({ maxlength: 200, value: m.alt || '', placeholder: 'Describe the image for screen readers', 'aria-label': `Image ${i + 1} description` }), (n) => { m.alt = n.value; });
+      const what = m.type === 'video' ? 'video' : 'image';
+      const altId = uid('alt');
+      const alt = onInput(input({
+        id: altId, maxlength: 200, value: m.alt || '', placeholder: m.type === 'video' ? 'e.g. Driving a taxi through the city' : 'e.g. Brake disc glowing red on a black stand',
+        'aria-describedby': `${altId}-hint`, 'data-alt-index': String(i),
+      }), (n) => { m.alt = n.value; n.removeAttribute('aria-invalid'); });
       const src = previewSrc(m);
       const img = el('img', { alt: '', width: 120, height: 75, loading: 'lazy' });
       if (src) img.src = src;
       mediaHost.append(el('div', { class: 'media-row' }, [
         el('div', { class: 'media-thumb' }, [img, m.type === 'video' ? el('span', { class: 'media-tag', text: 'Video' }) : null, i === 0 ? el('span', { class: 'media-tag', text: 'Cover' }) : null]),
-        el('div', { class: 'media-main' }, [alt, m.enc ? el('small', { class: 'hint', text: `New · ${m.enc.large.w}×${m.enc.large.h} · ${(m.enc.large.size / 1024).toFixed(0)} KB after optimising` }) : null]),
+        el('div', { class: 'media-main' }, [
+          el('label', { for: altId, text: `Describe ${what} ${i + 1} (alt text)` }),
+          alt,
+          el('small', { class: 'hint', id: `${altId}-hint`, text: `What would you tell someone who can't see it? Don't just repeat the title.${m.enc ? ` New · ${m.enc.large.w}×${m.enc.large.h} · ${(m.enc.large.size / 1024).toFixed(0)} KB after optimising.` : ''}` }),
+        ]),
         el('div', { class: 'row-tools' }, [
           el('button', { class: 'icon-btn sm', type: 'button', 'aria-label': 'Move up', disabled: i === 0 || null, onclick: () => { [d.media[i - 1], d.media[i]] = [d.media[i], d.media[i - 1]]; drawMedia(); changed(); } }, [svgIcon('prev', 'icon rot90')]),
           el('button', { class: 'icon-btn sm', type: 'button', 'aria-label': 'Move down', disabled: i === d.media.length - 1 || null, onclick: () => { [d.media[i + 1], d.media[i]] = [d.media[i], d.media[i + 1]]; drawMedia(); changed(); } }, [svgIcon('next', 'icon rot90')]),
@@ -248,16 +257,17 @@ export function buildEditor(opts) {
       mediaMsg.textContent = `Optimising image ${k + 1} of ${list.length}…`;
       try {
         const enc = await processImage(f);
-        const base = (f.name || 'image').replace(/\.[a-z0-9]+$/i, '').replace(/[-_]+/g, ' ').trim().slice(0, 80);
-        d.media.push({ type: 'image', enc, url: URL.createObjectURL(enc.thumb.blob), largeUrl: URL.createObjectURL(enc.large.blob), alt: base, w: enc.large.w, h: enc.large.h, id: `${Date.now().toString(36)}${(++seq).toString(36)}` });
+        // No description is filled in from the file name ("IMG_2041" helps nobody); it's asked for below.
+        d.media.push({ type: 'image', enc, url: URL.createObjectURL(enc.thumb.blob), largeUrl: URL.createObjectURL(enc.large.blob), alt: '', w: enc.large.w, h: enc.large.h, id: `${Date.now().toString(36)}${(++seq).toString(36)}` });
       } catch (err) {
         mediaMsg.textContent = err.message;
         await new Promise((r) => setTimeout(r, 1800));
       }
     }
-    mediaMsg.textContent = 'Done. Check each image description; the first image is the cover.';
+    mediaMsg.textContent = 'Done. Now describe each new image (the first image is the cover).';
     drawMedia();
     changed();
+    mediaHost.querySelector('input[data-alt-index]:placeholder-shown')?.focus();
   }
   fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
   drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('is-over'); });
@@ -325,8 +335,21 @@ export function buildEditor(opts) {
     // otherSlugs never contains this project's own address, so duplicates are always caught.
     const { project, errors } = normalizeProject({ ...out, media: planned.map(({ enc, ...m }) => m) }, { existingSlugs: otherSlugs, isNew: true });
     if (isValidSlug(finalSlug) && !isNew && published && project.slug !== (opts.project?.slug)) errors.push('The page address cannot change after publishing.');
-    if (errors.length) {
-      clear(errorsBox).append(el('strong', { text: 'Please fix the following:' }), el('ul', {}, [...new Set(errors)].map((x) => el('li', { text: x }))));
+    // Every image needs a real description. Each problem links straight to its field.
+    const altErrors = [];
+    d.media.forEach((m, i) => {
+      const problem = altTextProblem(m.alt, d.title);
+      const field = mediaHost.querySelector(`[data-alt-index="${i}"]`);
+      if (problem) { altErrors.push({ text: `${m.type === 'video' ? 'Video' : 'Image'} ${i + 1}: ${problem}`, field }); field?.setAttribute('aria-invalid', 'true'); }
+    });
+    const generic = [...new Set(errors)].filter((x) => !/alt text/i.test(x) || !altErrors.length);
+    if (generic.length || altErrors.length) {
+      clear(errorsBox).append(el('strong', { text: 'Please fix the following:' }), el('ul', {}, [
+        ...generic.map((x) => el('li', { text: x })),
+        ...altErrors.map(({ text, field }) => el('li', {}, [field
+          ? el('a', { href: `#${field.id}`, text, onclick: (ev) => { ev.preventDefault(); field.focus(); } })
+          : text])),
+      ]));
       errorsBox.hidden = false;
       errorsBox.focus();
       return;

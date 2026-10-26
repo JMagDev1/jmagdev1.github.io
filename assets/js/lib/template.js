@@ -59,7 +59,16 @@ export const ICONS = {
   menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
   linkedin: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>',
   lock: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+  access: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="7" r="1.4"/><path d="M7 9.5l5 1 5-1M12 10.5V14m0 0-2.5 4.5M12 14l2.5 4.5"/>',
+  pause: '<path d="M8 5v14M16 5v14"/>',
+  stop: '<rect x="6" y="6" width="12" height="12" rx="1.5"/>',
+  volume: '<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>',
+  skipback: '<path d="M18 6 10 12l8 6zM6 6v12"/>',
+  skipfwd: '<path d="m6 6 8 6-8 6zM18 6v12"/>',
 };
+
+/** Screen-reader-only warning appended to links that open a new tab. */
+export const NEW_TAB = '<span class="sr-only"> (opens in a new tab)</span>';
 
 export function icon(name, cls = 'icon') {
   return `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICONS[name] || ''}</svg>`;
@@ -93,11 +102,14 @@ export function renderHeader({ root = '', home = false, current = '' } = {}) {
       </ul>
     </nav>
     <div class="header-actions">
-      <button class="icon-btn search-btn" type="button" data-palette-open aria-label="Search projects" aria-keyshortcuts="Control+K Meta+K">
+      <button class="icon-btn search-btn needs-js" type="button" data-palette-open aria-label="Search projects" aria-keyshortcuts="Control+K Meta+K">
         ${icon('search')}<span class="search-label">Search</span><kbd class="kbd" data-kbd>Ctrl K</kbd>
       </button>
-      <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch colour theme">
+      <button class="icon-btn needs-js" type="button" data-theme-toggle aria-label="Switch colour theme">
         ${icon('sun', 'icon icon-sun')}${icon('moon', 'icon icon-moon')}
+      </button>
+      <button class="icon-btn needs-js" type="button" data-a11y-open aria-expanded="false" aria-controls="a11y-panel" aria-label="Accessibility and display settings">
+        ${icon('access')}
       </button>
     </div>
   </div>
@@ -109,10 +121,11 @@ export function renderFooter({ root = '' } = {}) {
   <div class="container footer-inner">
     <p>&copy; <span data-year>2026</span> Jack Maguire. Crafted with passion and code.</p>
     <ul class="footer-links">
-      <li><a href="${SITE.github}" target="_blank" rel="noopener noreferrer">${icon('github')}GitHub</a></li>
-      <li><a href="${SITE.linkedin}" target="_blank" rel="noopener noreferrer">${icon('linkedin')}LinkedIn</a></li>
+      <li><a href="${SITE.github}" target="_blank" rel="noopener noreferrer">${icon('github')}GitHub${NEW_TAB}</a></li>
+      <li><a href="${SITE.linkedin}" target="_blank" rel="noopener noreferrer">${icon('linkedin')}LinkedIn${NEW_TAB}</a></li>
       <li><a href="${root}index.html">Portfolio</a></li>
       <li><a href="${root}projects.html">All projects</a></li>
+      <li><a href="${root}accessibility.html">${icon('access')}Accessibility</a></li>
       <li><a href="${root}admin.html" rel="nofollow">${icon('lock')}Admin</a></li>
     </ul>
   </div>
@@ -187,21 +200,24 @@ function mediaHtml(p, root) {
   }
   const first = media[0];
   const stage = first.type === 'video'
-    ? `<video class="gallery-media" controls preload="metadata" playsinline${first.poster ? ` poster="${root}${e(first.poster)}"` : ''}${first.w ? ` width="${first.w}" height="${first.h}"` : ''}><source src="${root}${e(first.src)}" type="video/mp4">Your browser can't play this video.</video>`
-    : `<button class="gallery-zoom" type="button" data-gallery-open aria-label="Open full-screen gallery"><img class="gallery-media" src="${root}${e(first.src)}" alt="${e(first.alt)}"${first.w ? ` width="${first.w}" height="${first.h}"` : ''} decoding="async" fetchpriority="high"></button>`;
+    ? `<video class="gallery-media" controls preload="metadata" playsinline aria-describedby="gallery-desc"${first.poster ? ` poster="${root}${e(first.poster)}"` : ''}${first.w ? ` width="${first.w}" height="${first.h}"` : ''}><source src="${root}${e(first.src)}" type="video/mp4">Your browser can't play this video.</video>`
+    : `<button class="gallery-zoom" type="button" data-gallery-open><img class="gallery-media" src="${root}${e(first.src)}" alt="${e(first.alt)}"${first.w ? ` width="${first.w}" height="${first.h}"` : ''} decoding="async" fetchpriority="high"><span class="sr-only"> (open full screen)</span></button>`;
   const thumbs = media.length > 1 ? `<ul class="gallery-thumbs" role="list" aria-label="All images">
 ${media.map((m, i) => {
     const t = m.type === 'video' ? (m.poster || '') : (m.thumb || m.src);
     const label = m.type === 'video' ? `Play video${m.alt ? `: ${m.alt}` : ''}` : `View image ${i + 1}${m.alt ? `: ${m.alt}` : ''}`;
-    return `<li><a class="thumb${i === 0 ? ' is-active' : ''}" href="${root}${e(m.src)}" data-index="${i}" aria-label="${e(label)}">${t ? `<img src="${root}${e(t)}" alt="" loading="lazy" decoding="async" width="160" height="100">` : ''}${m.type === 'video' ? `<span class="thumb-play">${icon('play')}</span>` : ''}</a></li>`;
+    return `<li><a class="thumb${i === 0 ? ' is-active' : ''}" href="${root}${e(m.src)}" data-index="${i}" aria-label="${e(label)}"${i === 0 ? ' aria-current="true"' : ''}>${t ? `<img src="${root}${e(t)}" alt="" loading="lazy" decoding="async" width="160" height="100">` : ''}${m.type === 'video' ? `<span class="thumb-play">${icon('play')}</span>` : ''}</a></li>`;
   }).join('\n')}
 </ul>` : '';
   const data = media.map((m) => ({ type: m.type, src: m.src, alt: m.alt || '', poster: m.poster || '', w: m.w || 0, h: m.h || 0 }));
+  const kind = (m) => (m.type === 'video' ? 'Video' : 'Image');
   return `<section class="gallery" aria-label="Gallery" data-gallery>
   <figure class="gallery-stage">
     <div class="gallery-slot" data-gallery-slot>${stage}</div>
-    ${media.length > 1 ? `<figcaption class="gallery-count" data-gallery-count>1 / ${media.length}</figcaption>` : ''}
+    ${media.length > 1 ? `<figcaption class="gallery-count" data-gallery-count><span aria-hidden="true">1 / ${media.length}</span><span class="sr-only">${kind(first)} 1 of ${media.length}</span></figcaption>` : ''}
   </figure>
+  <p class="gallery-desc" id="gallery-desc" data-gallery-desc${first.type === 'video' ? '' : ' hidden'}>${first.type === 'video' ? `<strong>Video, no sound:</strong> ${e(first.alt)}` : ''}</p>
+  <p class="sr-only" aria-live="polite" data-gallery-live></p>
   ${thumbs}
   <script type="application/json" data-gallery-items>${jsonForScript(data)}</script>
 </section>`;
@@ -251,7 +267,7 @@ function linksHtml(p, root) {
   <h2 class="aside-title">Project links</h2>
   <ul class="aside-links">
 ${items}
-    <li><a class="aside-link" href="${root}projects.html">${icon('back')}<span>Back to all projects</span></a></li>
+    <li class="tts-skip"><a class="aside-link" href="${root}projects.html">${icon('back')}<span>Back to all projects</span></a></li>
   </ul>
 </div>`;
 }
@@ -280,6 +296,7 @@ export function renderProjectMain(p, { root = '../' } = {}) {
       <h1>${e(p.title)}</h1>
       <p class="lede">${e(p.summary)}</p>
       ${highlights}
+      <p class="listen-row" data-listen-row hidden><button class="btn btn-ghost btn-sm" type="button" data-listen>${icon('volume')}<span data-listen-label>Listen to this page</span></button></p>
     </header>
     <div class="project-layout">
       <div class="project-main">
@@ -352,7 +369,7 @@ export function renderRedirect(target, title, { depth = 1 } = {}) {
 }
 
 export function renderSitemap(projects, today) {
-  const urls = ['', 'projects.html', ...projects.map((p) => `projects/${p.slug}.html`)];
+  const urls = ['', 'projects.html', 'accessibility.html', ...projects.map((p) => `projects/${p.slug}.html`)];
   const lastmod = (u) => {
     const p = projects.find((x) => `projects/${x.slug}.html` === u);
     return (p && p.updated) || today;

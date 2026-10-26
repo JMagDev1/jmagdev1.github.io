@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "assetVersion": "a52d88511e",
+  "assetVersion": "d453cd665c",
   "types": [
     "Coding",
     "Manufacturing",
@@ -41,7 +41,7 @@
         {
           "type": "image",
           "src": "assets/projects/brake-disc-light/mvkve2po-1.webp",
-          "alt": "Brake Disc Light",
+          "alt": "The finished light: a used brake disc standing upright on a black 3D-printed stand, glowing red through its centre and wheel-stud holes, with a blue RS brake caliper on one side",
           "thumb": "assets/projects/brake-disc-light/mvkve2po-1-thumb.webp",
           "w": 1200,
           "h": 1600
@@ -750,7 +750,7 @@
         {
           "type": "video",
           "src": "assets/projects/nature-explorer/video-04.mp4",
-          "alt": "Driving a taxi through the city in the Unity editor",
+          "alt": "A 33-second screen recording of the game running in the Unity editor. A yellow taxi drives along the city streets past apartment blocks and shops, with the camera following behind it.",
           "poster": "assets/projects/nature-explorer/video-04-poster.webp",
           "w": 1280,
           "h": 720

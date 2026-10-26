@@ -21,10 +21,10 @@
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preload" href="assets/fonts/poppins-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=a52d88511e">
-<link rel="stylesheet" href="assets/css/admin.css?v=a52d88511e">
-<script src="assets/js/theme-init.js?v=a52d88511e"></script>
-<script type="module" src="assets/js/admin/app.js?v=a52d88511e"></script>
+<link rel="stylesheet" href="assets/css/site.css?v=d453cd665c">
+<link rel="stylesheet" href="assets/css/admin.css?v=d453cd665c">
+<script src="assets/js/theme-init.js?v=d453cd665c"></script>
+<script type="module" src="assets/js/admin/app.js?v=d453cd665c"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -37,7 +37,7 @@
       <span class="admin-badge">Admin</span>
       <div class="admin-bar-actions" data-session hidden>
         <span class="admin-user" data-user></span>
-        <a class="btn btn-ghost btn-sm" href="index.html" target="_blank" rel="noopener">View site <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
+        <a class="btn btn-ghost btn-sm" href="index.html" target="_blank" rel="noopener">View site <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
         <button class="btn btn-ghost btn-sm" type="button" data-signout>Sign out</button>
       </div>
     </div>
@@ -139,7 +139,7 @@
           <h1 data-editor-title>New project</h1>
         </div>
         <div class="form-errors" role="alert" tabindex="-1" data-editor-errors hidden></div>
-        <form class="editor-form" data-editor-form novalidate></form>
+        <form class="editor-form" data-editor-form novalidate><button class="btn btn-primary" type="submit" hidden>Save project</button></form>
       </div>
       <aside class="editor-preview" aria-label="Live preview">
         <div class="preview-head">
@@ -163,6 +163,10 @@
     </div>
   </dialog>
   <div class="toast" role="status" aria-live="polite" data-toast></div>
+  <div class="idle-warning" role="alert" data-idle-warning hidden>
+    <p><strong>Still there?</strong> For security you'll be signed out in 2 minutes. Your unpublished changes will be kept.</p>
+    <button class="btn btn-primary btn-sm" type="button" data-idle-stay>Stay signed in</button>
+  </div>
 </div>
 
 </main>

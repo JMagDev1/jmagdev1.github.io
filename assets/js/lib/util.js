@@ -144,6 +144,13 @@ function fmtYM(ym, short = false) {
 }
 
 /** Human date for a project. A hand-written dateLabel always wins. */
+/** "2026-10-26" -> "26 October 2026" (UK style). */
+export function longDate(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ''));
+  if (!m) return '';
+  return `${Number(m[3])} ${MONTHS[Number(m[2]) - 1]} ${m[1]}`;
+}
+
 export function dateLabel(p) {
   if (p.dateLabel && String(p.dateLabel).trim()) return String(p.dateLabel).trim();
   const s = parseYM(p.start);

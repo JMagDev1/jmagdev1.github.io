@@ -15,6 +15,7 @@ import { buildEditor } from './editor.js';
 const $ = (sel, root = document) => root.querySelector(sel);
 const clone = (v) => JSON.parse(JSON.stringify(v));
 const IDLE_MS = 30 * 60 * 1000;
+const WARN_MS = 2 * 60 * 1000; // warn this long before locking (WCAG 2.2.1)
 
 /* ---------- Clickjacking guard ----------
  * If this page is embedded in a frame (for example by another page on the
@@ -48,6 +49,7 @@ const S = {
   legacy: legacyProjects(),
   legacyImported: false,
   idleTimer: 0,
+  warnTimer: 0,
   busy: false,
 };
 
@@ -70,10 +72,16 @@ let toastTimer;
 function toast(message, { link } = {}) {
   const t = $('[data-toast]');
   clear(t).append(message);
-  if (link) t.append(' ', el('a', { href: link.href, target: '_blank', rel: 'noopener noreferrer', text: link.text }));
+  if (link) t.append(' ', el('a', { href: link.href, target: '_blank', rel: 'noopener noreferrer' }, [link.text, el('span', { class: 'sr-only', text: ' (opens in a new tab)' })]));
   t.classList.add('is-visible');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('is-visible'), link ? 12000 : 4000);
+  // Long enough to read, and paused while the pointer or keyboard focus is on it.
+  const hideLater = () => { clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('is-visible'), link ? 15000 : 8000); };
+  t.onmouseenter = () => clearTimeout(toastTimer);
+  t.onfocusin = () => clearTimeout(toastTimer);
+  t.onmouseleave = hideLater;
+  t.onfocusout = hideLater;
+  hideLater();
 }
 
 function confirmDialog({ title, text, ok = 'OK', danger = false, typed = '' }) {
@@ -207,6 +215,8 @@ function showDataWarnings(errors) {
 function signOut({ keepState = false } = {}) {
   gh.clearToken();
   clearTimeout(S.idleTimer);
+  clearTimeout(S.warnTimer);
+  hideIdleWarning();
   if (!keepState) {
     for (const f of S.files.values()) URL.revokeObjectURL(f.url);
     Object.assign(S, { mode: 'signin', user: null, head: null, dataSha: null, original: null, data: null, files: new Map(), rebuildAll: false, log: new Map(), locked: false });
@@ -214,17 +224,31 @@ function signOut({ keepState = false } = {}) {
   show('signin');
 }
 
-/* Lock after inactivity: forget the token but keep unpublished work. */
+/* Lock after inactivity: forget the token but keep unpublished work.
+ * Two minutes before that, a warning offers a one-click "Stay signed in". */
+function hideIdleWarning() {
+  const w = $('[data-idle-warning]');
+  if (w && !w.hidden) w.hidden = true;
+}
 function startIdle() {
   clearTimeout(S.idleTimer);
+  clearTimeout(S.warnTimer);
+  hideIdleWarning();
   if (S.mode !== 'live') return;
+  S.warnTimer = setTimeout(() => {
+    const w = $('[data-idle-warning]');
+    if (!w) return;
+    w.hidden = false;
+  }, IDLE_MS - WARN_MS);
   S.idleTimer = setTimeout(() => {
+    hideIdleWarning();
     S.locked = true;
     gh.clearToken();
     $('[data-signin-locked]').hidden = false;
     show('signin');
   }, IDLE_MS);
 }
+$('[data-idle-stay]')?.addEventListener('click', () => startIdle());
 ['pointerdown', 'keydown'].forEach((ev) => document.addEventListener(ev, () => { if (S.mode === 'live' && !S.locked) startIdle(); }, { passive: true }));
 
 /* ---------- Dashboard ---------- */
@@ -269,7 +293,7 @@ function renderRows() {
       el('td', {}, [el('label', { class: 'switch' }, [featured, el('span', { class: 'switch-ui', 'aria-hidden': 'true' })])]),
       el('td', {}, [el('div', { class: 'row-actions' }, [
         el('button', { class: 'btn btn-ghost btn-sm', type: 'button', onclick: () => openEditor(p.slug), text: 'Edit', 'aria-label': `Edit ${p.title}` }),
-        live ? el('a', { class: 'btn btn-ghost btn-sm', href: `projects/${p.slug}.html`, target: '_blank', rel: 'noopener', 'aria-label': `View ${p.title} on the site` }, ['View', svgIcon('external')]) : null,
+        live ? el('a', { class: 'btn btn-ghost btn-sm', href: `projects/${p.slug}.html`, target: '_blank', rel: 'noopener', 'aria-label': `View ${p.title} on the site (opens in a new tab)` }, ['View', svgIcon('external')]) : null,
       ])]),
     ]));
   }
